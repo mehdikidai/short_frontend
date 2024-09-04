@@ -1,11 +1,35 @@
 <template>
     <div class="sidebar">
-        <h2>Dashboard</h2>
+        <div class="logo">
+            <Logo />
+        </div>
         <ul>
-            <li><RouterLink to="/">Home</RouterLink></li>
-            <li><RouterLink to="/about">About</RouterLink></li>
-            <li><RouterLink to="/login">login</RouterLink></li>
-        
+            <li>
+                <i class="material-symbols-rounded">home</i>
+               
+                <RouterLink to="/">Home</RouterLink>
+            </li>
+            <li>
+                <i class="material-symbols-rounded">link</i
+                ><RouterLink to="/about">Links</RouterLink>
+            </li>
+            <li>
+                <i class="material-symbols-rounded">monitoring</i
+                ><RouterLink to="/login">Analytics</RouterLink>
+            </li>
+            
+            
+        </ul>
+        <div class="line"></div>
+        <ul>
+            <li>
+                <i class="material-symbols-rounded">person</i
+                ><RouterLink to="/login">Settings</RouterLink>
+            </li>
+            <li>
+                <i class="material-symbols-rounded">tune</i
+                ><RouterLink to="/login">Settings</RouterLink>
+            </li>
         </ul>
     </div>
 
@@ -22,49 +46,82 @@
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import Logo from "./Logo.vue";
 </script>
 
 <style lang="scss" scoped>
 .sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
+    width: 210px;
+    background-color: #fafafa;
+    background-color: var(--white);
     height: 100vh;
-    padding: 20px;
+    .line{
+        height: 1px;
+        background: #e1e1e1;
+        width: 70%;
+        margin-left: 20px;
+    }
 }
 
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 20px;
+.sidebar .logo {
+    height: 70px;
+    //background: red;
+    display: flex;
+    align-items: center;
+    padding-inline: 20px;
 }
 
 .sidebar ul {
     list-style-type: none;
-    padding: 0;
+    padding-inline: 10px;
+    margin-block: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .sidebar ul li {
-    margin: 20px 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-inline: 10px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in;
+    &:hover {
+        background: var(--main);
+        
+    }
+
+    &:hover i,&:hover a{
+        color: #fff;
+    }
+
+    i {
+        color: #0a0c0b;
+        font-size: 20px;
+        transition: all 0.1s ease-in;
+    }
 }
 
 .sidebar ul li a {
-    color: white;
+    color: var(--black);
     text-decoration: none;
-    display: block;
+    flex: 1;
+    transition: all 0.1s ease-in;
 }
-
 
 .main-content {
     flex-grow: 1;
-    padding: 20px;
-    background-color: #ecf0f1;
+    padding: 0;
+    background-color: var(--gray);
 }
 
 .header {
     background-color: #3498db;
     color: white;
     padding: 15px;
-    border-radius: 5px;
+    height: 70px;
     margin-bottom: 20px;
 }
 

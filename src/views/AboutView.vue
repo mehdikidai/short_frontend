@@ -1,15 +1,20 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <Layout>
+        <h1>  {{ $route.name  }} </h1>
+    </Layout>
 </template>
+
+<script setup>
+import Layout from '@/components/Layout.vue';
+
+</script>
 
 <style>
 @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+    .about {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
 }
 </style>
