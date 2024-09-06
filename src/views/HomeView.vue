@@ -46,6 +46,7 @@ import Layout from "@/components/Layout.vue";
                 </div>
             </div>
         </div>
+        
     </Layout>
 </template>
 
@@ -66,15 +67,16 @@ import Layout from "@/components/Layout.vue";
         padding: 20px;
         gap: 20px;
         .icon {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             background: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 6px;
             i {
-                color: var(--black);
+                color: var(--main);
+                font-size: 30px;
             }
         }
         .content {
