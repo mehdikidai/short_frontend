@@ -7,8 +7,11 @@
 }
 
 /* semantic color variables for this project */
-:root {
-   
+.dark {
+  --white:#222;
+  --black:#fff;
+  --main:#879fff;
+  --gray:#262626;
 }
 
 
@@ -20,6 +23,10 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
+}
+
+a{
+  text-decoration: none;
 }
 
 body {

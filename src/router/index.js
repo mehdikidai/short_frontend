@@ -16,10 +16,18 @@ const router = createRouter({
         },
         {
             path: "/login",
-            name: "Login",
+            name: "login",
             component: () => import("../views/AboutView.vue"),
         },
     ],
+});
+
+router.beforeEach((to, from) => {
+    console.log("to", to);
+    //console.log('from',from)
+    if (to.name === "login") {
+        return { name: "home" };
+    }
 });
 
 export default router;

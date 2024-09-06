@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <i class="material-symbols-rounded">home</i>
-               
+
                 <RouterLink to="/">Home</RouterLink>
             </li>
             <li>
@@ -17,14 +17,12 @@
                 <i class="material-symbols-rounded">monitoring</i
                 ><RouterLink to="/login">Analytics</RouterLink>
             </li>
-            
-            
         </ul>
         <div class="line"></div>
         <ul>
             <li>
                 <i class="material-symbols-rounded">person</i
-                ><RouterLink to="/login">Settings</RouterLink>
+                ><RouterLink to="/login">Login</RouterLink>
             </li>
             <li>
                 <i class="material-symbols-rounded">tune</i
@@ -35,11 +33,33 @@
 
     <div class="main-content">
         <div class="header">
-            <h2>Welcome to the Dashboard</h2>
+            <div class="title">
+                <h1>{{ $route.name }}</h1>
+                <span>12th Oct 2024</span>
+            </div>
+            <div class="box_profile">
+                <button :class="[{dark:isDark},'btn_theme']" @click="toggleDark()">
+                    <i class="material-symbols-rounded"> {{ isDark ? 'brightness_5' : 'brightness_4' }} </i>
+                </button>
+                <RouterLink to="/">
+                    <div class="profile_photo">
+                        <img
+                            class="img_user"
+                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                            alt=""
+                        />
+                        <div class="name_user">
+                            <div>Jese Leos</div>
+                        </div>
+                    </div>
+                </RouterLink>
+            </div>
         </div>
 
         <div class="content">
-            <slot></slot>
+            <main>
+                <slot></slot>
+            </main>
         </div>
     </div>
 </template>
@@ -47,24 +67,51 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
+import { ref,watch } from "vue";
+
+import { useDark, useToggle } from '@vueuse/core'
+
+
+
+const isDark = useDark()
+
+const toggleDark = useToggle(isDark)
+
+
+
+// watch(checked,(newValue)=>{
+//     console.log(newValue)
+//     toggleDark()
+// })
+
+
+
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/switch";
 .sidebar {
     width: 210px;
     background-color: #fafafa;
     background-color: var(--white);
     height: 100vh;
-    .line{
+    position: sticky;
+    top: 0;
+    transition: all 0.3s ease-in;
+    /*&:hover{
+        width: 160px;
+    }*/
+    .line {
         height: 1px;
-        background: #e1e1e1;
-        width: 70%;
+        background: var(--black);
+        width: 50%;
         margin-left: 20px;
+        opacity: 0.2;
     }
 }
 
 .sidebar .logo {
-    height: 70px;
+    height: 100px;
     //background: red;
     display: flex;
     align-items: center;
@@ -90,15 +137,15 @@ import Logo from "./Logo.vue";
     transition: all 0.1s ease-in;
     &:hover {
         background: var(--main);
-        
     }
 
-    &:hover i,&:hover a{
+    &:hover i,
+    &:hover a {
         color: #fff;
     }
 
     i {
-        color: #0a0c0b;
+        color: var(--black);
         font-size: 20px;
         transition: all 0.1s ease-in;
     }
@@ -118,16 +165,85 @@ import Logo from "./Logo.vue";
 }
 
 .header {
-    background-color: #3498db;
-    color: white;
-    padding: 15px;
-    height: 70px;
-    margin-bottom: 20px;
+    background-color: var(--gray);
+    color: var(--black);
+    padding: 20px;
+    height: 100px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    .title {
+        height: 50px;
+        min-width: 100px;
+        //background: red;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        span {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+    }
+    .box_profile {
+        height: 40px;
+        min-width: 100px;
+        //background: red;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        .profile_photo {
+            display: flex;
+            gap: 10px;
+            img {
+                width: 40px;
+                height: 40px;
+                clip-path: circle();
+            }
+            .name_user {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                color: var(--black);
+                div {
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        button.btn_theme{
+            background: transparent;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            i{
+                font-size: 24px;
+                color: var(--black);
+                transition: all .3s ease-in-out;
+            }
+            
+        }
+    }
 }
 
 .content {
-    display: flex;
-    gap: 20px;
+    main {
+        //background: red;
+        padding: 20px;
+        min-height: calc(100vh - 100px);
+    }
 }
 
 .card {
