@@ -42,6 +42,13 @@
                 <span>12th Oct 2024</span>
             </div>
             <div class="box_profile">
+                <button class="btn_theme" @click="handelShowLang()">
+                    <i class="material-symbols-rounded">translate</i>
+                    <ul class="ul_lang" v-if="showLangList">
+                        <li><button class="lang">fr</button></li>
+                        <li><button class="lang">en</button></li>
+                    </ul>
+                </button>
                 <button
                     :class="[{ dark: isDark }, 'btn_theme']"
                     @click="toggleDark()"
@@ -58,7 +65,10 @@
                             alt=""
                         />
                         <div class="name_user">
-                            <div>Jese Leos</div>
+                            <div>
+                                Jese Leos
+                                <span>mehdi@gmail.com</span>
+                            </div>
                         </div>
                     </div>
                 </RouterLink>
@@ -77,7 +87,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
 import { ref, watch } from "vue";
-
+import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 
 const isDark = useDark();
@@ -94,6 +104,16 @@ const handelMenu = (ok = false) => {
     }
 };
 
+const showLangList = ref(false);
+
+onClickOutside(showLangList, (event) => {
+    if(event.target.className !== 'lang') showLangList.value = false
+    console.log(event.target)
+});
+
+const handelShowLang = () => {
+    showLangList.value = !showLangList.value
+}
 // watch(checked,(newValue)=>{
 //     console.log(newValue)
 //     toggleDark()
@@ -187,7 +207,7 @@ const handelMenu = (ok = false) => {
     align-items: center;
     justify-content: space-between;
     top: 0;
-
+    z-index: 100;
     .title {
         height: 50px;
         min-width: 100px;
@@ -211,13 +231,14 @@ const handelMenu = (ok = false) => {
         //background: red;
         display: flex;
         align-items: center;
-        gap: 30px;
+        gap: 20px;
         .profile_photo {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: center;
             img {
-                width: 33px;
-                height: 33px;
+                width: 36px;
+                height: 36px;
                 clip-path: circle();
             }
             .name_user {
@@ -227,6 +248,12 @@ const handelMenu = (ok = false) => {
                 color: var(--black);
                 div {
                     text-transform: capitalize;
+                    display: flex;
+                    flex-direction: column;
+                    span {
+                        font-size: 14px;
+                        opacity: 0.5;
+                    }
                 }
             }
         }
@@ -241,12 +268,46 @@ const handelMenu = (ok = false) => {
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
             //background: var(--white);
 
             i {
-                font-size: 24px;
+                font-size: 22px;
                 color: var(--black);
                 transition: all 0.3s ease-in-out;
+            }
+            ul.ul_lang {
+                background: var(--white_2);
+                position: absolute;
+                top: 40px;
+                left: 0;
+                width: 100px;
+                display: flex;
+                flex-direction: column;
+                //gap: 10px;
+                padding: 12px 6px;
+                border-radius: 6px;
+                box-shadow: var(--box-shadow);
+                li {
+                    list-style: none;
+                    //background: blue;
+                    button {
+                        width: 100%;
+                        cursor: pointer;
+                        border: none;
+                        height: 33px;
+                        text-align: start;
+                        padding-inline: 10px;
+                        background: transparent;
+                        color: var(--black);
+                        text-transform: capitalize;
+                        font-size: 14px;
+                        border-radius: 4px;
+                        &:hover{
+                            background: var(--white);
+                        }
+                    }
+                }
             }
         }
     }

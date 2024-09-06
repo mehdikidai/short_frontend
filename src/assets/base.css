@@ -1,14 +1,17 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
     --white:#fff;
+    --white_2:#f4f5f7;
     --black:#222;
     --main:#879fff;
     --gray:#eff3f4;
+    --box-shadow: rgba(0, 0, 0, 0.06) 0px 3px 3px;
 }
 
 /* semantic color variables for this project */
 .dark {
   --white:#222;
+  --white_2:#333;
   --black:#fff;
   --main:#879fff;
   --gray:#262626;
