@@ -1,5 +1,6 @@
 <template>
-    <div class="sidebar">
+    <div :class="['sidebar', { showsidebar: showMenu }]">
+        <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
             <Logo />
         </div>
@@ -32,14 +33,22 @@
     </div>
 
     <div class="main-content">
-        <div class="header">
+        <div class="header" ref="target">
+            <button class="btn_menu" @click="handelMenu()">
+                <i class="material-symbols-rounded"> menu </i>
+            </button>
             <div class="title">
                 <h1>{{ $route.name }}</h1>
                 <span>12th Oct 2024</span>
             </div>
             <div class="box_profile">
-                <button :class="[{dark:isDark},'btn_theme']" @click="toggleDark()">
-                    <i class="material-symbols-rounded"> {{ isDark ? 'brightness_5' : 'brightness_4' }} </i>
+                <button
+                    :class="[{ dark: isDark }, 'btn_theme']"
+                    @click="toggleDark()"
+                >
+                    <i class="material-symbols-rounded">
+                        {{ isDark ? "brightness_5" : "brightness_4" }}
+                    </i>
                 </button>
                 <RouterLink to="/">
                     <div class="profile_photo">
@@ -67,32 +76,36 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
-import { ref,watch } from "vue";
+import { ref, watch } from "vue";
 
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark, useToggle } from "@vueuse/core";
 
+const isDark = useDark();
 
+const showMenu = ref(false);
 
-const isDark = useDark()
+const toggleDark = useToggle(isDark);
 
-const toggleDark = useToggle(isDark)
-
-
+const handelMenu = (ok = false) => {
+    if (ok) {
+        showMenu.value = false;
+    } else {
+        showMenu.value = !showMenu.value;
+    }
+};
 
 // watch(checked,(newValue)=>{
 //     console.log(newValue)
 //     toggleDark()
 // })
-
-
-
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/switch";
+
 .sidebar {
     width: 210px;
-    background-color: #fafafa;
+    //background-color: #fafafa;
     background-color: var(--white);
     height: 100vh;
     position: sticky;
@@ -174,6 +187,7 @@ const toggleDark = useToggle(isDark)
     align-items: center;
     justify-content: space-between;
     top: 0;
+
     .title {
         height: 50px;
         min-width: 100px;
@@ -197,13 +211,13 @@ const toggleDark = useToggle(isDark)
         //background: red;
         display: flex;
         align-items: center;
-        gap: 40px;
+        gap: 30px;
         .profile_photo {
             display: flex;
             gap: 10px;
             img {
-                width: 40px;
-                height: 40px;
+                width: 33px;
+                height: 33px;
                 clip-path: circle();
             }
             .name_user {
@@ -217,23 +231,33 @@ const toggleDark = useToggle(isDark)
             }
         }
 
-        button.btn_theme{
+        button.btn_theme {
             background: transparent;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 12px;
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            
-            i{
+            //background: var(--white);
+
+            i {
                 font-size: 24px;
                 color: var(--black);
-                transition: all .3s ease-in-out;
+                transition: all 0.3s ease-in-out;
             }
-            
+        }
+    }
+    .btn_menu {
+        background: transparent;
+        border: none;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        i {
+            color: var(--black);
         }
     }
 }
@@ -261,5 +285,44 @@ const toggleDark = useToggle(isDark)
 
 .card p {
     color: #7f8c8d;
+}
+
+@media (max-width: 600px) {
+    .header .btn_menu {
+        display: flex;
+    }
+    .sidebar {
+        position: fixed;
+        width: 240px;
+        left: -100vw;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.6s ease-in-out;
+        div.cls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100vw - 240px);
+            height: 100vh;
+            background: rgba(0, 0, 0, 0);
+            z-index: -4;
+            transform: translateX(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        &.showsidebar {
+            left: 0;
+            div.cls {
+                background: rgba(0, 0, 0, 0.3);
+                transform: translateX(100%);
+            }
+        }
+    }
+    .header .box_profile {
+        gap: 20px;
+    }
+    .header .title {
+        display: none;
+    }
 }
 </style>
