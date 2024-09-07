@@ -184,6 +184,8 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+@import "./../assets/scss/_var";
+
 .addUrl {
     min-height: 40px;
     //background: red;
@@ -191,6 +193,18 @@ onMounted(() => {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    @include for-phone-only {
+        & {
+            flex-direction: column-reverse;
+            gap: 10px;
+            a.add_url {
+                max-width: 100%;
+                height: 40px;
+                text-align: center;
+                
+            }
+        }
+    }
     a.add_url {
         padding-inline: 20px;
         background: var(--main);
@@ -251,7 +265,7 @@ onMounted(() => {
             }
             h3 {
                 color: var(--black);
-                font-size: 24px;
+                font-size: 22px;
                 font-weight: 600;
             }
             span {

@@ -121,7 +121,8 @@ const handelShowLang = () => {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/switch";
+
+@import './../assets/scss/_var';
 
 .sidebar {
     width: 210px;
@@ -201,7 +202,7 @@ const handelShowLang = () => {
     background-color: var(--gray);
     color: var(--black);
     padding: 20px;
-    height: 100px;
+    height: 90px;
     position: sticky;
     display: flex;
     align-items: center;
