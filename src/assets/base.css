@@ -1,20 +1,23 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
     --white:#fff;
+    --white-fix:#fff;
     --white_2:#f4f5f7;
     --black:#222;
-    --main:#879fff;
-    --gray:#eff3f4;
-    --box-shadow: rgba(0, 0, 0, 0.06) 0px 3px 3px;
+    --main:#0c68e9;
+    --gray:#f9f9f9;
+    --box-shadow: rgba(0, 0, 0, 0.03) 0px 2px 2px;
+    --border-color:#dbe0eb;
 }
 
 /* semantic color variables for this project */
 .dark {
-  --white:#222;
+  --white:#1a1d1f;
   --white_2:#333;
   --black:#fff;
-  --main:#879fff;
-  --gray:#262626;
+  --main:#0c68e9;
+  --gray:#111315;
+  --border-color:rgba(255, 255, 255, 0.4);
 }
 
 
@@ -26,10 +29,16 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
+    transition: all .2s linear;
 }
 
 a{
   text-decoration: none;
+}
+
+input:focus,input:active{
+  outline: none;
+  box-shadow: none;
 }
 
 body {

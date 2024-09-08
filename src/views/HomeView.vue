@@ -3,6 +3,7 @@ import Layout from "@/components/Layout.vue";
 import Chart from "chart.js/auto";
 import { ref, onMounted } from "vue";
 import { useCssVar } from "@vueuse/core";
+import Title from "@/components/Title.vue";
 
 const mainColor = useCssVar("--main");
 const blackColor = useCssVar("--black");
@@ -23,8 +24,10 @@ const data = [
 const gridChart = {
     x: {
         display: true,
+        
         grid: {
             display: false,
+            
         },
     },
     y: {
@@ -85,7 +88,7 @@ onMounted(() => {
                 {
                     label: "Acquisitions by year",
                     data: data.map((row) => row.count),
-                    backgroundColor: "#aac9ff",
+                    backgroundColor: mainColor.value,
                     borderColor: "#36A2EB",
                     barPercentage: 0.2,
                     borderRadius: 6,
@@ -124,10 +127,7 @@ onMounted(() => {
 
 <template>
     <Layout>
-        <div class="addUrl">
-            <RouterLink to="/about" class="add_url">Create link</RouterLink>
-            <h3>Explore technical topics and other</h3>
-        </div>
+        <Title tit="welcome back" />
         <div class="boxs">
             <div class="box">
                 <div class="icon">
@@ -186,41 +186,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "./../assets/scss/_var";
 
-.addUrl {
-    min-height: 40px;
-    //background: red;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    @include for-phone-only {
-        & {
-            flex-direction: column-reverse;
-            gap: 10px;
-            a.add_url {
-                max-width: 100%;
-                height: 40px;
-                text-align: center;
-                
-            }
-        }
-    }
-    a.add_url {
-        padding-inline: 20px;
-        background: var(--main);
-        display: flex;
-        align-items: center;
-        border-radius: 6px;
-        color: var(--white);
-        font-size: 14px;
-    }
-    h3 {
-        line-height: 40px;
-        color: var(--black);
-        font-weight: 500;
-        font-size: 18px;
-    }
-}
 .boxs {
     min-height: 100px;
     //background: red;
@@ -240,7 +205,7 @@ onMounted(() => {
         .icon {
             width: 40px;
             height: 40px;
-            background: var(--gray);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,7 +236,7 @@ onMounted(() => {
             span {
                 font-size: 14px;
                 color: var(--black);
-                opacity: 0.3;
+                opacity: 0.5;
                 margin-top: auto;
             }
         }

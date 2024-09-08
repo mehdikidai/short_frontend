@@ -2,34 +2,43 @@
     <div :class="['sidebar', { showsidebar: showMenu }]">
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
-            <Logo />
+            <RouterLink to="/"> <Logo /></RouterLink>
+           
         </div>
         <ul>
+            <li class="add_s_url">
+                <i class="material-symbols-rounded">add</i>
+
+                <RouterLink :to="{name:'createLink'}">{{ $t("pages.Create_link") }}</RouterLink>
+            </li>
             <li>
                 <i class="material-symbols-rounded">home</i>
 
-                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/">{{ $t("pages.home") }}</RouterLink>
             </li>
             <li>
                 <i class="material-symbols-rounded">link</i
-                ><RouterLink to="/about">Links</RouterLink>
+                ><RouterLink to="/links">{{ $t("pages.links") }}</RouterLink>
             </li>
             <li>
                 <i class="material-symbols-rounded">monitoring</i
-                ><RouterLink to="/login">Analytics</RouterLink>
+                ><RouterLink to="/login">{{
+                    $t("pages.analytics")
+                }}</RouterLink>
             </li>
         </ul>
         <div class="line"></div>
         <ul>
             <li>
                 <i class="material-symbols-rounded">person</i
-                ><RouterLink to="/login">Login</RouterLink>
+                ><RouterLink to="/login">{{ $t("pages.profile") }}</RouterLink>
             </li>
             <li>
                 <i class="material-symbols-rounded">tune</i
-                ><RouterLink to="/login">Settings</RouterLink>
+                ><RouterLink to="/login">{{ $t("pages.setting") }}</RouterLink>
             </li>
         </ul>
+        <button class="logout" @click="logout">{{ $t('pages.logout') }}</button>
     </div>
 
     <div class="main-content">
@@ -39,14 +48,20 @@
             </button>
             <div class="title">
                 <h1>{{ $route.name }}</h1>
-                <span>12th Oct 2024</span>
+                <span>{{ today }}</span>
             </div>
             <div class="box_profile">
                 <button class="btn_theme" @click="handelShowLang()">
                     <i class="material-symbols-rounded">translate</i>
                     <ul class="ul_lang" v-if="showLangList">
-                        <li><button class="lang">fr</button></li>
-                        <li><button class="lang">en</button></li>
+                        <li
+                            v-for="locale in $i18n.availableLocales"
+                            :key="`locale-${locale}`"
+                        >
+                            <button class="lang" @click="handelLang(locale)">
+                                {{ locale }}
+                            </button>
+                        </li>
                     </ul>
                 </button>
                 <button
@@ -84,15 +99,19 @@
 </template>
 
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+//import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
-import { ref, watch } from "vue";
+import { ref, watch,onMounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
+import i18n from "@/lang";
+import moment from "moment";
 
 const isDark = useDark();
 
 const showMenu = ref(false);
+
+const today = ref(moment().format("LL"));
 
 const toggleDark = useToggle(isDark);
 
@@ -107,22 +126,28 @@ const handelMenu = (ok = false) => {
 const showLangList = ref(false);
 
 onClickOutside(showLangList, (event) => {
-    if(event.target.className !== 'lang') showLangList.value = false
-    console.log(event.target)
+    if (event.target.className !== "lang") showLangList.value = false;
 });
 
 const handelShowLang = () => {
-    showLangList.value = !showLangList.value
+    showLangList.value = !showLangList.value;
+};
+
+const handelLang = (lang) => {
+    i18n.global.locale = lang;
+    localStorage.setItem("lang", lang);
+};
+
+const logout = () => {
+    alert('logout')
 }
-// watch(checked,(newValue)=>{
-//     console.log(newValue)
-//     toggleDark()
-// })
+
+
+
 </script>
 
 <style lang="scss" scoped>
-
-@import './../assets/scss/_var';
+@import "./../assets/scss/_var";
 
 .sidebar {
     width: 210px;
@@ -155,7 +180,7 @@ const handelShowLang = () => {
 .sidebar ul {
     list-style-type: none;
     padding-inline: 10px;
-    margin-block: 40px;
+    margin-block: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -169,6 +194,7 @@ const handelShowLang = () => {
     padding-inline: 10px;
     border-radius: 4px;
     transition: all 0.1s ease-in;
+    font-size: 14px;
     &:hover {
         background: var(--main);
     }
@@ -178,10 +204,37 @@ const handelShowLang = () => {
         color: #fff;
     }
 
+    &.add_s_url{
+        background: var(--main);
+        margin-bottom: 10px;
+        i,a{
+            color: var(--white-fix);
+        }
+    }
+
     i {
         color: var(--black);
         font-size: 20px;
         transition: all 0.1s ease-in;
+    }
+}
+
+.sidebar{
+    
+    .logout{
+        background: transparent;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: calc(100% - 40px);
+        right: 20px;
+        cursor: pointer;
+        border: 1px solid var(--black);
+        height: 36px;
+        font-size: 14px;
+        text-transform: capitalize;
+        color: var(--black);
+        border-radius: 4px;
     }
 }
 
@@ -190,6 +243,7 @@ const handelShowLang = () => {
     text-decoration: none;
     flex: 1;
     transition: all 0.1s ease-in;
+    text-transform: capitalize;
 }
 
 .main-content {
@@ -304,7 +358,7 @@ const handelShowLang = () => {
                         text-transform: capitalize;
                         font-size: 14px;
                         border-radius: 4px;
-                        &:hover{
+                        &:hover {
                             background: var(--white);
                         }
                     }
@@ -328,7 +382,7 @@ const handelShowLang = () => {
     main {
         //background: red;
         padding: 20px;
-        min-height: calc(100vh - 100px);
+        min-height: calc(100vh - 90px);
     }
 }
 
