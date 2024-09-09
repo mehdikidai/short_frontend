@@ -6,7 +6,6 @@ import { useCssVar } from "@vueuse/core";
 import Title from "@/components/Title.vue";
 
 const mainColor = useCssVar("--main");
-const blackColor = useCssVar("--black");
 
 const chartA = ref(null);
 const chartB = ref(null);
@@ -195,7 +194,7 @@ onMounted(() => {
     .box {
         flex: 1 1 360px;
         background: var(--white);
-        height: 150px;
+        height: 140px;
         border-radius: 12px;
         display: flex;
         align-items: stretch;
@@ -234,7 +233,7 @@ onMounted(() => {
                 font-weight: 600;
             }
             span {
-                font-size: 14px;
+                font-size: 12px;
                 color: var(--black);
                 opacity: 0.5;
                 margin-top: auto;

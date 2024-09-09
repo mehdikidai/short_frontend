@@ -10,6 +10,12 @@ export default {
         profile:"profile",
         Create_link:"Create link",
         create_new:"create new",
-        logout:"logout"
+        logout:"logout",
+        destination:"destination",
+        welcome_back:"welcome back",
+        email:"email",
+        password:'password',
+        reset_password:'reset password',
+        login:'login'
     },
 }

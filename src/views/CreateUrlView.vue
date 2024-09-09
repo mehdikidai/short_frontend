@@ -4,7 +4,7 @@
             <h1>{{ $t('pages.create_new') }}</h1>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
-                    <label for="url">Destination</label><br />
+                    <label for="url">{{ $t('pages.destination') }}</label><br />
                     <input
                         type="text"
                         id="url"

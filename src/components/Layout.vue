@@ -3,42 +3,43 @@
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
             <RouterLink to="/"> <Logo /></RouterLink>
-           
         </div>
         <ul>
             <li class="add_s_url">
-                <i class="material-symbols-rounded">add</i>
-
-                <RouterLink :to="{name:'createLink'}">{{ $t("pages.Create_link") }}</RouterLink>
+                <RouterLink :to="{ name: 'createLink' }">
+                    <i class="material-symbols-rounded">add</i>
+                    {{ $t("pages.Create_link") }}
+                </RouterLink>
             </li>
             <li>
-                <i class="material-symbols-rounded">home</i>
-
-                <RouterLink to="/">{{ $t("pages.home") }}</RouterLink>
+                <RouterLink to="/"
+                    ><i class="material-symbols-rounded">home</i
+                    >{{ $t("pages.home") }}</RouterLink
+                >
             </li>
             <li>
-                <i class="material-symbols-rounded">link</i
-                ><RouterLink to="/links">{{ $t("pages.links") }}</RouterLink>
+                <RouterLink to="/links"
+                    ><i class="material-symbols-rounded">link</i
+                    >{{ $t("pages.links") }}</RouterLink
+                >
             </li>
             <li>
-                <i class="material-symbols-rounded">monitoring</i
-                ><RouterLink to="/login">{{
-                    $t("pages.analytics")
-                }}</RouterLink>
+                <RouterLink to="/login">
+                    <i class="material-symbols-rounded">person</i>
+                    {{ $t("pages.profile") }}</RouterLink
+                >
             </li>
         </ul>
         <div class="line"></div>
         <ul>
             <li>
-                <i class="material-symbols-rounded">person</i
-                ><RouterLink to="/login">{{ $t("pages.profile") }}</RouterLink>
-            </li>
-            <li>
-                <i class="material-symbols-rounded">tune</i
-                ><RouterLink to="/login">{{ $t("pages.setting") }}</RouterLink>
+                <RouterLink to="/login">
+                    <i class="material-symbols-rounded">tune</i>
+                    {{ $t("pages.setting") }}</RouterLink
+                >
             </li>
         </ul>
-        <button class="logout" @click="logout">{{ $t('pages.logout') }}</button>
+        <button class="logout" @click="logout">{{ $t("pages.logout") }}</button>
     </div>
 
     <div class="main-content">
@@ -59,6 +60,14 @@
                             :key="`locale-${locale}`"
                         >
                             <button class="lang" @click="handelLang(locale)">
+                                <i
+                                    :class="[
+                                        'material-symbols-rounded',
+                                        { active: locale === $i18n.locale },
+                                    ]"
+                                >
+                                    radio_button_checked
+                                </i>
                                 {{ locale }}
                             </button>
                         </li>
@@ -101,7 +110,7 @@
 <script setup>
 //import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
-import { ref, watch,onMounted } from "vue";
+import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
@@ -139,11 +148,8 @@ const handelLang = (lang) => {
 };
 
 const logout = () => {
-    alert('logout')
-}
-
-
-
+    alert("logout");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -166,6 +172,7 @@ const logout = () => {
         width: 50%;
         margin-left: 20px;
         opacity: 0.2;
+        margin-block: 20px;
     }
 }
 
@@ -188,9 +195,6 @@ const logout = () => {
 
 .sidebar ul li {
     height: 36px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
     padding-inline: 10px;
     border-radius: 4px;
     transition: all 0.1s ease-in;
@@ -204,10 +208,11 @@ const logout = () => {
         color: #fff;
     }
 
-    &.add_s_url{
+    &.add_s_url {
         background: var(--main);
         margin-bottom: 10px;
-        i,a{
+        i,
+        a {
             color: var(--white-fix);
         }
     }
@@ -217,11 +222,16 @@ const logout = () => {
         font-size: 20px;
         transition: all 0.1s ease-in;
     }
+    a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 100%;
+    }
 }
 
-.sidebar{
-    
-    .logout{
+.sidebar {
+    .logout {
         background: transparent;
         position: absolute;
         bottom: 20px;
@@ -276,7 +286,7 @@ const logout = () => {
             text-transform: capitalize;
         }
         span {
-            font-size: 14px;
+            font-size: 12px;
             opacity: 0.5;
         }
     }
@@ -306,7 +316,7 @@ const logout = () => {
                     display: flex;
                     flex-direction: column;
                     span {
-                        font-size: 14px;
+                        font-size: 12px;
                         opacity: 0.5;
                     }
                 }
@@ -346,7 +356,7 @@ const logout = () => {
                 li {
                     list-style: none;
                     //background: blue;
-                    button {
+                    button.lang {
                         width: 100%;
                         cursor: pointer;
                         border: none;
@@ -358,8 +368,18 @@ const logout = () => {
                         text-transform: capitalize;
                         font-size: 14px;
                         border-radius: 4px;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
                         &:hover {
                             background: var(--white);
+                        }
+                        i {
+                            font-size: 14px;
+                            opacity: 0.2;
+                            &.active {
+                                opacity: 0.8;
+                            }
                         }
                     }
                 }
