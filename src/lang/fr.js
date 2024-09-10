@@ -16,6 +16,8 @@ export default {
         email:"email",
         password:"mot de passe",
         reset_password:"réinitialiser le mot de passe",
-        login:'se connecter'
+        login:'se connecter',
+        name: "name",
+        register: "register"
     },
 };

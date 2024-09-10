@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import { useTitle } from '@vueuse/core'
+import { useTitle } from "@vueuse/core";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,7 +29,15 @@ const router = createRouter({
             component: () => import("../views/LoginView.vue"),
             meta: {
                 title: "login title",
-            }
+            },
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: () => import("../views/RegisterView.vue"),
+            meta: {
+                title: "register title",
+            },
         },
         {
             path: "/links",
@@ -59,7 +67,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     const isAuthenticated = !!localStorage.getItem("token");
 
@@ -67,11 +74,9 @@ router.beforeEach((to, from, next) => {
         return next("/login");
     }
 
-    useTitle(to.meta.title)
+    useTitle(to.meta.title);
 
     next();
 });
-
-
 
 export default router;

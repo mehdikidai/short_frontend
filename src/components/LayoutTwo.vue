@@ -21,14 +21,25 @@
 import { useDark, useToggle } from "@vueuse/core";
 import Bg_login from "@/assets/imgs/bg_login.jpg";
 import { useImage } from "@vueuse/core";
-import Logo from "./Logo.vue";
 import Switch from "./Switch.vue";
+import { onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const isDark = useDark();
 
 const toggleDark = useToggle(isDark);
 
 const { isLoading } = useImage({ src: Bg_login });
+
+onBeforeMount(() => {
+    if (!!localStorage.getItem("token")) {
+        router.push({ name: "home" });
+    }
+});
+
+
 </script>
 
 <style lang="scss" scoped>

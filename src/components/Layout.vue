@@ -90,8 +90,8 @@
                         />
                         <div class="name_user">
                             <div>
-                                Jese Leos
-                                <span>mehdi@gmail.com</span>
+                                {{ name }}
+                                <span>{{ email }}</span>
                             </div>
                         </div>
                     </div>
@@ -108,22 +108,24 @@
 </template>
 
 <script setup>
-//import { RouterLink, RouterView } from "vue-router";
 import Logo from "./Logo.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
 import moment from "moment";
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
+import axios from "axios";
+import { useRouter } from "vue-router";
 
 const isDark = useDark();
-
+const store = useUserStore();
+const { token, email, name, resetUser, setUser } = storeToRefs(store);
 const showMenu = ref(false);
-
+const router = useRouter();
 const today = ref(moment().format("LL"));
-
 const toggleDark = useToggle(isDark);
-
 const handelMenu = (ok = false) => {
     if (ok) {
         showMenu.value = false;
@@ -147,9 +149,44 @@ const handelLang = (lang) => {
     localStorage.setItem("lang", lang);
 };
 
-const logout = () => {
-    alert("logout");
+const logout = async () => {
+    try {
+        const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/logout`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        if (res.status === 200) {
+            store.resetUser();
+            router.push({ name: "login" });
+        }
+    } catch (err) {
+        console.log(err);
+    }
 };
+
+onMounted(async () => {
+    try {
+        const res = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/user`,
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+        );
+
+        if (res.status === 200) store.setUser(res.data);
+    } catch (err) {
+        console.log(err.message);
+        store.resetUser();
+        router.push({ name: "login" });
+    }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,25 +1,20 @@
 <script setup>
+import { onMounted } from "vue";
+import i18n from "./lang";
 
-import { onMounted } from 'vue';
-import i18n from './lang';
 
+onMounted(() => {
 
-onMounted(()=>{
+    const lang = localStorage.getItem("lang");
 
-  const lang = localStorage.getItem("lang");
-  if (lang) i18n.global.locale = lang
-  
+    if (lang) i18n.global.locale = lang;
 
-})
-
+    
+});
 </script>
 
 <template>
-
-  <RouterView />
-
+    <RouterView />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

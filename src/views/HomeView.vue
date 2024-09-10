@@ -14,10 +14,7 @@ const data = [
     { year: 2010, count: 10 },
     { year: 2011, count: 20 },
     { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
+    { year: 2013, count: 25 }
 ];
 
 const gridChart = {
@@ -49,7 +46,7 @@ onMounted(() => {
                     data: data.map((row) => row.count),
                     backgroundColor: mainColor.value,
                     borderColor: mainColor.value,
-                    tension: 0.3,
+                    tension: 0.1,
                 },
             ],
         },
@@ -89,7 +86,7 @@ onMounted(() => {
                     data: data.map((row) => row.count),
                     backgroundColor: mainColor.value,
                     borderColor: "#36A2EB",
-                    barPercentage: 0.2,
+                    barPercentage: 0.1,
                     borderRadius: 6,
                     borderSkipped: false,
                 },
