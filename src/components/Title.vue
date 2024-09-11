@@ -47,6 +47,7 @@ defineProps({
         border-radius: 6px;
         color: var(--white-fix);
         font-size: 14px;
+        text-transform: capitalize;
     }
     h3 {
         line-height: 36px;

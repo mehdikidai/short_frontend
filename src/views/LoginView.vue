@@ -3,7 +3,6 @@ import LayoutTwo from "@/components/LayoutTwo.vue";
 import { ref, reactive } from "vue";
 import z, { zodEmail, zodPassword } from "@/types";
 import { useRouter } from "vue-router";
-import Logo from "@/components/Logo.vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 
@@ -11,7 +10,7 @@ const store = useUserStore();
 const router = useRouter();
 const showPassword = ref(false);
 const data = reactive({
-    email: "",
+    email: store.email,
     password: "",
 });
 

@@ -58,8 +58,8 @@ const router = createRouter({
                     component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
                     meta: {
                         title: "create title",
-                        requiresAuth: true,
-                    },
+                        requiresAuth: true
+                    }
                 },
             ],
         },

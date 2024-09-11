@@ -11,26 +11,32 @@ const chartA = ref(null);
 const chartB = ref(null);
 
 const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 }
+    { year: 10, count: 10 },
+    { year: 11, count: 20 },
+    { year: 12, count: 15 },
+    { year: 13, count: 25 },
+    { year: 14, count: 16 },
 ];
 
 const gridChart = {
     x: {
         display: true,
-        
+
         grid: {
             display: false,
-            
         },
+        border: {
+          color: '#0000'
+        }
     },
     y: {
         display: true,
         grid: {
             display: false,
         },
+        border: {
+          color: '#0000'
+        }
     },
 };
 
@@ -127,7 +133,7 @@ onMounted(() => {
         <div class="boxs">
             <div class="box">
                 <div class="icon">
-                    <i class="material-symbols-rounded">favorite</i>
+                    <icon name="favorite" />
                 </div>
                 <div class="content">
                     <h2>Lorem, ipsum.</h2>
@@ -137,7 +143,7 @@ onMounted(() => {
             </div>
             <div class="box">
                 <div class="icon">
-                    <i class="material-symbols-rounded">sentiment_satisfied</i>
+                    <icon name="sentiment_satisfied" />
                 </div>
                 <div class="content">
                     <h2>Lorem, ipsum.</h2>
@@ -147,9 +153,7 @@ onMounted(() => {
             </div>
             <div class="box">
                 <div class="icon">
-                    <i class="material-symbols-rounded"
-                        >local_fire_department</i
-                    >
+                    <icon name="local_fire_department" />
                 </div>
                 <div class="content">
                     <h2>Lorem, ipsum.</h2>
@@ -159,7 +163,7 @@ onMounted(() => {
             </div>
             <div class="box">
                 <div class="icon">
-                    <i class="material-symbols-rounded">qr_code_2</i>
+                    <icon name="qr_code_2" />
                 </div>
                 <div class="content">
                     <h2>Lorem, ipsum.</h2>
@@ -191,7 +195,7 @@ onMounted(() => {
     .box {
         flex: 1 1 360px;
         background: var(--white);
-        height: 140px;
+        height: 150px;
         border-radius: 12px;
         display: flex;
         align-items: stretch;
@@ -223,6 +227,7 @@ onMounted(() => {
                 line-height: 36px;
                 color: var(--black);
                 opacity: 0.8;
+                text-transform: capitalize;
             }
             h3 {
                 color: var(--black);
@@ -230,10 +235,11 @@ onMounted(() => {
                 font-weight: 600;
             }
             span {
-                font-size: 12px;
+                font-size: 14px;
                 color: var(--black);
                 opacity: 0.5;
                 margin-top: auto;
+                text-transform: capitalize;
             }
         }
     }

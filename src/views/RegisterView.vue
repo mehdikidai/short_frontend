@@ -3,7 +3,6 @@ import LayoutTwo from "@/components/LayoutTwo.vue";
 import { ref, reactive } from "vue";
 import z, { zodEmail, zodPassword, zodName } from "@/types";
 import { useRouter } from "vue-router";
-import Logo from "@/components/Logo.vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 
@@ -60,7 +59,7 @@ const submit = () => {
             <button class="logo_img">
                 <Logo />
             </button>
-            <h2>{{ $t("pages.welcome_back") }}</h2>
+            <h2>{{ $t("sign in") }}</h2>
 
             <form action="/login" method="POST" @submit.prevent="submit">
                 <div class="form-group">

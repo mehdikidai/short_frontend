@@ -22,7 +22,7 @@ export const useUserStore = defineStore("user", () => {
     }
 
     function resetUser() {
-        email.value = "";
+        //email.value = "";
         name.value = "";
         id.value = "";
         token.value = null;

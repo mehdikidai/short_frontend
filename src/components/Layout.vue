@@ -7,27 +7,27 @@
         <ul>
             <li class="add_s_url">
                 <RouterLink :to="{ name: 'createLink' }">
-                    <i class="material-symbols-rounded">add</i>
+                    <Icon name="add" />
                     {{ $t("pages.Create_link") }}
                 </RouterLink>
             </li>
             <li>
-                <RouterLink to="/"
-                    ><i class="material-symbols-rounded">home</i
-                    >{{ $t("pages.home") }}</RouterLink
-                >
+                <RouterLink to="/">
+                    <Icon name="home" />
+                    {{ $t("pages.home") }}
+                </RouterLink>
             </li>
             <li>
-                <RouterLink to="/links"
-                    ><i class="material-symbols-rounded">link</i
-                    >{{ $t("pages.links") }}</RouterLink
-                >
+                <RouterLink to="/links">
+                    <Icon name="link" />
+                    {{ $t("pages.links") }}
+                </RouterLink>
             </li>
             <li>
                 <RouterLink to="/login">
-                    <i class="material-symbols-rounded">person</i>
-                    {{ $t("pages.profile") }}</RouterLink
-                >
+                    <Icon name="person" />
+                    {{ $t("pages.profile") }}
+                </RouterLink>
             </li>
         </ul>
         <div class="line"></div>
@@ -53,7 +53,7 @@
             </div>
             <div class="box_profile">
                 <button class="btn_theme" @click="handelShowLang()">
-                    <i class="material-symbols-rounded">translate</i>
+                    <Icon name="translate" />
                     <ul class="ul_lang" v-if="showLangList">
                         <li
                             v-for="locale in $i18n.availableLocales"
@@ -77,9 +77,7 @@
                     :class="[{ dark: isDark }, 'btn_theme']"
                     @click="toggleDark()"
                 >
-                    <i class="material-symbols-rounded">
-                        {{ isDark ? "brightness_5" : "brightness_4" }}
-                    </i>
+                    <Icon :name="isDark ? 'brightness_5' : 'brightness_4'" />
                 </button>
                 <RouterLink to="/">
                     <div class="profile_photo">
@@ -108,20 +106,20 @@
 </template>
 
 <script setup>
-import Logo from "./Logo.vue";
+
 import { ref, onMounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
 import moment from "moment";
 import { useUserStore } from "@/stores/user";
-import { storeToRefs } from "pinia";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { storeToRefs } from 'pinia'
 
 const isDark = useDark();
 const store = useUserStore();
-const { token, email, name, resetUser, setUser } = storeToRefs(store);
+const { name , email } = storeToRefs(store)
 const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
@@ -355,6 +353,7 @@ onMounted(async () => {
                     span {
                         font-size: 12px;
                         opacity: 0.5;
+                        text-transform: lowercase;
                     }
                 }
             }

@@ -82,7 +82,7 @@ onBeforeMount(() => {
     .box_3{
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.5);
         position: absolute;
         inset: 0;
     }
