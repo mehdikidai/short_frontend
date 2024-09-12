@@ -3,10 +3,11 @@ import LayoutTwo from "@/components/LayoutTwo.vue";
 import { ref, reactive } from "vue";
 import z, { zodEmail, zodPassword } from "@/types";
 import { useRouter } from "vue-router";
-import axios from "axios";
 import { useUserStore } from "@/stores/user";
+import { guestAxios } from "@/api";
 
 const store = useUserStore();
+const { setToken,setUser } = store
 const router = useRouter();
 const showPassword = ref(false);
 const data = reactive({
@@ -23,28 +24,26 @@ const handelShowPassword = () => {
     showPassword.value = !showPassword.value;
 };
 
-const submit = () => {
-    const result = dataSchema.safeParse(data);
-    console.log(result.success);
+const submit = async () => {
 
-    if (result.success) {
-        axios
-            .post(`${import.meta.env.VITE_API_URL}/api/login`, {
-                email: data.email,
-                password: data.password,
-            })
-            .then((res) => {
-                //console.log(res.data.user);
-                if (res.status === 200) {
-                    store.setToken(res.data.token);
-                    store.setUser(res.data.user);
-                    router.push({ name: "home" });
-                }
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+    const result = dataSchema.safeParse(data);
+   
+    if (!result.success) {
+        return;
     }
+
+    try {
+        const res = await guestAxios.post("/api/login", {
+            email: data.email,
+            password: data.password,
+        });
+        setToken(res.data.token);
+        setUser(res.data.user);
+        router.push({ name: "home" });
+    } catch (error) {
+        console.log(error.message);
+    }
+
 };
 </script>
 

@@ -114,6 +114,7 @@ import i18n from "@/lang";
 import moment from "moment";
 import { useUserStore } from "@/stores/user";
 import axios from "axios";
+import { guestAxios,authAxios } from "@/api";
 import { useRouter } from "vue-router";
 import { storeToRefs } from 'pinia'
 
@@ -149,15 +150,7 @@ const handelLang = (lang) => {
 
 const logout = async () => {
     try {
-        const res = await axios.post(
-            `${import.meta.env.VITE_API_URL}/api/logout`,
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
+        const res = await authAxios.post('/api/logout');
         if (res.status === 200) {
             store.resetUser();
             router.push({ name: "login" });
