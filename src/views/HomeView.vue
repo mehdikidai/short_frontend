@@ -52,7 +52,7 @@ onMounted(() => {
                     data: data.map((row) => row.count),
                     backgroundColor: mainColor.value,
                     borderColor: mainColor.value,
-                    tension: 0.1,
+                    tension: 0.2,
                 },
             ],
         },
@@ -125,10 +125,13 @@ onMounted(() => {
         },
     });
 });
+
+
 </script>
 
 <template>
     <Layout>
+        
         <Title tit="welcome back" />
         <div class="boxs">
             <div class="box">

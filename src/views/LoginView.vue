@@ -4,7 +4,7 @@ import { ref, reactive } from "vue";
 import z, { zodEmail, zodPassword } from "@/types";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
-import { guestAxios } from "@/api";
+import { useAxios } from "@/api";
 
 const store = useUserStore();
 const { setToken,setUser } = store
@@ -33,7 +33,7 @@ const submit = async () => {
     }
 
     try {
-        const res = await guestAxios.post("/api/login", {
+        const res = await useAxios.post("/api/login", {
             email: data.email,
             password: data.password,
         });

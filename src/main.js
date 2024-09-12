@@ -8,6 +8,10 @@ import { Icon,Logo } from "./components/Global";
 
 const app = createApp(App);
 
+app.config.globalProperties.$myTest = function() {
+    console.log("Hello from Global Function!")
+}
+
 app.component("Icon", Icon);
 app.component("Logo", Logo);
 

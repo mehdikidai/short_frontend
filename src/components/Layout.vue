@@ -5,12 +5,6 @@
             <RouterLink to="/"> <Logo /></RouterLink>
         </div>
         <ul>
-            <li class="add_s_url">
-                <RouterLink :to="{ name: 'createLink' }">
-                    <Icon name="add" />
-                    {{ $t("pages.Create_link") }}
-                </RouterLink>
-            </li>
             <li>
                 <RouterLink to="/">
                     <Icon name="home" />
@@ -27,6 +21,12 @@
                 <RouterLink to="/login">
                     <Icon name="person" />
                     {{ $t("pages.profile") }}
+                </RouterLink>
+            </li>
+            <li class="add_s_url">
+                <RouterLink :to="{ name: 'createLink' }">
+                    <Icon name="add" />
+                    {{ $t("pages.Create_link") }}
                 </RouterLink>
             </li>
         </ul>
@@ -106,21 +106,18 @@
 </template>
 
 <script setup>
-
-import { ref, onMounted } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
 import moment from "moment";
 import { useUserStore } from "@/stores/user";
-import axios from "axios";
-import { guestAxios,authAxios } from "@/api";
 import { useRouter } from "vue-router";
-import { storeToRefs } from 'pinia'
+import { useAxios } from "@/api";
+import { Logout } from "@/auth";
 
 const isDark = useDark();
 const store = useUserStore();
-const { name , email } = storeToRefs(store)
+const { name, email } = storeToRefs(store);
 const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
@@ -148,30 +145,17 @@ const handelLang = (lang) => {
     localStorage.setItem("lang", lang);
 };
 
-const logout = async () => {
-    try {
-        const res = await authAxios.post('/api/logout');
-        if (res.status === 200) {
-            store.resetUser();
-            router.push({ name: "login" });
-        }
-    } catch (err) {
-        console.log(err);
-    }
+const logout = () => {
+    Logout(store.configApi, () => {
+        store.resetUser();
+        router.push({ name: "login" });
+    });
 };
 
 onMounted(async () => {
     try {
-        const res = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/user`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            }
-        );
-
-        if (res.status === 200) store.setUser(res.data);
+        const res = await useAxios.get("/api/user", { ...store.configApi });
+        store.setUser(res.data);
     } catch (err) {
         console.log(err.message);
         store.resetUser();
@@ -238,7 +222,7 @@ onMounted(async () => {
 
     &.add_s_url {
         background: var(--main);
-        margin-bottom: 10px;
+        //margin-bottom: 10px;
         i,
         a {
             color: var(--white-fix);

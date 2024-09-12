@@ -9,11 +9,18 @@ export const useUserStore = defineStore("user", () => {
 
     const isAuthenticated = computed(() => !!token.value);
 
+    const configApi = computed(() => {
+        return {
+            headers: {
+                Authorization: `Bearer ${token.value}`,
+            },
+        };
+    });
+
     function setToken(t) {
         token.value = t;
         localStorage.setItem("token", t);
     }
-
 
     function setUser({ email: e, name: n, id: i }) {
         email.value = e;
@@ -37,6 +44,7 @@ export const useUserStore = defineStore("user", () => {
         setToken,
         setUser,
         id,
-        resetUser
+        resetUser,
+        configApi
     };
 });
