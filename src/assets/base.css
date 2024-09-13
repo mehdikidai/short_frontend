@@ -41,6 +41,69 @@ input:focus,input:active{
   box-shadow: none;
 }
 
+.swal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.swal-modal {
+  background-color: var(--white);
+  border: none;
+}
+.swal-title:first-child,.swal-title:not(:last-child) {
+	margin-top: 15px;
+  font-size: 22px;
+}
+
+.swal-title {
+	color: var(--black);
+  padding: 0;
+}
+.swal-text {
+	font-size: 14px;
+  color: var(--black);
+  opacity: 0.7;
+  text-align: center;
+}
+.swal-button {
+	background-color: var(--main);
+	color: #fff;
+	border: none;
+	box-shadow: none;
+	border-radius: 4px;
+	font-weight: 500;
+	padding: 7px 27px;
+	margin: 0;
+	cursor: pointer;
+
+}
+.swal-button:hover{
+  background: #0b5ed2 !important;
+}
+.swal-button:active,.swal-button:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.swal-button-container {
+	margin: 0;
+}
+
+.swal-footer {
+	display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+
+.swal-icon img {
+	width: 55px;
+	height: 55px;
+}
+.swal-icon:first-child {
+	margin-top: 25px;
+  margin-bottom: 0;
+}
+
 body {
     min-height: 100vh;
     background: var(--white);

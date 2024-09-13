@@ -34,18 +34,26 @@
         <ul>
             <li>
                 <RouterLink to="/login">
-                    <i class="material-symbols-rounded">tune</i>
+                    <Icon name="tune" />
                     {{ $t("pages.setting") }}</RouterLink
                 >
             </li>
         </ul>
-        <button class="logout" @click="logout">{{ $t("pages.logout") }}</button>
+        <ul class="ul_logout logout">
+            <li>
+                <RouterLink to="" @click.prevent="logout">
+                    <Icon name="logout" />
+                    {{ $t("pages.logout") }}</RouterLink
+                >
+            </li>
+        </ul>
+        <!-- <button class="logout" @click="logout">{{ $t("pages.logout") }}</button> -->
     </div>
 
     <div class="main-content">
         <div class="header" ref="target">
             <button class="btn_menu" @click="handelMenu()">
-                <i class="material-symbols-rounded"> menu </i>
+                <Icon name="menu" />
             </button>
             <div class="title">
                 <h1>{{ $route.name }}</h1>
@@ -100,6 +108,9 @@
         <div class="content">
             <main>
                 <slot></slot>
+                <div class="footer">
+                    <span>{{ currentYear }} mehdi kidai </span>
+                </div>
             </main>
         </div>
     </div>
@@ -121,6 +132,7 @@ const { name, email } = storeToRefs(store);
 const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
+const currentYear = ref(moment().format("YYYY"));
 const toggleDark = useToggle(isDark);
 const handelMenu = (ok = false) => {
     if (ok) {
@@ -203,6 +215,9 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    &.ul_logout {
+        margin-top: auto;
+    }
 }
 
 .sidebar ul li {
@@ -247,16 +262,10 @@ onMounted(async () => {
         background: transparent;
         position: absolute;
         bottom: 20px;
-        left: 20px;
-        width: calc(100% - 40px);
-        right: 20px;
-        cursor: pointer;
-        border: 1px solid var(--black);
-        height: 36px;
-        font-size: 14px;
-        text-transform: capitalize;
-        color: var(--black);
-        border-radius: 4px;
+        left: 0;
+        //width: calc(100% - 40px);
+        right: 0;
+        margin-block: 0;
     }
 }
 
@@ -416,6 +425,23 @@ onMounted(async () => {
         //background: red;
         padding: 20px;
         min-height: calc(100vh - 90px);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        .footer {
+            height: 20px;
+            //background: red;
+            margin-top: auto;
+            display: flex;
+            justify-content: end;
+            span{
+                line-height: 20px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--black);
+                opacity: 0.7;
+            }
+        }
     }
 }
 

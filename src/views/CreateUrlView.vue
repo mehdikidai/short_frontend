@@ -1,20 +1,8 @@
 <template>
     <Layout>
         <div class="box_create">
-            <h1>{{ $t('pages.create_new') }}</h1>
+            <h1>{{ $t("pages.create_new") }}</h1>
             <form action="#" method="post" @submit.prevent="submit()">
-                <div class="box">
-                    <label for="url">{{ $t('pages.destination') }}</label><br />
-                    <input
-                        type="text"
-                        id="url"
-                        name="url"
-                        placeholder="https://example.com/my-long-url"
-                        v-model="data.url"
-                        ref="input_url"
-                    />
-                    <span>{{ msgErrorUrl }}</span>
-                </div>
                 <div class="box">
                     <label for="title">Title</label><br />
                     <input
@@ -28,7 +16,22 @@
                     <span>{{ msgErrorTitle }}</span>
                 </div>
                 <div class="box">
-                    <button type="submit">add url</button>
+                    <label for="url">{{ $t("pages.destination") }}</label
+                    ><br />
+                    <input
+                        type="text"
+                        id="url"
+                        name="url"
+                        placeholder="https://example.com/my-long-url"
+                        v-model="data.original_url"
+                        ref="input_url"
+                    />
+                    <span>{{ msgErrorUrl }}</span>
+                </div>
+                <div class="box">
+                    <button type="submit" :disabled="lodingSubmit">
+                        {{ lodingSubmit ? "loading ..." : $t("pages.create_new") }}
+                    </button>
                 </div>
             </form>
         </div>
@@ -40,34 +43,41 @@ import Layout from "@/components/Layout.vue";
 import { reactive, ref, watch } from "vue";
 import { z } from "zod";
 import { useFocus } from "@vueuse/core";
+import { useAxios } from "@/api";
+import { useUserStore } from "@/stores/user";
+import swal from "sweetalert";
+import router from "@/router";
+import { Success } from "@/components/icon";
+
 
 const msgErrorUrl = ref("");
 const msgErrorTitle = ref("");
-
+const store = useUserStore();
 const input_url = ref();
 const input_Title = ref();
 
-const { focused:f_url } = useFocus(input_url);
-const { focused:f_tit } = useFocus(input_Title);
+const lodingSubmit = ref(false);
+
+const { focused: f_url } = useFocus(input_url);
+const { focused: f_tit } = useFocus(input_Title);
 
 watch(f_url, (focused) => {
-    if (focused) msgErrorUrl.value = ''
+    if (focused) msgErrorUrl.value = "";
 });
 
 watch(f_tit, (focused) => {
-    if (focused) msgErrorTitle.value = ''
+    if (focused) msgErrorTitle.value = "";
 });
 
-
 const data = reactive({
-    url: "",
+    original_url: "",
     title: "",
 });
 
-const submit = () => {
+const submit = async () => {
     const schemaData = z.object({
-        url: z.string().url(),
-        title: z.string().min(2).max(20),
+        original_url: z.string().url(),
+        title: z.string().regex(/^[a-zA-Z0-9]{3,20}$/),
     });
 
     const result = schemaData.safeParse(data);
@@ -75,7 +85,7 @@ const submit = () => {
     if (!result.success) {
         result.error.errors.forEach((issue) => {
             switch (issue.path.join(".")) {
-                case "url":
+                case "original_url":
                     msgErrorUrl.value = issue.message;
                     break;
                 case "title":
@@ -84,7 +94,39 @@ const submit = () => {
             }
         });
     } else {
-        console.log(result.success);
+        //console.log(result.success);
+
+        lodingSubmit.value = true;
+
+        try {
+            const res = await useAxios.post("/api/urls", data, {
+                ...store.configApi,
+            });
+            setTimeout(() => {
+                lodingSubmit.value = false;
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon:Success,
+                    buttons: {
+                        cancel: "No", 
+                        confirm: "Ok", 
+                    },
+                    dangerMode: true,
+                }).then((go) => {
+                    if (go) {
+                        router.push('/links');
+                    } else {
+                        data.original_url = ''
+                        data.title = ''
+                    }
+                });
+            }, 300);
+
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
 </script>

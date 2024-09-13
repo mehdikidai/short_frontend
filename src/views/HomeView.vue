@@ -4,6 +4,7 @@ import Chart from "chart.js/auto";
 import { ref, onMounted } from "vue";
 import { useCssVar } from "@vueuse/core";
 import Title from "@/components/Title.vue";
+import swal from "sweetalert";
 
 const mainColor = useCssVar("--main");
 
@@ -41,6 +42,7 @@ const gridChart = {
 };
 
 onMounted(() => {
+    
     console.log(mainColor.value);
     new Chart(chartA.value, {
         type: "line",

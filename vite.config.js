@@ -11,7 +11,7 @@ export default defineConfig({
         AutoImport({
             imports: [
                 { vue: ["ref", "onMounted", "reactive"] },
-                { pinia: ["storeToRefs"] },
+                { pinia: ["storeToRefs"] }
             ],
         }),
     ],
