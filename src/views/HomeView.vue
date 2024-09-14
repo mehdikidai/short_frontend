@@ -207,6 +207,7 @@ onMounted(() => {
         padding: 20px;
         gap: 20px;
         box-shadow: var(--box-shadow);
+        border: var(--border);
         .icon {
             width: 40px;
             height: 40px;
@@ -257,11 +258,13 @@ onMounted(() => {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    
     div {
         flex: 1 1 360px;
         background: var(--white);
         border-radius: 12px;
         box-shadow: var(--box-shadow);
+        border: var(--border);
     }
 }
 </style>

@@ -2,17 +2,17 @@
     <div :class="['sidebar', { showsidebar: showMenu }]">
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
-            <RouterLink to="/"> <Logo /></RouterLink>
+            <RouterLink :to="{ name: 'home' }"> <Logo /></RouterLink>
         </div>
         <ul>
             <li>
-                <RouterLink to="/">
+                <RouterLink :to="{ name: 'home' }">
                     <Icon name="home" />
                     {{ $t("pages.home") }}
                 </RouterLink>
             </li>
             <li>
-                <RouterLink to="/links">
+                <RouterLink :to="{ name: 'links' }">
                     <Icon name="link" />
                     {{ $t("pages.links") }}
                 </RouterLink>
@@ -87,7 +87,7 @@
                 >
                     <Icon :name="isDark ? 'brightness_5' : 'brightness_4'" />
                 </button>
-                <RouterLink to="/">
+                <RouterLink :to="{ name: 'home' }">
                     <div class="profile_photo">
                         <img
                             class="img_user"
@@ -186,6 +186,7 @@ onMounted(async () => {
     height: 100vh;
     position: sticky;
     top: 0;
+    border-right: var(--border);
     transition: all 0.3s ease-in;
     /*&:hover{
         width: 160px;
@@ -434,7 +435,7 @@ onMounted(async () => {
             margin-top: auto;
             display: flex;
             justify-content: end;
-            span{
+            span {
                 line-height: 20px;
                 font-size: 14px;
                 font-weight: 500;

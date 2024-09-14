@@ -41,27 +41,21 @@ const router = createRouter({
         },
         {
             path: "/links",
-            name: "linksIndex",
-            children: [
-                {
-                    path: "",
-                    name: "links",
-                    component: () => import("../views/UrlsView.vue"),
-                    meta: {
-                        title: "links title",
-                        requiresAuth: true,
-                    },
-                },
-                {
-                    path: "create",
-                    name: "createLink",
-                    component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
-                    meta: {
-                        title: "create title",
-                        requiresAuth: true
-                    }
-                },
-            ],
+            name: "links",
+            component: () => import("../views/UrlsView.vue"),
+            meta: {
+                title: "links title",
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/links-create",
+            name: "createLink",
+            component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
+            meta: {
+                title: "create title",
+                requiresAuth: true
+            }
         },
     ],
 });

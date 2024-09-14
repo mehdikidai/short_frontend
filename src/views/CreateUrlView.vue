@@ -30,7 +30,11 @@
                 </div>
                 <div class="box">
                     <button type="submit" :disabled="lodingSubmit">
-                        {{ lodingSubmit ? "loading ..." : $t("pages.create_new") }}
+                        {{
+                            lodingSubmit
+                                ? "loading ..."
+                                : $t("pages.create_new")
+                        }}
                     </button>
                 </div>
             </form>
@@ -48,7 +52,6 @@ import { useUserStore } from "@/stores/user";
 import swal from "sweetalert";
 import router from "@/router";
 import { Success } from "@/components/icon";
-
 
 const msgErrorUrl = ref("");
 const msgErrorTitle = ref("");
@@ -77,7 +80,7 @@ const data = reactive({
 const submit = async () => {
     const schemaData = z.object({
         original_url: z.string().url(),
-        title: z.string().regex(/^[a-zA-Z0-9]{3,20}$/),
+        title: z.string().regex(/^[A-Za-z][\w\s]{1,20}[A-Za-z]$/),
     });
 
     const result = schemaData.safeParse(data);
@@ -107,24 +110,34 @@ const submit = async () => {
                 swal({
                     title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover this imaginary file!",
-                    icon:Success,
                     buttons: {
-                        cancel: "No", 
-                        confirm: "Ok", 
+                        cancel: {
+                            text: "Cancel",
+                            value: null,
+                            className: "",
+                            visible: true,
+                        },
+                        confirm: {
+                            text: "OK",
+                            value: true,
+                            className: "",
+                        },
                     },
                     dangerMode: true,
                 }).then((go) => {
+                    
                     if (go) {
-                        router.push('/links');
+                        router.push("/links");
                     } else {
-                        data.original_url = ''
-                        data.title = ''
+                        data.original_url = "";
+                        data.title = "";
                     }
                 });
             }, 300);
 
             console.log(res);
         } catch (error) {
+            lodingSubmit.value = false;
             console.log(error);
         }
     }

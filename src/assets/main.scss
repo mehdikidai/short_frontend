@@ -1,8 +1,8 @@
-@import "./base.css";
+@import "./scss/base.scss";
+@import "./scss/swal";
 
 #app {
     margin: 0;
-    font-family: Arial, sans-serif;
     display: flex;
     width: 100%;
 }

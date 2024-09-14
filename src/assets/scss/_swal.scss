@@ -1,0 +1,79 @@
+.swal-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.swal-modal {
+    background-color: var(--white);
+    border: none;
+}
+.swal-title:first-child,
+.swal-title:not(:last-child) {
+    margin-top: 15px;
+    font-size: 22px;
+    margin-bottom: 0;
+}
+
+.swal-title {
+    color: var(--black);
+    /*padding: 0;*/
+    text-align: left;
+}
+.swal-text {
+    font-size: 14px;
+    color: var(--black);
+    opacity: 0.7;
+    text-align: left;
+}
+.swal-button {
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    box-shadow: none;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: 7px 27px;
+    margin: 0;
+    cursor: pointer;
+    &.swal-button--confirm {
+        background: var(--black);
+        color: var(--white);
+        &:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+    }
+    &.swal-button--cancel {
+        background: transparent;
+        border: 1px solid var(--black);
+        color: var(--black);
+        &:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+    }
+}
+
+.swal-button:active,
+.swal-button:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+.swal-button-container {
+    margin: 0;
+}
+
+.swal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.swal-icon img {
+    width: 55px;
+    height: 55px;
+}
+.swal-icon:first-child {
+    margin-top: 25px;
+    margin-bottom: 0;
+}

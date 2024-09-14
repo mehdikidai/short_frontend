@@ -1,16 +1,18 @@
-import "./assets/main.css";
+import "./assets/main.scss";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import i18n from "./lang";
 import App from "./App.vue";
 import router from "./router";
-import { Icon,Logo } from "./components/Global";
+import { Icon, Logo } from "./components/Global";
+import { getDomain, sliceUrl, momentFromNow, copyText } from "./helper";
 
 const app = createApp(App);
 
-app.config.globalProperties.$myTest = function() {
-    console.log("Hello from Global Function!")
-}
+app.config.globalProperties.$sliceUrl = sliceUrl;
+app.config.globalProperties.$getDomain = getDomain;
+app.config.globalProperties.$momentFromNow = momentFromNow;
+app.config.globalProperties.$copyText = copyText;
 
 app.component("Icon", Icon);
 app.component("Logo", Logo);

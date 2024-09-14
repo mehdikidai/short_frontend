@@ -1,6 +1,6 @@
 <template>
     <div class="addUrl">
-        <RouterLink to="/links/create" class="add_url">{{
+        <RouterLink :to="{ name: 'createLink' }" class="add_url">{{
             $t("pages.Create_link")
         }}</RouterLink>
         <h3>{{ tit }}</h3>
@@ -13,7 +13,7 @@ import { defineProps } from "vue";
 defineProps({
     tit: {
         type: String,
-        required: true
+        required: true,
     },
 });
 </script>
