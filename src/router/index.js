@@ -49,13 +49,22 @@ const router = createRouter({
             },
         },
         {
-            path: "/links-create",
+            path: "/links/create",
             name: "createLink",
             component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
             meta: {
                 title: "create title",
-                requiresAuth: true
-            }
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/links/:id/edit",
+            name: "editLink",
+            component: () => import("../views/editUrlView.vue"),
+            meta: {
+                title: "edit title",
+                requiresAuth: true,
+            },
         },
     ],
 });

@@ -23,7 +23,7 @@
                     {{ $t("pages.profile") }}
                 </RouterLink>
             </li>
-            <li class="add_s_url">
+            <li>
                 <RouterLink :to="{ name: 'createLink' }">
                     <Icon name="add" />
                     {{ $t("pages.Create_link") }}
@@ -180,7 +180,7 @@ onMounted(async () => {
 @import "./../assets/scss/_var";
 
 .sidebar {
-    width: 210px;
+    width: 230px;
     //background-color: #fafafa;
     background-color: var(--white);
     height: 100vh;
@@ -236,15 +236,6 @@ onMounted(async () => {
         color: #fff;
     }
 
-    &.add_s_url {
-        background: var(--main);
-        //margin-bottom: 10px;
-        i,
-        a {
-            color: var(--white-fix);
-        }
-    }
-
     i {
         color: var(--black);
         font-size: 20px;
@@ -253,7 +244,7 @@ onMounted(async () => {
     a {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         height: 100%;
     }
 }

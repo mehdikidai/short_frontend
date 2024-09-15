@@ -1,0 +1,58 @@
+.box_create {
+    background: var(--white);
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    h1 {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--black);
+        margin-bottom: 30px;
+        text-transform: capitalize;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .box {
+            //background: blue;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            &:last-child {
+                margin-top: 20px;
+            }
+            input {
+                width: 100%;
+                //max-width: 700px;
+                height: 36px;
+                border: 1px solid var(--border-color);
+                background: transparent;
+                color: var(--black);
+                padding-inline: 15px;
+                border-radius: 2px;
+            }
+            button {
+                width: 100%;
+                max-width: 300px;
+                height: 36px;
+                cursor: pointer;
+                border: none;
+                background: var(--main);
+                color: var(--white-fix);
+                font-size: 14px;
+                text-transform: capitalize;
+                border-radius: 2px;
+            }
+            label {
+                color: var(--black);
+                opacity: 0.8;
+                font-size: 14px;
+            }
+            span {
+                font-size: 12px;
+                color: rgb(255, 69, 69);
+            }
+        }
+    }
+}

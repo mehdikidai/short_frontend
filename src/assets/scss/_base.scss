@@ -42,10 +42,13 @@ input:active {
     box-shadow: none;
 }
 
-img{
+img {
     color: transparent;
 }
 
+a.hidden_img_qr {
+    display: none !important;
+}
 
 body {
     min-height: 100vh;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import moment from "moment";
 
 export const sliceUrl = function (text) {
@@ -24,4 +25,21 @@ export const copyText = async (text) => {
     }
 };
 
+export const downloadlQrCode = async (qr) => {
+    
+    const name = `qrcode_${new Date().getTime()}.png`;
 
+    const imageSrc = `http://api.qrserver.com/v1/create-qr-code/?data=${qr}&size=400x400&format=png&qzone=1&bgcolor=fff`;
+    const image = await fetch(imageSrc);
+    console.log(image);
+
+    const imageBlog = await image.blob();
+    const imageURL = URL.createObjectURL(imageBlog);
+    const link = document.createElement("a");
+    link.classList.add('hidden_img_qr')
+    link.href = imageURL;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};

@@ -34,9 +34,10 @@
                             <a href="#" class="link long-url" target="_blank">{{
                                 $sliceUrl(url.original_url)
                             }}</a>
-                            <span class="date_url">{{
-                                $momentFromNow(url.created_at)
-                            }}</span>
+                            <span class="date_url">
+                                <Icon name="schedule" />
+                                {{ $momentFromNow(url.created_at) }}</span
+                            >
                         </div>
                     </div>
                     <div class="link-card__button-container">
@@ -49,15 +50,15 @@
                         <button
                             class="action"
                             @click="
-                                handelQrCode(`${url.url_server}/${url.code}`)
+                                downloadlQrCode(`${url.url_server}/${url.code}`)
                             "
                         >
                             <Icon name="qr_code_2" />
                         </button>
-                        <button class="action">
+                        <button class="action" @click="editUrl(url.id)">
                             <Icon name="edit" />
                         </button>
-                        <button class="action">
+                        <button class="action" @click="deleteUrl(url.id)">
                             <Icon name="delete" />
                         </button>
                     </div>
@@ -83,21 +84,26 @@ import Layout from "@/components/Layout.vue";
 import Title from "@/components/Title.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
+import { downloadlQrCode } from "@/helper";
+import { useRouter } from "vue-router";
 
 const store = useUserStore();
 const Urls = ref([]);
 const sortOrder = ref("desc"); // asc - desc
 const currentPage = ref(1);
 const lastPage = ref(1);
-
+const effect = ref(0);
+const router = useRouter();
 const btnsPag = computed(() => {
     const n = currentPage.value;
-    return [n - 2, n - 1, n, n + 1, n + 2].filter((el) => {
+    const l = lastPage.value;
+    const arr = [1, n - 2, n - 1, n, n + 1, n + 2, l];
+    return [...new Set(arr)].filter((el) => {
         return el > 0 && el <= lastPage.value;
     });
 });
 
-const showPagination = computed(() => lastPage.value != currentPage.value);
+const showPagination = computed(() => lastPage.value != 1);
 
 const handelNavigation = (pageNumber) => {
     currentPage.value = pageNumber;
@@ -109,12 +115,29 @@ const handelSortOrder = () => {
     currentPage.value = 1;
 };
 
-const handelQrCode = (qr) => {
-    console.log(qr);
+const deleteUrl = async (id) => {
+    try {
+        const res = await useAxios.delete(`api/urls/${id}`, {
+            ...store.configApi,
+        });
+
+        if (res.data.message) effect.value = new Date().getTime();
+
+        if (Urls.value.length === 1) currentPage.value--;
+
+        //console.log(res.data.message);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const editUrl = (id) => {
+    console.log("editLink");
+    router.push({ name: "editLink", params: { id: id } });
 };
 
 watch(
-    [currentPage, sortOrder],
+    [currentPage, sortOrder, effect],
     async () => {
         console.log(currentPage.value);
         try {
@@ -241,6 +264,13 @@ watch(
                         color: var(--black);
                         opacity: 0.5;
                         margin-top: auto;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+                        gap: 8px;
+                        i {
+                            font-size: 16px;
+                        }
                     }
                 }
             }
