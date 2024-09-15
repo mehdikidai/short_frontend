@@ -36,7 +36,9 @@
                             }}</a>
                             <span class="date_url">
                                 <Icon name="schedule" />
-                                {{ $momentFromNow(url.created_at) }}</span
+                                {{
+                                    $momentFromNow(url.created_at, $i18n.locale)
+                                }}</span
                             >
                         </div>
                     </div>
@@ -50,7 +52,10 @@
                         <button
                             class="action"
                             @click="
-                                downloadlQrCode(`${url.url_server}/${url.code}`)
+                                showQr({
+                                    url: `${url.url_server}/${url.code}`,
+                                    color: qrcodeStore.color,
+                                })
                             "
                         >
                             <Icon name="qr_code_2" />
@@ -84,10 +89,14 @@ import Layout from "@/components/Layout.vue";
 import Title from "@/components/Title.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-import { downloadlQrCode } from "@/helper";
+import { downloadlQrCode, showQr } from "@/helper";
 import { useRouter } from "vue-router";
+import swal from "sweetalert";
+import { useQrcodeStore } from "@/stores/qrcode";
 
 const store = useUserStore();
+const qrcodeStore = useQrcodeStore();
+
 const Urls = ref([]);
 const sortOrder = ref("desc"); // asc - desc
 const currentPage = ref(1);
@@ -116,25 +125,43 @@ const handelSortOrder = () => {
 };
 
 const deleteUrl = async (id) => {
-    try {
-        const res = await useAxios.delete(`api/urls/${id}`, {
-            ...store.configApi,
-        });
+    swal({
+        title: "Delete Url",
+        text: "wack mtakd ?",
+        buttons: {
+            cancel: {
+                text: "cancel",
+                value: false,
+                visible: true,
+            },
+            delete: {
+                text: "delete",
+                value: true,
+            },
+        },
+    }).then(async (e) => {
+        if (e) {
+            try {
+                const res = await useAxios.delete(`api/urls/${id}`, {
+                    ...store.configApi,
+                });
 
-        if (res.data.message) effect.value = new Date().getTime();
+                if (res.data.message) effect.value = new Date().getTime();
 
-        if (Urls.value.length === 1) currentPage.value--;
-
-        //console.log(res.data.message);
-    } catch (error) {
-        console.log(error);
-    }
+                if (Urls.value.length === 1) currentPage.value--;
+                
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    });
 };
 
 const editUrl = (id) => {
     console.log("editLink");
     router.push({ name: "editLink", params: { id: id } });
 };
+
 
 watch(
     [currentPage, sortOrder, effect],
@@ -229,6 +256,7 @@ watch(
                 .link-card__info-container {
                     flex: 1;
                     //background: green;
+                    overflow: hidden;
                     height: 100%;
                     display: flex;
                     flex-direction: column;
@@ -260,7 +288,7 @@ watch(
                         }
                     }
                     span.date_url {
-                        font-size: 14px;
+                        font-size: 12px;
                         color: var(--black);
                         opacity: 0.5;
                         margin-top: auto;

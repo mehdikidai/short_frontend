@@ -14,7 +14,8 @@
 
 .swal-title {
     color: var(--black);
-    /*padding: 0;*/
+    padding: 0;
+    padding-inline: 20px;
     text-align: left;
 }
 .swal-text {
@@ -22,6 +23,7 @@
     color: var(--black);
     opacity: 0.7;
     text-align: left;
+    width: 100%;
 }
 .swal-button {
     background-color: var(--black);
@@ -33,6 +35,14 @@
     padding: 7px 27px;
     margin: 0;
     cursor: pointer;
+    &--delete {
+        background: var(--red);
+        color: var(--white-fix);
+        &:hover {
+            background: var(--red) !important;
+            color: var(--white-fix) !important;
+        }
+    }
     &.swal-button--confirm {
         background: var(--black);
         color: var(--white);
@@ -42,12 +52,11 @@
         }
     }
     &.swal-button--cancel {
-        background: transparent;
-        border: 1px solid var(--black);
+        background: var(--gray-2);
         color: var(--black);
         &:hover {
-            background: var(--black);
-            color: var(--white);
+            background: var(--gray-2);
+            color: var(--black);
         }
     }
 }
@@ -76,4 +85,51 @@
 .swal-icon:first-child {
     margin-top: 25px;
     margin-bottom: 0;
+}
+.swl_qe {
+    background: var(--white-fix) !important;
+    max-width: 340px;
+    .swal-icon {
+        width: 300px;
+        height: 300px;
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    }
+    .swal-icon:first-child {
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+    .swal-footer {
+        text-align: right;
+        margin: 0;
+        padding-block: 20px;
+        //background: red;
+        display: flex;
+        padding-inline: 30px;
+        div {
+            //background: blue;
+            flex: 1;
+            button {
+                width: 100%;
+                &.download {
+                    background: var(--black-fix);
+                    color: var(--white-fix);
+                    &:hover {
+                        background: var(--black-fix);
+                        color: var(--white-fix);
+                    }
+                }
+                &.cancel {
+                    background: #eaeaea;
+                    color: var(--black-fix);
+                    &:hover {
+                        background: #eaeaea;
+                        color: var(--black-fix);
+                    }
+                }
+            }
+        }
+    }
 }

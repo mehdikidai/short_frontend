@@ -41,9 +41,9 @@
         </ul>
         <ul class="ul_logout logout">
             <li>
-                <RouterLink to="" @click.prevent="logout">
+                <a @click.prevent="logout">
                     <Icon name="logout" />
-                    {{ $t("pages.logout") }}</RouterLink
+                    {{ $t("pages.logout") }}</a
                 >
             </li>
         </ul>
@@ -56,8 +56,11 @@
                 <Icon name="menu" />
             </button>
             <div class="title">
-                <h1>{{ $route.name }}</h1>
-                <span>{{ today }}</span>
+                <h1>
+                    <span>dashboard</span> <Icon name="pen_size_2" />
+                    <span>{{ $route.name }}</span>
+                </h1>
+                <span class="title_today">{{ today }}</span>
             </div>
             <div class="box_profile">
                 <button class="btn_theme" @click="handelShowLang()">
@@ -223,13 +226,8 @@ onMounted(async () => {
 
 .sidebar ul li {
     height: 36px;
-    padding-inline: 10px;
-    border-radius: 4px;
     transition: all 0.1s ease-in;
     font-size: 14px;
-    &:hover {
-        background: var(--main);
-    }
 
     &:hover i,
     &:hover a {
@@ -246,6 +244,15 @@ onMounted(async () => {
         align-items: center;
         gap: 10px;
         height: 100%;
+        padding-inline: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        &.router-link-exact-active {
+            background: var(--main);
+        }
+        &:hover {
+            background: var(--main);
+        }
     }
 }
 
@@ -297,10 +304,19 @@ onMounted(async () => {
             font-size: 20px;
             font-weight: 600;
             text-transform: capitalize;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            i {
+                font-size: 18px;
+                transform: rotate(-20deg);
+            }
         }
         span {
-            font-size: 12px;
-            opacity: 0.5;
+            &.title_today {
+                font-size: 12px;
+                opacity: 0.5;
+            }
         }
     }
     .box_profile {

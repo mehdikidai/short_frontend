@@ -65,7 +65,7 @@ const router = createRouter({
                 title: "edit title",
                 requiresAuth: true,
             },
-        },
+        }
     ],
 });
 
