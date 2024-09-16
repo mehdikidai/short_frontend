@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 
 export const useQrcodeStore = defineStore("qrcode", () => {
     const color = ref("222");
+    const bgColor = ref("fff");
 
     //const doubleCount = computed(() => count.value * 2)
 
@@ -10,5 +11,5 @@ export const useQrcodeStore = defineStore("qrcode", () => {
         color.value = co;
     };
 
-    return { color, changeColor };
+    return { color, bgColor, changeColor };
 });

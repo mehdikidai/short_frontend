@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <div class="box_create">
+        <div class="box_create" v-if="loading">
             <h1>{{ $t("pages.create_new") }}</h1>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
@@ -79,6 +79,7 @@ const store = useUserStore();
 const input_url = ref();
 const input_Title = ref();
 const input_Code = ref();
+const loading = ref(false);
 
 const lodingSubmit = ref(false);
 
@@ -118,10 +119,15 @@ onMounted(async () => {
             data.original_url = res.data?.original_url;
             data.title = res.data?.title;
             data.code = res.data?.code;
+
+            loading.value = true
+
         } catch (error) {
             router.push({ name: "home" });
             console.log(error);
         }
+
+        
     }
 });
 

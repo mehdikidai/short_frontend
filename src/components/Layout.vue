@@ -57,11 +57,11 @@
             </button>
             <div class="title">
                 <h1>
-                    <span>dashboard</span> <Icon name="pen_size_2" />
-                    <span>{{ $route.name }}</span>
+                    <span>dashboard</span>
                 </h1>
                 <span class="title_today">{{ today }}</span>
             </div>
+            <BoxSearch/>
             <div class="box_profile">
                 <button class="btn_theme" @click="handelShowLang()">
                     <Icon name="translate" />
@@ -128,6 +128,7 @@ import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { useAxios } from "@/api";
 import { Logout } from "@/auth";
+import BoxSearch from "./BoxSearch.vue";
 
 const isDark = useDark();
 const store = useUserStore();
@@ -293,6 +294,7 @@ onMounted(async () => {
     justify-content: space-between;
     top: 0;
     z-index: 100;
+
     .title {
         height: 50px;
         min-width: 100px;

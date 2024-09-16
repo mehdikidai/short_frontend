@@ -55,6 +55,7 @@
                                 showQr({
                                     url: `${url.url_server}/${url.code}`,
                                     color: qrcodeStore.color,
+                                    bgColor: qrcodeStore.bgColor,
                                 })
                             "
                         >
@@ -89,7 +90,7 @@ import Layout from "@/components/Layout.vue";
 import Title from "@/components/Title.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-import { downloadlQrCode, showQr } from "@/helper";
+import { downloadlQrCode, showQr, useSwalDelete } from "@/helper";
 import { useRouter } from "vue-router";
 import swal from "sweetalert";
 import { useQrcodeStore } from "@/stores/qrcode";
@@ -125,43 +126,29 @@ const handelSortOrder = () => {
 };
 
 const deleteUrl = async (id) => {
-    swal({
+    const doIt = await useSwalDelete({
         title: "Delete Url",
         text: "wack mtakd ?",
-        buttons: {
-            cancel: {
-                text: "cancel",
-                value: false,
-                visible: true,
-            },
-            delete: {
-                text: "delete",
-                value: true,
-            },
-        },
-    }).then(async (e) => {
-        if (e) {
-            try {
-                const res = await useAxios.delete(`api/urls/${id}`, {
-                    ...store.configApi,
-                });
-
-                if (res.data.message) effect.value = new Date().getTime();
-
-                if (Urls.value.length === 1) currentPage.value--;
-                
-            } catch (error) {
-                console.log(error);
-            }
-        }
+        cancelText: "cancel",
+        deleteText: "delete",
     });
+
+    if (!doIt) return;
+
+    try {
+        const res = await useAxios.delete(`api/urls/${id}`, {
+            ...store.configApi,
+        });
+
+        if (res.data.message) effect.value = new Date().getTime();
+
+        if (Urls.value.length === 1) currentPage.value--;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-const editUrl = (id) => {
-    console.log("editLink");
-    router.push({ name: "editLink", params: { id: id } });
-};
-
+const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
 
 watch(
     [currentPage, sortOrder, effect],

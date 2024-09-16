@@ -1,5 +1,6 @@
 import moment from "moment";
 import { fr, ar } from "@/lang/moment";
+import swal from "sweetalert";
 
 export const sliceUrl = function (text) {
     if (text.length > 30) {
@@ -30,11 +31,24 @@ export const copyText = async (text) => {
     }
 };
 
-export const downloadlQrCode = async (imageSrc) => {
-    const name = `qrcode_${new Date().getTime()}.png`;
-    const image = await fetch(imageSrc);
-    console.log(image);
+export function makeId(length = 16) {
+    let result = "";
+    const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+        counter += 1;
+    }
+    return result;
+}
 
+export const downloadlQrCode = async (imageSrc) => {
+    const name = `qrcode_${makeId()}.png`;
+    const image = await fetch(imageSrc);
     const imageBlog = await image.blob();
     const imageURL = URL.createObjectURL(imageBlog);
     const link = document.createElement("a");
@@ -47,8 +61,8 @@ export const downloadlQrCode = async (imageSrc) => {
 };
 
 export const showQr = async (data) => {
-    const { color, url } = data;
-    const imageSrc = `http://api.qrserver.com/v1/create-qr-code/?data=${url}&size=400x400&format=png&qzone=1&bgcolor=fff&color=${color}`;
+    const { color, bgColor, url } = data;
+    const imageSrc = `http://api.qrserver.com/v1/create-qr-code/?data=${url}&size=400x400&format=png&qzone=1&bgcolor=${bgColor}&color=${color}`;
     const res = await swal({
         icon: imageSrc,
         className: "swl_qe",
@@ -68,4 +82,34 @@ export const showQr = async (data) => {
     });
 
     if (res) downloadlQrCode(imageSrc);
+};
+
+export const useSwalDelete = async (data = {}) => {
+
+    const {
+
+        title = "Are you sure?",
+        text = "Do you really want to delete this item?",
+        cancelText = "Cancel",
+        deleteText = "Delete",
+
+    } = data ;
+
+    const resDelete = await swal({
+        title,
+        text,
+        buttons: {
+            cancel: {
+                text: cancelText,
+                value: false,
+                visible: true,
+            },
+            delete: {
+                text: deleteText,
+                value: true,
+            },
+        },
+    });
+
+    return resDelete;
 };
