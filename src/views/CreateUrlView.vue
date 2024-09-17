@@ -1,7 +1,7 @@
 <template>
     <Layout>
+        <h1><Icon name="link"/>{{ $t("pages.create_new") }}</h1>
         <div class="box_create">
-            <h1>{{ $t("pages.create_new") }}</h1>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
                     <label for="title">Title</label><br />
@@ -51,7 +51,6 @@ import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import swal from "sweetalert";
 import router from "@/router";
-
 
 const msgErrorUrl = ref("");
 const msgErrorTitle = ref("");
@@ -125,9 +124,8 @@ const submit = async () => {
                     },
                     dangerMode: true,
                 }).then((go) => {
-                    
                     if (go) {
-                        router.push({name:'links'});
+                        router.push({ name: "links" });
                     } else {
                         data.original_url = "";
                         data.title = "";

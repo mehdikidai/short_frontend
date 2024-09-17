@@ -1,7 +1,8 @@
 <template>
     <Layout>
+        <h1><Icon name="edit"/>{{ $t("pages.create_new") }}</h1>
+
         <div class="box_create" v-if="loading">
-            <h1>{{ $t("pages.create_new") }}</h1>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
                     <label for="title">Title</label><br />
@@ -58,6 +59,7 @@
 
 <script setup>
 import Layout from "@/components/Layout.vue";
+import Title from "@/components/Title.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { z } from "zod";
 import { useFocus } from "@vueuse/core";

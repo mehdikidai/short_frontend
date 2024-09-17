@@ -1,6 +1,5 @@
 <template>
     <Layout>
-        <Title tit="Bitly Links" />
         <div class="box_main">
             <div class="filter">
                 <button
@@ -87,7 +86,6 @@
 <script setup>
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import Title from "@/components/Title.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import { downloadlQrCode, showQr, useSwalDelete } from "@/helper";
@@ -121,6 +119,7 @@ const handelNavigation = (pageNumber) => {
 };
 
 const handelSortOrder = () => {
+    //sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
     sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
     currentPage.value = 1;
 };
@@ -181,7 +180,7 @@ watch(
     .filter {
         height: 36px;
         //background: blue;
-        margin-top: 20px;
+        //margin-top: 20px;
         &-by-date {
             height: 36px;
             padding-inline: 15px;
@@ -229,10 +228,10 @@ watch(
                 flex-direction: row;
                 gap: 20px;
                 .link-card__icon-container {
-                    width: 24px;
-                    height: 24px;
+                    width: 22px;
+                    height: 22px;
                     background: transparent;
-                    transform: translateY(3px);
+                    transform: translateY(5px);
                     //clip-path: circle();
                     img {
                         width: 100%;
@@ -295,8 +294,8 @@ watch(
                 display: flex;
                 gap: 8px;
                 button.action {
-                    width: 26px;
-                    height: 26px;
+                    width: 24px;
+                    height: 24px;
                     border: none;
                     background: rgba(255, 255, 255, 0.05);
                     border-radius: 4px;

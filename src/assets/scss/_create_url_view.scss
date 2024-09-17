@@ -2,19 +2,27 @@
 
 @include keyframes;
 
+h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--black);
+    margin-block: 20px;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    i{
+        opacity: 0.7;
+    }
+}
+
 .box_create {
     background: var(--white);
     padding: 40px 20px;
     border-radius: 12px;
     box-shadow: var(--box-shadow);
     animation: $animation;
-    h1 {
-        font-size: 22px;
-        font-weight: 600;
-        color: var(--black);
-        margin-bottom: 30px;
-        text-transform: capitalize;
-    }
+
     form {
         display: flex;
         flex-direction: column;

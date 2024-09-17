@@ -1,8 +1,10 @@
 <template>
-    <div class="addUrl">
-        <RouterLink :to="{ name: 'createLink' }" class="add_url">{{
-            $t("pages.Create_link")
-        }}</RouterLink>
+    <div :class="['addUrl']">
+        <RouterLink
+            :to="{ name: 'createLink' }"
+            class="add_url"
+            >{{ $t("pages.Create_link") }}</RouterLink
+        >
         <h3>{{ tit }}</h3>
     </div>
 </template>
@@ -28,6 +30,9 @@ defineProps({
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+    &.onlyTitle {
+        flex-direction: row;
+    }
     @include for-phone-only {
         & {
             flex-direction: column-reverse;

@@ -327,7 +327,7 @@ onMounted(async () => {
         //background: red;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         .profile_photo {
             display: flex;
             gap: 12px;

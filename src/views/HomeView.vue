@@ -158,16 +158,6 @@ onMounted(() => {
             </div>
             <div class="box">
                 <div class="icon">
-                    <icon name="local_fire_department" />
-                </div>
-                <div class="content">
-                    <h2>Lorem, ipsum.</h2>
-                    <h3>1500</h3>
-                    <span>Lorem ipsum dolor sit.</span>
-                </div>
-            </div>
-            <div class="box">
-                <div class="icon">
                     <icon name="qr_code_2" />
                 </div>
                 <div class="content">
