@@ -7,7 +7,7 @@ import { useUserStore } from "@/stores/user";
 import { useAxios } from "@/api";
 
 const store = useUserStore();
-const { setToken,setUser } = store
+const { setToken, setUser } = store;
 const router = useRouter();
 const showPassword = ref(false);
 const data = reactive({
@@ -25,9 +25,8 @@ const handelShowPassword = () => {
 };
 
 const submit = async () => {
-
     const result = dataSchema.safeParse(data);
-   
+
     if (!result.success) {
         return;
     }
@@ -37,13 +36,14 @@ const submit = async () => {
             email: data.email,
             password: data.password,
         });
+
         setToken(res.data.token);
-        setUser(res.data.user);
+        setUser({ ...res.data.user});
         router.push({ name: "home" });
+
     } catch (error) {
         console.log(error.message);
     }
-
 };
 </script>
 

@@ -130,6 +130,7 @@ import { useAxios } from "@/api";
 import { Logout } from "@/auth";
 import BoxSearch from "./BoxSearch.vue";
 
+
 const isDark = useDark();
 const store = useUserStore();
 const { name, email } = storeToRefs(store);
@@ -137,7 +138,9 @@ const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
 const currentYear = ref(moment().format("YYYY"));
+
 const toggleDark = useToggle(isDark);
+
 const handelMenu = (ok = false) => {
     if (ok) {
         showMenu.value = false;
@@ -172,8 +175,8 @@ onMounted(async () => {
     try {
         const res = await useAxios.get("/api/user", { ...store.configApi });
         store.setUser(res.data);
+        //console.log(res.data)
     } catch (err) {
-        console.log(err.message);
         store.resetUser();
         router.push({ name: "login" });
     }
@@ -249,10 +252,15 @@ onMounted(async () => {
         border-radius: 4px;
         cursor: pointer;
         &.router-link-exact-active {
-            background: var(--main);
+            background: #282c2f;
+            color: #fff;
+            i{
+                color: #fff;
+            }
         }
         &:hover {
-            background: var(--main);
+            background: #282c2f;
+            color: #fff;
         }
     }
 }
@@ -303,7 +311,7 @@ onMounted(async () => {
         flex-direction: column;
         justify-content: space-between;
         h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             text-transform: capitalize;
             display: flex;
@@ -333,8 +341,8 @@ onMounted(async () => {
             gap: 12px;
             align-items: center;
             img {
-                width: 36px;
-                height: 36px;
+                width: 32px;
+                height: 32px;
                 clip-path: circle();
             }
             .name_user {
@@ -346,6 +354,7 @@ onMounted(async () => {
                     text-transform: capitalize;
                     display: flex;
                     flex-direction: column;
+                    font-size: 14px;
                     span {
                         font-size: 12px;
                         opacity: 0.5;

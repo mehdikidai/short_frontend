@@ -210,6 +210,7 @@ watch(
         grid-template-columns: 1fr 1fr 1fr;
         gap: 20px;
         margin-block: 20px 40px;
+        min-height: 360px;
         .box {
             height: 170px;
             background: var(--white);

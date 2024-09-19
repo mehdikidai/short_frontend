@@ -15,8 +15,9 @@ const data = [
     { year: 10, count: 10 },
     { year: 11, count: 20 },
     { year: 12, count: 15 },
-    { year: 13, count: 25 },
-    { year: 14, count: 16 },
+    { year: 13, count: 22 },
+    { year: 14, count: 12 },
+    { year: 14, count: 14 },
 ];
 
 const gridChart = {
@@ -27,8 +28,8 @@ const gridChart = {
             display: false,
         },
         border: {
-          color: '#0000'
-        }
+            color: "#0000",
+        },
     },
     y: {
         display: true,
@@ -36,13 +37,12 @@ const gridChart = {
             display: false,
         },
         border: {
-          color: '#0000'
-        }
+            color: "#0000",
+        },
     },
 };
 
 onMounted(() => {
-    
     console.log(mainColor.value);
     new Chart(chartA.value, {
         type: "line",
@@ -52,9 +52,9 @@ onMounted(() => {
                 {
                     label: "Acquisitions by year",
                     data: data.map((row) => row.count),
-                    backgroundColor: mainColor.value,
-                    borderColor: mainColor.value,
-                    tension: 0.2,
+                    backgroundColor: "#3fdd78",
+                    borderColor: "#3fdd78", // mainColor.value
+                    tension: 0.4,
                 },
             ],
         },
@@ -63,7 +63,7 @@ onMounted(() => {
                 title: {
                     display: true,
                     text: "Custom Chart Title",
-                    color: mainColor.value,
+                    color: "#3fdd78",
                     align: "start",
                     fullSize: true,
                     padding: {
@@ -92,7 +92,7 @@ onMounted(() => {
                 {
                     label: "Acquisitions by year",
                     data: data.map((row) => row.count),
-                    backgroundColor: mainColor.value,
+                    backgroundColor: "#fcac56",
                     borderColor: "#36A2EB",
                     barPercentage: 0.1,
                     borderRadius: 6,
@@ -105,7 +105,7 @@ onMounted(() => {
                 title: {
                     display: true,
                     text: "Custom Chart Title",
-                    color: mainColor.value,
+                    color: "#fcac56",
                     align: "start",
                     fullSize: true,
                     padding: {
@@ -127,13 +127,10 @@ onMounted(() => {
         },
     });
 });
-
-
 </script>
 
 <template>
     <Layout>
-        
         <Title tit="welcome back" />
         <div class="boxs">
             <div class="box">
@@ -166,6 +163,16 @@ onMounted(() => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
+            <div class="box">
+                <div class="icon">
+                    <icon name="qr_code_2" />
+                </div>
+                <div class="content">
+                    <h2>Lorem, ipsum.</h2>
+                    <h3>5500</h3>
+                    <span>Lorem ipsum dolor sit.</span>
+                </div>
+            </div>
         </div>
         <div class="chart_boxs">
             <div class="box_1">
@@ -174,6 +181,7 @@ onMounted(() => {
             <div class="box_2">
                 <canvas ref="chartB"></canvas>
             </div>
+           
         </div>
     </Layout>
 </template>
@@ -199,8 +207,8 @@ onMounted(() => {
         box-shadow: var(--box-shadow);
         border: var(--border);
         .icon {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: transparent;
             display: flex;
             align-items: center;
@@ -208,7 +216,31 @@ onMounted(() => {
             border-radius: 6px;
             i {
                 color: var(--main);
-                font-size: 30px;
+                font-size: 24px;
+                color: var(--white-fix);
+            }
+        }
+        &:nth-last-of-type(1) {
+            .icon {
+                background: #0084ff;
+            }
+        }
+        &:nth-last-of-type(2) {
+            
+            .icon {
+                background: #8e55ea;
+            }
+        }
+        &:nth-last-of-type(3) {
+            .icon {
+                background: #3fdd78;
+            }
+            
+        }
+        &:nth-last-of-type(4) {
+            
+            .icon {
+                background: #fcac56;
             }
         }
         .content {
@@ -248,7 +280,7 @@ onMounted(() => {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    
+
     div {
         flex: 1 1 360px;
         background: var(--white);

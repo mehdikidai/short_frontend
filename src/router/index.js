@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import { useTitle } from "@vueuse/core";
+import { useUserStore } from "@/stores/user";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,7 @@ const router = createRouter({
             meta: {
                 title: "home title",
                 requiresAuth: true,
+                verify: true,
             },
         },
         {
@@ -21,6 +23,7 @@ const router = createRouter({
             meta: {
                 title: "about title",
                 requiresAuth: true,
+                verify: true,
             },
         },
         {
@@ -29,6 +32,7 @@ const router = createRouter({
             component: () => import("../views/LoginView.vue"),
             meta: {
                 title: "login title",
+                verify: false,
             },
         },
         {
@@ -37,6 +41,7 @@ const router = createRouter({
             component: () => import("../views/RegisterView.vue"),
             meta: {
                 title: "register title",
+                verify: false,
             },
         },
         {
@@ -46,6 +51,7 @@ const router = createRouter({
             meta: {
                 title: "links title",
                 requiresAuth: true,
+                verify: true,
             },
         },
         {
@@ -55,6 +61,7 @@ const router = createRouter({
             meta: {
                 title: "create title",
                 requiresAuth: true,
+                verify: true,
             },
         },
         {
@@ -64,17 +71,47 @@ const router = createRouter({
             meta: {
                 title: "edit title",
                 requiresAuth: true,
+                verify: true,
             },
-        }
+        },
+        {
+            path: "/email/verify",
+            name: "verifyEmail",
+            component: () => import("../views/VerifyEmailView.vue"),
+            meta: {
+                title: "create title",
+                requiresAuth: true,
+            },
+            beforeEnter: (to, from, next) => {
+                const verified =
+                    localStorage.getItem("email_verified") === "true"
+                        ? true
+                        : false;
+                if (verified) {
+                    return next({ name: "home" });
+                }
+
+                next();
+            },
+        },
     ],
 });
 
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    const requiresVerify = to.matched.some((record) => record.meta.verify);
+
     const isAuthenticated = !!localStorage.getItem("token");
 
+    const verified =
+        localStorage.getItem("email_verified") === "true" ? true : false;
+
     if (requiresAuth && !isAuthenticated) {
-        return next("/login");
+        return next({ name: "login" });
+    }
+
+    if (!verified && requiresVerify) {
+        return next({ name: "verifyEmail" });
     }
 
     useTitle(to.meta.title);

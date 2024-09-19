@@ -2,10 +2,12 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", () => {
+    
     const token = ref(localStorage.getItem("token") || null);
     const email = ref("");
     const name = ref("");
     const id = ref("");
+    const emailVerified = ref(true);
 
     const isAuthenticated = computed(() => !!token.value);
 
@@ -22,18 +24,30 @@ export const useUserStore = defineStore("user", () => {
         localStorage.setItem("token", t);
     }
 
-    function setUser({ email: e, name: n, id: i }) {
+    function setUser(data) {
+        const { email: e, name: n, id: i, email_verified_at: emailV } = data;
+
         email.value = e;
         name.value = n;
         id.value = i;
+        emailVerified.value = emailV == null ? false : true;
+        localStorage.setItem("email_verified", emailV ? true : false);
+        
+    }
+
+    function setEmailVerified(v) {
+        emailVerified.value = v;
+        localStorage.setItem("email_verified", v ? true : false);
     }
 
     function resetUser() {
-        //email.value = "";
+
         name.value = "";
         id.value = "";
         token.value = null;
+        emailVerified.value = true;
         localStorage.removeItem("token");
+        localStorage.removeItem("email_verified");
     }
 
     return {
@@ -45,6 +59,8 @@ export const useUserStore = defineStore("user", () => {
         setUser,
         id,
         resetUser,
-        configApi
+        configApi,
+        emailVerified,
+        setEmailVerified,
     };
 });
