@@ -174,6 +174,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+@import "./../assets/scss/var";
 .box_main {
     //background: red;
     min-height: 100px;
@@ -207,7 +208,7 @@ watch(
     }
     .list_items {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
         gap: 20px;
         margin-block: 20px 40px;
         min-height: 360px;
@@ -338,6 +339,29 @@ watch(
                 background: var(--main);
                 color: #fff;
             }
+        }
+    }
+}
+
+@include for-phone-only {
+    .box_main .list_items {
+        grid-template-columns: 1fr;
+        .box {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            .link-card-icon-information
+                .link-card__info-container
+                a.link.link_short {
+                font-size: 14px;
+            }
+        }
+        .link-card__button-container {
+            height: 26px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
         }
     }
 }

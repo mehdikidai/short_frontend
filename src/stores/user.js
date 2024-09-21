@@ -6,6 +6,7 @@ export const useUserStore = defineStore("user", () => {
     const token = ref(localStorage.getItem("token") || null);
     const email = ref("");
     const name = ref("");
+    const photo = ref("https://avatar.iran.liara.run/public");
     const id = ref("");
     const emailVerified = ref(true);
 
@@ -22,6 +23,10 @@ export const useUserStore = defineStore("user", () => {
     function setToken(t) {
         token.value = t;
         localStorage.setItem("token", t);
+    }
+
+    function setPhoto(img){
+        photo.value = img
     }
 
     function setUser(data) {
@@ -62,5 +67,7 @@ export const useUserStore = defineStore("user", () => {
         configApi,
         emailVerified,
         setEmailVerified,
+        photo,
+        setPhoto
     };
 });

@@ -18,7 +18,7 @@
                 </RouterLink>
             </li>
             <li>
-                <RouterLink to="/login">
+                <RouterLink :to="{ name: 'profile' }">
                     <Icon name="person" />
                     {{ $t("pages.profile") }}
                 </RouterLink>
@@ -61,7 +61,7 @@
                 </h1>
                 <span class="title_today">{{ today }}</span>
             </div>
-            <BoxSearch/>
+            <BoxSearch />
             <div class="box_profile">
                 <button class="btn_theme" @click="handelShowLang()">
                     <Icon name="translate" />
@@ -94,7 +94,7 @@
                     <div class="profile_photo">
                         <img
                             class="img_user"
-                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                            :src="photo"
                             alt=""
                         />
                         <div class="name_user">
@@ -126,14 +126,12 @@ import i18n from "@/lang";
 import moment from "moment";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
-import { useAxios } from "@/api";
 import { Logout } from "@/auth";
 import BoxSearch from "./BoxSearch.vue";
 
-
 const isDark = useDark();
 const store = useUserStore();
-const { name, email } = storeToRefs(store);
+const { name, email, photo } = storeToRefs(store);
 const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
@@ -170,17 +168,6 @@ const logout = () => {
         router.push({ name: "login" });
     });
 };
-
-onMounted(async () => {
-    try {
-        const res = await useAxios.get("/api/user", { ...store.configApi });
-        store.setUser(res.data);
-        //console.log(res.data)
-    } catch (err) {
-        store.resetUser();
-        router.push({ name: "login" });
-    }
-});
 </script>
 
 <style lang="scss" scoped>
@@ -254,7 +241,7 @@ onMounted(async () => {
         &.router-link-exact-active {
             background: #282c2f;
             color: #fff;
-            i{
+            i {
                 color: #fff;
             }
         }

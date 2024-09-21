@@ -27,6 +27,7 @@ h1 {
     gap: 5px;
     i {
         opacity: 0.7;
+        font-size: 22px;
     }
 }
 </style>

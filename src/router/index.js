@@ -94,6 +94,16 @@ const router = createRouter({
                 next();
             },
         },
+        {
+            path: "/profile",
+            name: "profile",
+            component: () => import("../views/ProfileView.vue"),
+            meta: {
+                title: "profile",
+                requiresAuth: true,
+                verify: true,
+            },
+        },
     ],
 });
 
