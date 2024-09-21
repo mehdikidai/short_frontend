@@ -2,7 +2,6 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", () => {
-    
     const token = ref(localStorage.getItem("token") || null);
     const email = ref("");
     const name = ref("");
@@ -25,8 +24,8 @@ export const useUserStore = defineStore("user", () => {
         localStorage.setItem("token", t);
     }
 
-    function setPhoto(img){
-        photo.value = img
+    function setPhoto(img) {
+        if (img !== photo.value) photo.value = img;
     }
 
     function setUser(data) {
@@ -37,7 +36,6 @@ export const useUserStore = defineStore("user", () => {
         id.value = i;
         emailVerified.value = emailV == null ? false : true;
         localStorage.setItem("email_verified", emailV ? true : false);
-        
     }
 
     function setEmailVerified(v) {
@@ -46,7 +44,6 @@ export const useUserStore = defineStore("user", () => {
     }
 
     function resetUser() {
-
         name.value = "";
         id.value = "";
         token.value = null;
@@ -68,6 +65,6 @@ export const useUserStore = defineStore("user", () => {
         emailVerified,
         setEmailVerified,
         photo,
-        setPhoto
+        setPhoto,
     };
 });
