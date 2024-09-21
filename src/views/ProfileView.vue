@@ -74,7 +74,7 @@ import { updateSchema } from "@/types";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
-import axios from "axios";
+
 
 const store = useUserStore();
 const router = useRouter();
@@ -86,6 +86,7 @@ const data = reactive({
     name: store.name,
     email: store.email,
 });
+
 
 // START uploadImg FUNCTION
 

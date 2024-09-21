@@ -1,11 +1,13 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
+const defaultImg = "https://avatar.iran.liara.run/public";
+
 export const useUserStore = defineStore("user", () => {
     const token = ref(localStorage.getItem("token") || null);
     const email = ref("");
     const name = ref("");
-    const photo = ref("https://avatar.iran.liara.run/public");
+    const photo = ref(defaultImg);
     const id = ref("");
     const emailVerified = ref(true);
 
@@ -14,7 +16,7 @@ export const useUserStore = defineStore("user", () => {
     const configApi = computed(() => {
         return {
             headers: {
-                Authorization: `Bearer ${token.value}`
+                Authorization: `Bearer ${token.value}`,
             },
         };
     });
@@ -25,16 +27,28 @@ export const useUserStore = defineStore("user", () => {
     }
 
     function setPhoto(img) {
-        if (img !== photo.value) photo.value = img;
+        if (img !== photo.value) {
+            if (img === null) {
+                photo.value = defaultImg;
+            } else {
+                photo.value = img;
+            }
+        }
     }
 
     function setUser(data) {
-        const { email: e, name: n, id: i, email_verified_at: emailV,photo:p } = data;
+        const {
+            email: e,
+            name: n,
+            id: i,
+            email_verified_at: emailV,
+            photo: p,
+        } = data;
 
         email.value = e;
         name.value = n;
         id.value = i;
-        photo.value = p
+        photo.value = p === null ? defaultImg : p;
         emailVerified.value = emailV == null ? false : true;
         localStorage.setItem("email_verified", emailV ? true : false);
     }
