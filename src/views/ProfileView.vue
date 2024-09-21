@@ -2,7 +2,28 @@
     <Layout>
         <Tit text="profile" />
         <div class="container">
-            <div class="box_photo bx"></div>
+            <div class="box_photo bx">
+                <button class="edit" @click="INPUT_IMG.click()">
+                    <Icon name="edit" />
+                </button>
+                <UserPicture
+                    v-memo="store.photo"
+                    :src="store.photo"
+                    w="120px"
+                    h="120px"
+                />
+                <h2>@{{ store.name.replace(" ", "_") }}</h2>
+                <span>{{ store.email }}</span>
+                <form action="" method="post">
+                    <input
+                        type="file"
+                        name="photo_user"
+                        id="photo_user"
+                        @change="uploadImg"
+                        ref="INPUT_IMG"
+                    />
+                </form>
+            </div>
             <div class="box_form bx">
                 <form method="post" @submit.prevent="submit">
                     <div class="box">
@@ -27,6 +48,7 @@
                             ref="input_email"
                         />
                     </div>
+
                     <div class="box">
                         <button
                             type="button"
@@ -46,21 +68,49 @@
 <script setup>
 import Layout from "@/components/Layout.vue";
 import Tit from "@/components/Tit.vue";
+import UserPicture from "@/components/UserPicture.vue";
 import { reactive } from "vue";
 import { updateSchema } from "@/types";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const store = useUserStore();
 const router = useRouter();
 
 const loading_form = ref(false);
+const INPUT_IMG = ref(null);
 
 const data = reactive({
     name: store.name,
     email: store.email,
 });
+
+// START uploadImg FUNCTION
+
+const uploadImg = async (el) => {
+    const file = el.target.files[0];
+    if (file) {
+        const imgURL = URL.createObjectURL(file);
+        store.setPhoto(imgURL);
+        const formData = new FormData();
+        formData.append("photo", file);
+
+        try {
+            const response = await useAxios.post(
+                "/api/upload_photo_profile",
+                formData,
+                { ...store.configApi }
+            );
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};
+
+// END uploadImg FUNCTION
 
 // start submit function
 
@@ -113,11 +163,52 @@ const submit = async () => {
     .box_photo {
         height: 290px;
         aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        button.edit {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 26px;
+            height: 26px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i {
+                color: var(--black);
+                font-size: 16px;
+                opacity: 0.7;
+            }
+        }
+        img {
+            margin-bottom: 15px;
+            clip-path: circle();
+        }
+        h2 {
+            font-size: 14px;
+            color: var(--black);
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        span {
+            font-size: 12px;
+            color: var(--black);
+            opacity: 0.6;
+        }
+        input[type="file"] {
+            display: none;
+        }
     }
     .box_form {
         // background: green;
         flex: 1 1 550px;
-
         padding: 40px 20px;
         form {
             //background: red;
