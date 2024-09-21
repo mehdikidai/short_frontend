@@ -73,11 +73,10 @@
                             <button class="lang" @click="handelLang(locale)">
                                 <i
                                     :class="[
-                                        'material-symbols-rounded',
                                         { active: locale === $i18n.locale },
                                     ]"
                                 >
-                                    radio_button_checked
+                                    
                                 </i>
                                 {{ locale }}
                             </button>
@@ -92,11 +91,7 @@
                 </button>
                 <RouterLink :to="{ name: 'home' }">
                     <div class="profile_photo">
-                        <img
-                            class="img_user"
-                            :src="photo"
-                            alt=""
-                        />
+                        <img class="img_user" :src="photo" alt="" />
                         <div class="name_user">
                             <div>
                                 {{ name }}
@@ -120,6 +115,7 @@
 </template>
 
 <script setup>
+
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
@@ -138,6 +134,8 @@ const today = ref(moment().format("LL"));
 const currentYear = ref(moment().format("YYYY"));
 
 const toggleDark = useToggle(isDark);
+
+
 
 const handelMenu = (ok = false) => {
     if (ok) {

@@ -3,15 +3,18 @@
         <Tit text="profile" />
         <div class="container">
             <div class="box_photo bx">
-                <button class="edit" @click="INPUT_IMG.click()">
+                <button class="edit" @click="INPUT_IMG.click()" :disabled="loading_upload_img">
                     <Icon name="edit" />
                 </button>
-                <UserPicture
-                    v-memo="store.photo"
-                    :src="store.photo"
-                    w="120px"
-                    h="120px"
-                />
+                <div :class="['photo_div', { loading: loading_upload_img }]">
+                    <loadingIcon w="2em" v-if="loading_upload_img" />
+                    <UserPicture
+                        v-memo="store.photo"
+                        :src="store.photo"
+                        w="120px"
+                        h="120px"
+                    />
+                </div>
                 <h2>@{{ store.name.replace(" ", "_") }}</h2>
                 <span>{{ store.email }}</span>
                 <form action="" method="post">
@@ -67,6 +70,7 @@
 
 <script setup>
 import Layout from "@/components/Layout.vue";
+import loadingIcon from "./loadingIcon.vue";
 import Tit from "@/components/Tit.vue";
 import UserPicture from "@/components/UserPicture.vue";
 import { reactive } from "vue";
@@ -75,11 +79,11 @@ import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 
-
 const store = useUserStore();
 const router = useRouter();
 
 const loading_form = ref(false);
+const loading_upload_img = ref(false);
 const INPUT_IMG = ref(null);
 
 const data = reactive({
@@ -87,12 +91,12 @@ const data = reactive({
     email: store.email,
 });
 
-
 // START uploadImg FUNCTION
 
 const uploadImg = async (el) => {
     const file = el.target.files[0];
     if (file) {
+        loading_upload_img.value = true;
         const imgURL = URL.createObjectURL(file);
         store.setPhoto(imgURL);
         const formData = new FormData();
@@ -102,11 +106,15 @@ const uploadImg = async (el) => {
             const response = await useAxios.post(
                 "/api/upload_photo_profile",
                 formData,
-                { ...store.configApi }
+                {
+                    ...store.configApi,
+                }
             );
             console.log(response);
         } catch (error) {
             console.log(error);
+        } finally {
+            loading_upload_img.value = false;
         }
     }
 };
@@ -188,10 +196,32 @@ const submit = async () => {
                 opacity: 0.7;
             }
         }
-        img {
+        .photo_div {
+            background: transparent;
             margin-bottom: 15px;
-            clip-path: circle();
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            svg {
+                position: absolute;
+                inset: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 3;
+                color: aliceblue;
+            }
+            img {
+                clip-path: circle();
+                pointer-events: none;
+            }
+            &.loading {
+                img {
+                    opacity: 0.5;
+                }
+            }
         }
+
         h2 {
             font-size: 14px;
             color: var(--black);
@@ -216,6 +246,9 @@ const submit = async () => {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            .box{
+                flex: .5
+            }
             @extend %box_form;
         }
     }
