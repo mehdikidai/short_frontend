@@ -1,0 +1,14 @@
+[data-testid="toast-content"] {
+    font-size: 14px;
+}
+.Toastify__toast {
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+.Toastify__toast-body {
+    margin: auto 0;
+    padding: 10px;
+}
+.Toastify__close-button{
+    color: var(--toastify-text-color-dark);
+}
