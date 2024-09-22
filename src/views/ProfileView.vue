@@ -2,7 +2,7 @@
     <Layout>
         <Tit text="profile" />
         <div class="container">
-            <div class="box_photo bx">
+            <div class="box_photo bx" v-kidai>
                 <button
                     class="edit"
                     @click="INPUT_IMG.click()"
@@ -31,9 +31,9 @@
                     />
                 </form>
             </div>
-            <div class="box_form bx">
+            <div class="box_form bx" v-kidai>
                 <form method="post" @submit.prevent="submit">
-                    <div class="box">
+                    <div class="box" v-ef>
                         <label for="name">full name</label><br />
                         <input
                             type="text"
@@ -94,6 +94,8 @@ const data = reactive({
     name: store.name,
     email: store.email,
 });
+
+
 
 // START uploadImg FUNCTION
 

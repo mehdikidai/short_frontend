@@ -132,7 +132,7 @@ onMounted(() => {
     <Layout>
         <Title tit="welcome back" />
         <div class="boxs">
-            <div class="box">
+            <div class="box" v-kidai>
                 <div class="icon">
                     <icon name="favorite" />
                 </div>
@@ -143,7 +143,7 @@ onMounted(() => {
                 </div>
             </div>
 
-            <div class="box">
+            <div class="box" v-kidai>
                 <div class="icon">
                     <icon name="sentiment_satisfied" />
                 </div>
@@ -153,7 +153,7 @@ onMounted(() => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
-            <div class="box">
+            <div class="box" v-kidai>
                 <div class="icon">
                     <icon name="qr_code_2" />
                 </div>
@@ -163,7 +163,7 @@ onMounted(() => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
-            <div class="box">
+            <div class="box" v-kidai>
                 <div class="icon">
                     <icon name="qr_code_2" />
                 </div>
@@ -175,10 +175,10 @@ onMounted(() => {
             </div>
         </div>
         <div class="chart_boxs">
-            <div class="box_1">
+            <div class="box_1" v-kidai>
                 <canvas ref="chartA"></canvas>
             </div>
-            <div class="box_2">
+            <div class="box_2" v-kidai>
                 <canvas ref="chartB"></canvas>
             </div>
         </div>

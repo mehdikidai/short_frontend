@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <h1><Icon name="link"/>{{ $t("pages.create_new") }}</h1>
-        <div class="box_create">
+        <div class="box_create" v-kidai>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
                     <label for="title">Title</label><br />

@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="list_items">
-                <div class="box" v-for="url in Urls" :key="url.id">
+                <div class="box" v-for="url in Urls" :key="url.id" v-kidai>
                     <div class="link-card-icon-information">
                         <div class="link-card__icon-container">
                             <img
