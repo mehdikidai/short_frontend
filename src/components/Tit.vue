@@ -20,7 +20,7 @@ h1 {
     font-size: 20px;
     font-weight: 600;
     color: var(--black);
-    margin-block: 20px;
+    margin-block: 0 20px;
     text-transform: capitalize;
     display: flex;
     align-items: center;

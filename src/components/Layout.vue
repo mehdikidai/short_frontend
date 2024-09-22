@@ -70,13 +70,9 @@
                             v-for="locale in $i18n.availableLocales"
                             :key="`locale-${locale}`"
                         >
-                            <button class="lang" @click="handelLang(locale)">
-                                <i
-                                    :class="[
-                                        { active: locale === $i18n.locale },
-                                    ]"
-                                >
-                                    
+                            <button :class="['lang', { active: locale === $i18n.locale }]" @click="handelLang(locale)">
+                                <i>
+                                  <IconX :icon="`flag:${locale === 'en' ? 'um' : locale}-4x3`" />
                                 </i>
                                 {{ locale }}
                             </button>
@@ -91,7 +87,7 @@
                 </button>
                 <RouterLink :to="{ name: 'home' }">
                     <div class="profile_photo">
-                        <img class="img_user" :src="photo" alt="" />
+                        <img v-memo="photo" class="img_user" :src="photo" alt="" />
                         <div class="name_user">
                             <div>
                                 {{ name }}
@@ -124,6 +120,7 @@ import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { Logout } from "@/auth";
 import BoxSearch from "./BoxSearch.vue";
+import { Icon as IconX } from '@iconify/vue';
 
 const isDark = useDark();
 const store = useUserStore();
@@ -363,7 +360,7 @@ const logout = () => {
             //background: var(--white);
 
             i {
-                font-size: 22px;
+                font-size: 20px;
                 color: var(--black);
                 transition: all 0.3s ease-in-out;
             }
@@ -372,11 +369,11 @@ const logout = () => {
                 position: absolute;
                 top: 40px;
                 left: 0;
-                width: 100px;
+                width: 80px;
                 display: flex;
                 flex-direction: column;
                 //gap: 10px;
-                padding: 12px 6px;
+                padding: 6px;
                 border-radius: 6px;
                 box-shadow: var(--box-shadow);
                 li {
@@ -397,15 +394,14 @@ const logout = () => {
                         display: flex;
                         align-items: center;
                         gap: 6px;
-                        &:hover {
+                        &:hover,&.active {
                             background: var(--white);
                         }
                         i {
-                            font-size: 14px;
-                            opacity: 0.2;
-                            &.active {
-                                opacity: 0.8;
-                            }
+                            font-size: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                         }
                     }
                 }

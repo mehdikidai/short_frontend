@@ -3,7 +3,11 @@
         <Tit text="profile" />
         <div class="container">
             <div class="box_photo bx">
-                <button class="edit" @click="INPUT_IMG.click()" :disabled="loading_upload_img">
+                <button
+                    class="edit"
+                    @click="INPUT_IMG.click()"
+                    :disabled="loading_upload_img"
+                >
                     <Icon name="edit" />
                 </button>
                 <div :class="['photo_div', { loading: loading_upload_img }]">
@@ -58,7 +62,7 @@
                             v-if="loading_form"
                             :disabled="loading_form"
                         >
-                            loading ..
+                            <loadingIcon w="1em" v-if="loading_form" />
                         </button>
                         <button type="submit" v-else>update</button>
                     </div>
@@ -246,8 +250,8 @@ const submit = async () => {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            .box{
-                flex: .5
+            .box {
+                flex: 0.5;
             }
             @extend %box_form;
         }
