@@ -74,7 +74,7 @@
 
 <script setup>
 import Layout from "@/components/Layout.vue";
-import loadingIcon from "./loadingIcon.vue";
+import loadingIcon from "../components/loadingIcon.vue";
 import Tit from "@/components/Tit.vue";
 import UserPicture from "@/components/UserPicture.vue";
 import { reactive } from "vue";

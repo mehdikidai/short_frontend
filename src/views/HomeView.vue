@@ -4,7 +4,6 @@ import Chart from "chart.js/auto";
 import { ref, onMounted } from "vue";
 import { useCssVar } from "@vueuse/core";
 import Title from "@/components/Title.vue";
-import swal from "sweetalert";
 
 const mainColor = useCssVar("--main");
 
@@ -143,6 +142,7 @@ onMounted(() => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
+
             <div class="box">
                 <div class="icon">
                     <icon name="sentiment_satisfied" />
@@ -181,7 +181,6 @@ onMounted(() => {
             <div class="box_2">
                 <canvas ref="chartB"></canvas>
             </div>
-           
         </div>
     </Layout>
 </template>
@@ -226,7 +225,6 @@ onMounted(() => {
             }
         }
         &:nth-last-of-type(2) {
-            
             .icon {
                 background: #8e55ea;
             }
@@ -235,10 +233,8 @@ onMounted(() => {
             .icon {
                 background: #3fdd78;
             }
-            
         }
         &:nth-last-of-type(4) {
-            
             .icon {
                 background: #fcac56;
             }

@@ -85,15 +85,12 @@ export const showQr = async (data) => {
 };
 
 export const useSwalDelete = async (data = {}) => {
-
     const {
-
         title = "Are you sure?",
         text = "Do you really want to delete this item?",
         cancelText = "Cancel",
         deleteText = "Delete",
-
-    } = data ;
+    } = data;
 
     const resDelete = await swal({
         title,
@@ -112,4 +109,21 @@ export const useSwalDelete = async (data = {}) => {
     });
 
     return resDelete;
+};
+
+export const getFlag = (name) => {
+    switch (name) {
+        case "en":
+            return `flag:gb-4x3`;
+        case "fr":
+            return `flag:fr-4x3`;
+        case "ar":
+            return `flag:ma-4x3`;
+        case "es":
+            return `flag:es-4x3`;
+        case "de":
+            return `flag:de-4x3`;
+        default:
+            return `flag:eu-4x3`;
+    }
 };

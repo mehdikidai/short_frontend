@@ -70,9 +70,15 @@
                             v-for="locale in $i18n.availableLocales"
                             :key="`locale-${locale}`"
                         >
-                            <button :class="['lang', { active: locale === $i18n.locale }]" @click="handelLang(locale)">
+                            <button
+                                :class="[
+                                    'lang',
+                                    { active: locale === $i18n.locale },
+                                ]"
+                                @click="handelLang(locale)"
+                            >
                                 <i>
-                                  <IconX :icon="`flag:${locale === 'en' ? 'um' : locale}-4x3`" />
+                                    <IconX :icon="getFlag(locale)" />
                                 </i>
                                 {{ locale }}
                             </button>
@@ -87,7 +93,12 @@
                 </button>
                 <RouterLink :to="{ name: 'home' }">
                     <div class="profile_photo">
-                        <img v-memo="photo" class="img_user" :src="photo" alt="" />
+                        <img
+                            v-memo="photo"
+                            class="img_user"
+                            :src="photo"
+                            alt=""
+                        />
                         <div class="name_user">
                             <div>
                                 {{ name }}
@@ -102,6 +113,7 @@
         <div class="content">
             <main>
                 <slot></slot>
+
                 <div class="footer">
                     <span>{{ currentYear }} mehdi kidai </span>
                 </div>
@@ -111,7 +123,6 @@
 </template>
 
 <script setup>
-
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
@@ -120,7 +131,8 @@ import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
 import { Logout } from "@/auth";
 import BoxSearch from "./BoxSearch.vue";
-import { Icon as IconX } from '@iconify/vue';
+import { Icon as IconX } from "@iconify/vue";
+import { getFlag } from "@/helper";
 
 const isDark = useDark();
 const store = useUserStore();
@@ -131,8 +143,6 @@ const today = ref(moment().format("LL"));
 const currentYear = ref(moment().format("YYYY"));
 
 const toggleDark = useToggle(isDark);
-
-
 
 const handelMenu = (ok = false) => {
     if (ok) {
@@ -383,7 +393,7 @@ const logout = () => {
                         width: 100%;
                         cursor: pointer;
                         border: none;
-                        height: 33px;
+                        height: 30px;
                         text-align: start;
                         padding-inline: 10px;
                         background: transparent;
@@ -394,7 +404,8 @@ const logout = () => {
                         display: flex;
                         align-items: center;
                         gap: 6px;
-                        &:hover,&.active {
+                        &:hover,
+                        &.active {
                             background: var(--white);
                         }
                         i {
