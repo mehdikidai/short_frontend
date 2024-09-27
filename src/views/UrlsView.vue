@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <div class="box_main">
+        <div class="box_main" v-if="Urls.length > 0">
             <div class="filter">
                 <button
                     :class="['filter-by-date', { asc: sortOrder === 'asc' }]"
@@ -80,6 +80,13 @@
                 </button>
             </div>
         </div>
+        <div class="box_main_empty" v-else>
+
+            <h2 v-if="messageEmpty">empty</h2>
+            <loadingIcon w="2em" v-else/>
+            
+            
+        </div>
     </Layout>
 </template>
 
@@ -88,15 +95,18 @@ import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-import { downloadlQrCode, showQr, useSwalDelete } from "@/helper";
+import { showQr, useSwalDelete } from "@/helper";
 import { useRouter } from "vue-router";
 import swal from "sweetalert";
 import { useQrcodeStore } from "@/stores/qrcode";
+import loadingIcon from "../components/loadingIcon.vue";
+
 
 const store = useUserStore();
 const qrcodeStore = useQrcodeStore();
 
 const Urls = ref([]);
+const messageEmpty = ref(false);
 const sortOrder = ref("desc"); // asc - desc
 const currentPage = ref(1);
 const lastPage = ref(1);
@@ -142,9 +152,11 @@ const deleteUrl = async (id) => {
         if (res.data.message) effect.value = new Date().getTime();
 
         if (Urls.value.length === 1) currentPage.value--;
+
     } catch (error) {
         console.log(error);
-    }
+        
+    } 
 };
 
 const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
@@ -152,7 +164,7 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
 watch(
     [currentPage, sortOrder, effect],
     async () => {
-        console.log(currentPage.value);
+        //console.log(currentPage.value);
         try {
             const res = await useAxios.get("/api/urls", {
                 ...store.configApi,
@@ -164,7 +176,10 @@ watch(
             Urls.value = res.data.data;
             lastPage.value = res.data.last_page;
 
-            console.log(res.data);
+            messageEmpty.value = res.data.data.length === 0
+
+            console.log(res.data.data);
+
         } catch (error) {
             console.log(error);
         }
@@ -178,6 +193,22 @@ watch(
 .box_main {
     //background: red;
     min-height: 100px;
+    &_empty {
+        flex: 1;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-height: 400px;
+        svg{
+            color: var(--black);
+        }
+        h2{
+            color: var(--black);
+            opacity: 0.7;
+            text-transform: capitalize;
+        }
+    }
     .filter {
         height: 36px;
         //background: blue;

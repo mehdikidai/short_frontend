@@ -24,6 +24,12 @@
                 </RouterLink>
             </li>
             <li>
+                <RouterLink :to="{ name: 'map' }">
+                    <Icon name="map" />
+                    {{ $t("map") }}
+                </RouterLink>
+            </li>
+            <li>
                 <RouterLink :to="{ name: 'createLink' }">
                     <Icon name="add" />
                     {{ $t("pages.Create_link") }}

@@ -102,6 +102,7 @@ const data = reactive({
 const uploadImg = async (el) => {
     const file = el.target.files[0];
     if (file) {
+        
         loading_upload_img.value = true;
         const imgURL = URL.createObjectURL(file);
         store.setPhoto(imgURL);

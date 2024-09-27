@@ -11,7 +11,7 @@ export default defineConfig({
         AutoImport({
             imports: [
                 { vue: ["ref", "onMounted", "reactive"] },
-                { pinia: ["storeToRefs"] }
+                { pinia: ["storeToRefs"] },
             ],
         }),
     ],
@@ -19,5 +19,8 @@ export default defineConfig({
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
         },
+    },
+    server: {
+        host: true,
     },
 });

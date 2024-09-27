@@ -62,7 +62,7 @@ export const downloadlQrCode = async (imageSrc) => {
 
 export const showQr = async (data) => {
     const { color, bgColor, url } = data;
-    const imageSrc = `http://api.qrserver.com/v1/create-qr-code/?data=${url}&size=400x400&format=png&qzone=1&bgcolor=${bgColor}&color=${color}`;
+    const imageSrc = `http://api.qrserver.com/v1/create-qr-code/?data=${url}&size=400x400&format=png&qzone=2&bgcolor=${bgColor}&color=${color}`;
     const res = await swal({
         icon: imageSrc,
         className: "swl_qe",
@@ -127,3 +127,5 @@ export const getFlag = (name) => {
             return `flag:eu-4x3`;
     }
 };
+
+

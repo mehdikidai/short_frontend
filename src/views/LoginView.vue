@@ -43,6 +43,7 @@ const submit = async () => {
 
     } catch (error) {
         console.log(error.message);
+        alert(error.message)
     }
 };
 </script>

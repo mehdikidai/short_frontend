@@ -28,11 +28,9 @@ export const useUserStore = defineStore("user", () => {
 
     function setPhoto(img) {
         if (img !== photo.value) {
-            if (img === null) {
-                photo.value = defaultImg;
-            } else {
-                photo.value = img;
-            }
+
+            photo.value = img ?? defaultImg
+
         }
     }
 
@@ -48,7 +46,7 @@ export const useUserStore = defineStore("user", () => {
         email.value = e;
         name.value = n;
         id.value = i;
-        photo.value = p === null ? defaultImg : p;
+        photo.value = p ?? defaultImg;
         emailVerified.value = emailV == null ? false : true;
         localStorage.setItem("email_verified", emailV ? true : false);
     }

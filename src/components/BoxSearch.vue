@@ -91,7 +91,7 @@ watch(textSearch, (newText) => {
         display: flex !important;
         flex-direction: column;
         background: var(--white);
-        border: 1px solid var(--border-color);
+        border: var(--border);
         border-radius: 4px;
         gap: 10px;
         position: relative;

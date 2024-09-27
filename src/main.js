@@ -1,4 +1,14 @@
 import "./assets/main.scss";
+
+//  font poppins
+import "@fontsource/poppins";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
+import "@fontsource/poppins/900.css";
+//  font poppins
+
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import i18n from "./lang";
@@ -6,7 +16,7 @@ import App from "./App.vue";
 import router from "./router";
 import { Icon, Logo } from "./components/Global";
 import { getDomain, sliceUrl, momentFromNow, copyText } from "./helper";
-import { debounce } from "lodash";
+
 
 const app = createApp(App);
 

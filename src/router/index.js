@@ -55,6 +55,16 @@ const router = createRouter({
             },
         },
         {
+            path: "/map",
+            name: "map",
+            component: () => import("../views/MapView.vue"),
+            meta: {
+                title: "links title",
+                requiresAuth: true,
+                verify: true,
+            },
+        },
+        {
             path: "/links/create",
             name: "createLink",
             component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
