@@ -241,7 +241,7 @@ watch(
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
         gap: 20px;
-        margin-block: 20px 40px;
+        margin-block: 20px 20px;
         min-height: 360px;
         .box {
             height: 170px;
@@ -336,6 +336,7 @@ watch(
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
+                    border: var(--border);
                     transition: all 0.1s ease-in-out;
                     &:active {
                         box-shadow: 0 1px 2pxrgba (0, 0, 0, 0.4) 0;
@@ -366,6 +367,7 @@ watch(
             cursor: pointer;
             color: var(--black);
             font-size: 12px;
+            border: var(--border);
             &.active {
                 background: var(--main);
                 color: #fff;

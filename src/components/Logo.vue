@@ -8,6 +8,6 @@ import logoImg from "@/assets/imgs/logo.png";
 
 <style lang="scss" scoped>
 img.logo_img {
-    height: 36px;
+    height: 32px;
 }
 </style>

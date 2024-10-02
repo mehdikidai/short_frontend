@@ -6,6 +6,7 @@ import { useCssVar } from "@vueuse/core";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z } from "zod";
+import SelectBox from "@/components/SelectBox .vue";
 
 const mainColor = useCssVar("--main");
 const store = useUserStore();
@@ -101,7 +102,7 @@ watch(
                     }
                 );
 
-                console.log(response.data.total_urls)
+                console.log(response.data.total_urls);
 
                 totalUrls.value = response.data.total_urls;
                 urls.value = response.data.urls;
@@ -212,26 +213,25 @@ const chartTwo = (DATA) => {
     });
 };
 
+const handelFilter = (v) => {
+    filter.value = v;
+};
 </script>
 
 <template>
     <Layout>
         <div class="filter_url_x">
-            <span
-                ><select name="cars" id="cars" v-model="filter">
-                    <option
-                        v-for="(item, i) in listFilter"
-                        :key="i"
-                        :value="item"
-                    >
-                        {{ item.replace("_", " ") }}
-                    </option>
-                </select>
-                <Icon name="tune" />
-            </span>
+            <SelectBox
+                :options="listFilter"
+                :value="filter"
+                @selectedValue="handelFilter"
+            />
         </div>
         <div class="boxs">
             <div class="box" v-kidai>
+                <div class="icon_filter">
+                    <icon name="more_horiz" />
+                </div>
                 <div class="icon">
                     <icon name="link" />
                 </div>
@@ -256,11 +256,14 @@ const chartTwo = (DATA) => {
                 </div>
             </div>
             <div class="box" v-kidai>
+                <div class="icon_filter">
+                    <icon name="more_horiz" />
+                </div>
                 <div class="icon">
                     <icon name="delete" />
                 </div>
                 <div class="content">
-                    <h2>Deleted urls</h2>
+                    <h2>trash</h2>
                     <h3>{{ trash }}</h3>
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
@@ -303,7 +306,6 @@ const chartTwo = (DATA) => {
                 color: var(--black);
                 border: none;
             }
-           
         }
         i {
             position: absolute;

@@ -30,6 +30,12 @@
                 </RouterLink>
             </li>
             <li>
+                <RouterLink :to="{ name: 'Trash' }">
+                    <Icon name="delete" />
+                    {{ $t("trash") }}
+                </RouterLink>
+            </li>
+            <li>
                 <RouterLink :to="{ name: 'createLink' }">
                     <Icon name="add" />
                     {{ $t("pages.Create_link") }}
@@ -212,6 +218,9 @@ const logout = () => {
     display: flex;
     align-items: center;
     padding-inline: 20px;
+    a {
+        display: flex;
+    }
 }
 
 .sidebar ul {
@@ -220,7 +229,7 @@ const logout = () => {
     margin-block: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     &.ul_logout {
         margin-top: auto;
     }
@@ -244,7 +253,7 @@ const logout = () => {
     a {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         height: 100%;
         padding-inline: 10px;
         border-radius: 4px;

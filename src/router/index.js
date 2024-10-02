@@ -55,6 +55,16 @@ const router = createRouter({
             },
         },
         {
+            path: "/trash",
+            name: "Trash",
+            component: () => import("../views/Trash.vue"),
+            meta: {
+                title: "links title",
+                requiresAuth: true,
+                verify: true,
+            },
+        },
+        {
             path: "/map",
             name: "map",
             component: () => import("../views/MapView.vue"),
