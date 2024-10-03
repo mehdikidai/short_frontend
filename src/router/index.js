@@ -65,6 +65,16 @@ const router = createRouter({
             },
         },
         {
+            path: "/url/:id(\\d+)",
+            name: "url",
+            component: () => import("../views/ShowUrlView.vue"),
+            meta: {
+                title: "show url",
+                requiresAuth: true,
+                verify: true,
+            },
+        },
+        {
             path: "/map",
             name: "map",
             component: () => import("../views/MapView.vue"),

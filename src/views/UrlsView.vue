@@ -23,7 +23,11 @@
                             />
                         </div>
                         <div class="link-card__info-container">
-                            <h3 class="h3">{{ url.title }}</h3>
+                            <RouterLink
+                                :to="{ name: 'url', params: { id: url.id } }"
+                                ><h3 class="h3">{{ url.title }}</h3></RouterLink
+                            >
+
                             <a
                                 :href="url.url_server + '/' + url.code"
                                 class="link link_short"
@@ -81,11 +85,8 @@
             </div>
         </div>
         <div class="box_main_empty" v-else>
-
             <h2 v-if="messageEmpty">empty</h2>
-            <loadingIcon w="2em" v-else/>
-            
-            
+            <loadingIcon w="2em" v-else />
         </div>
     </Layout>
 </template>
@@ -100,7 +101,6 @@ import { useRouter } from "vue-router";
 import swal from "sweetalert";
 import { useQrcodeStore } from "@/stores/qrcode";
 import loadingIcon from "../components/loadingIcon.vue";
-
 
 const store = useUserStore();
 const qrcodeStore = useQrcodeStore();
@@ -152,11 +152,9 @@ const deleteUrl = async (id) => {
         if (res.data.message) effect.value = new Date().getTime();
 
         if (Urls.value.length === 1) currentPage.value--;
-
     } catch (error) {
         console.log(error);
-        
-    } 
+    }
 };
 
 const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
@@ -176,10 +174,9 @@ watch(
             Urls.value = res.data.data;
             lastPage.value = res.data.last_page;
 
-            messageEmpty.value = res.data.data.length === 0
+            messageEmpty.value = res.data.data.length === 0;
 
             console.log(res.data.data);
-
         } catch (error) {
             console.log(error);
         }
@@ -200,10 +197,10 @@ watch(
         align-items: center;
         justify-content: center;
         max-height: 400px;
-        svg{
+        svg {
             color: var(--black);
         }
-        h2{
+        h2 {
             color: var(--black);
             opacity: 0.7;
             text-transform: capitalize;
