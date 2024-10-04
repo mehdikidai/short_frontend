@@ -2,46 +2,50 @@
     <Layout>
         <Tit text="trash can" icon="delete" />
         <table v-if="List.length > 0">
-            <tr>
-                <th>id</th>
-                <th class="icon">logo</th>
-                <th>title</th>
-                <th class="date">date</th>
-                <th></th>
-            </tr>
-            <tr v-for="(item, i) in List" :key="i">
-                <td>{{ item.id }}</td>
-                <td class="icon">
-                    <img
-                        :src="
-                            'https://www.google.com/s2/favicons?domain=' +
-                            $getDomain(item.original_url) +
-                            '&sz=64'
-                        "
-                        alt="favicon"
-                    />
-                </td>
-                <td>{{ item.title }}</td>
-                <td class="date">
-                    {{ $momentFromNow(item.deleted_at, $i18n.locale) }}
-                </td>
-                <td>
-                    <span class="actions">
-                        <button
-                            :disabled="disabledBtn"
-                            @click="forceDelete(item.id)"
-                        >
-                            <Icon name="delete" />
-                        </button>
-                        <button
-                            :disabled="disabledBtn"
-                            @click="restoreUrl(item.id)"
-                        >
-                            <Icon name="restart_alt" />
-                        </button>
-                    </span>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th class="icon">logo</th>
+                    <th>title</th>
+                    <th class="date">date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, i) in List" :key="i">
+                    <td>{{ item.id }}</td>
+                    <td class="icon">
+                        <img
+                            :src="
+                                'https://www.google.com/s2/favicons?domain=' +
+                                $getDomain(item.original_url) +
+                                '&sz=64'
+                            "
+                            alt="favicon"
+                        />
+                    </td>
+                    <td>{{ item.title }}</td>
+                    <td class="date">
+                        {{ $momentFromNow(item.deleted_at, $i18n.locale) }}
+                    </td>
+                    <td>
+                        <span class="actions">
+                            <button
+                                :disabled="disabledBtn"
+                                @click="forceDelete(item.id)"
+                            >
+                                <Icon name="delete" />
+                            </button>
+                            <button
+                                :disabled="disabledBtn"
+                                @click="restoreUrl(item.id)"
+                            >
+                                <Icon name="restart_alt" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <div v-else class="empty">
             <h2 v-if="empty">empty ?</h2>
@@ -195,9 +199,9 @@ div.empty {
 
 tr {
     opacity: 0.8;
-    &:nth-child(even) {
-        background: var(--white);
-    }
+    // &:nth-child(even) {
+    //     background: var(--white);
+    // }
 }
 
 th {
@@ -225,7 +229,7 @@ td {
             cursor: pointer;
             transition: all 0.1s ease-in-out;
             &:active {
-                box-shadow: 0 1px 2pxrgba (0, 0, 0, 0.4) 0;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
                 transform: translateY(3px);
                 i {
                     opacity: 1;

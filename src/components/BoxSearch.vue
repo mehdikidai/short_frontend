@@ -9,16 +9,18 @@
                 v-model="textSearch"
                 name="search"
                 placeholder="Search Now"
+                ref="inputSearch"
             />
 
             <button class="cls" v-if="clsForm" @click="textSearch = ''">
                 <Icon name="close" />
             </button>
+            <span v-else class="ctrl_f"> ctrl+f </span>
         </div>
         <div class="box_two_result" v-if="showResult">
             <ul>
                 <li v-for="el in dataSearch" :key="el.id">
-                    <RouterLink :to="{ name: 'home' }">
+                    <RouterLink :to="{ name: 'url', params: { id: el.id } }">
                         {{ el.title }}
                     </RouterLink>
                 </li>
@@ -28,12 +30,37 @@
 </template>
 
 <script setup>
-import { watch, computed, ref, onMounted } from "vue";
+import { watch, computed, ref, onMounted, watchEffect } from "vue";
 import { debounce } from "lodash";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z as zod } from "zod";
 import { useMediaQuery } from "@vueuse/core";
+
+import { useMagicKeys, whenever } from "@vueuse/core";
+
+const inputSearch = ref(null);
+
+const { ctrl_f } = useMagicKeys({
+    passive: false,
+    onEventFired(e) {
+        if (e.ctrlKey && e.key === "f" && e.type === "keydown")
+            e.preventDefault();
+    },
+});
+
+whenever(ctrl_f, () => inputSearch.value?.focus());
+
+// const keys = useMagicKeys();
+// const shiftCtrlA = keys["Shift+K"];
+
+// watch(shiftCtrlA, (v) => {
+//     if (v) {
+
+//         inputSearch.value?.focus();
+
+//     }
+// });
 
 const isLargeScreen = useMediaQuery("(min-width: 1200px)");
 
@@ -145,6 +172,19 @@ watch(textSearch, (newText) => {
                         }
                     }
                 }
+                span.ctrl_f {
+                    position: absolute;
+                    right: 6px;
+                    width: auto;
+                    height: 20px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 12px;
+                    padding-inline: 10px;
+                    text-transform: uppercase;
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
             }
             &_two_result {
                 height: auto;
@@ -173,7 +213,6 @@ watch(textSearch, (newText) => {
                             &:hover {
                                 opacity: 1;
                             }
-                            
                         }
                     }
                 }

@@ -10,68 +10,14 @@
                 </button>
             </div>
             <div class="list_items">
-                <div class="box" v-for="url in Urls" :key="url.id" v-kidai>
-                    <div class="link-card-icon-information">
-                        <div class="link-card__icon-container">
-                            <img
-                                :src="
-                                    'https://www.google.com/s2/favicons?domain=' +
-                                    $getDomain(url.original_url) +
-                                    '&sz=64'
-                                "
-                                alt="favicon"
-                            />
-                        </div>
-                        <div class="link-card__info-container">
-                            <RouterLink
-                                :to="{ name: 'url', params: { id: url.id } }"
-                                ><h3 class="h3">{{ url.title }}</h3></RouterLink
-                            >
-
-                            <a
-                                :href="url.url_server + '/' + url.code"
-                                class="link link_short"
-                                target="_blank"
-                                >{{ url.domain }}/{{ url.code }}</a
-                            >
-                            <a href="#" class="link long-url" target="_blank">{{
-                                $sliceUrl(url.original_url)
-                            }}</a>
-                            <span class="date_url">
-                                <Icon name="schedule" />
-                                {{
-                                    $momentFromNow(url.created_at, $i18n.locale)
-                                }}</span
-                            >
-                        </div>
-                    </div>
-                    <div class="link-card__button-container">
-                        <button
-                            class="action"
-                            @click="$copyText(`${url.url_server}/${url.code}`)"
-                        >
-                            <Icon name="content_copy" />
-                        </button>
-                        <button
-                            class="action"
-                            @click="
-                                showQr({
-                                    url: `${url.url_server}/${url.code}`,
-                                    color: qrcodeStore.color,
-                                    bgColor: qrcodeStore.bgColor,
-                                })
-                            "
-                        >
-                            <Icon name="qr_code_2" />
-                        </button>
-                        <button class="action" @click="editUrl(url.id)">
-                            <Icon name="edit" />
-                        </button>
-                        <button class="action" @click="deleteUrl(url.id)">
-                            <Icon name="delete" />
-                        </button>
-                    </div>
-                </div>
+                <CardUrl
+                    v-for="url in Urls"
+                    :key="url.id"
+                    :url="url"
+                    @deleteUrl="deleteUrl"
+                    @showQr="showQr"
+                    @editUrl="editUrl"
+                />
             </div>
             <div class="box_pagination" v-if="showPagination">
                 <button
@@ -92,19 +38,19 @@
 </template>
 
 <script setup>
+
+
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
 import { showQr, useSwalDelete } from "@/helper";
 import { useRouter } from "vue-router";
-import swal from "sweetalert";
-import { useQrcodeStore } from "@/stores/qrcode";
 import loadingIcon from "../components/loadingIcon.vue";
+import CardUrl from "@/components/CardUrl.vue";
+
 
 const store = useUserStore();
-const qrcodeStore = useQrcodeStore();
-
 const Urls = ref([]);
 const messageEmpty = ref(false);
 const sortOrder = ref("desc"); // asc - desc
