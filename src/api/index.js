@@ -18,12 +18,12 @@ useAxios.interceptors.response.use(
             error.response.status === 401 &&
             localStorage.getItem("token")
         ) {
-            //alert("Token expired or invalid.");
             swal("Here's the title!", "and here's the text!");
             localStorage.removeItem("token");
         }
         return Promise.reject(error);
     }
 );
+
 
 export { useAxios };

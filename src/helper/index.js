@@ -128,4 +128,27 @@ export const getFlag = (name) => {
     }
 };
 
+export const getColorBrowser = (browserName) => {
+    switch (browserName.toLowerCase()) {
+        case "firefox":
+            return "#ff7421";
+        case "chrome":
+            return "#1ba261";
 
+        case "opera":
+            return "#f11c30";
+
+        case "safari":
+            return "#0076e1";
+
+        case "edge":
+            return "#0078d7";
+        default:
+            return "red";
+    }
+};
+
+export const calculatePercentage = (total, browsers) => {
+    const totalSum = browsers.map((e) => e.total).reduce((a, b) => a + b, 0);
+    return Math.floor((total / totalSum) * 100);
+};

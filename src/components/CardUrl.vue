@@ -41,7 +41,7 @@
             <button
                 class="action"
                 @click="
-                    showQrCode({
+                    showQr({
                         url: `${url.url_server}/${url.code}`,
                         color: qrcodeStore.color,
                         bgColor: qrcodeStore.bgColor,
@@ -50,10 +50,14 @@
             >
                 <Icon name="qr_code_2" />
             </button>
-            <button class="action" @click="editurl(url.id)">
+            <button class="action" @click="editUrl(url.id)">
                 <Icon name="edit" />
             </button>
-            <button class="action" @click="deleteurl(url.id)">
+            <button
+                class="action"
+                @click="deleteurl(url.id)"
+                v-if="showBtnDelete"
+            >
                 <Icon name="delete" />
             </button>
         </div>
@@ -62,26 +66,33 @@
 
 <script setup>
 import { useQrcodeStore } from "@/stores/qrcode";
+import { useRouter } from "vue-router";
+import { showQr } from "@/helper";
 
 const qrcodeStore = useQrcodeStore();
+const router = useRouter();
 
-const emit = defineEmits(["showQr", "editUrl", "deleteUrl"]);
+const emit = defineEmits(["deleteUrl"]);
 
 defineProps({
     url: {
         type: Object,
         required: true,
     },
+    showBtnDelete: {
+        type: Boolean,
+        default: true,
+    },
 });
-
-const editurl = (id) => emit("editUrl", id);
 
 const deleteurl = (id) => emit("deleteUrl", id);
 
-const showQrCode = (data) => emit("showQr", data);
+const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
 </script>
 
 <style lang="scss" scoped>
+@import "./../assets/scss/var";
+
 .box {
     height: 170px;
     background: var(--white);
@@ -104,11 +115,13 @@ const showQrCode = (data) => emit("showQr", data);
             height: 22px;
             background: transparent;
             transform: translateY(5px);
+
             //clip-path: circle();
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                pointer-events: none;
             }
         }
         .link-card__info-container {
@@ -185,6 +198,20 @@ const showQrCode = (data) => emit("showQr", data);
                 color: var(--black);
                 opacity: 0.7;
             }
+        }
+    }
+}
+
+@include for-phone-only {
+    .box {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 15px;
+        .link-card-icon-information
+            .link-card__info-container
+            a.link.link_short {
+            font-size: 14px;
         }
     }
 }

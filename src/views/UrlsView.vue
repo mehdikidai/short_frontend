@@ -15,8 +15,6 @@
                     :key="url.id"
                     :url="url"
                     @deleteUrl="deleteUrl"
-                    @showQr="showQr"
-                    @editUrl="editUrl"
                 />
             </div>
             <div class="box_pagination" v-if="showPagination">
@@ -44,8 +42,7 @@ import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
 import { watch, ref, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-import { showQr, useSwalDelete } from "@/helper";
-import { useRouter } from "vue-router";
+import { useSwalDelete } from "@/helper";
 import loadingIcon from "../components/loadingIcon.vue";
 import CardUrl from "@/components/CardUrl.vue";
 
@@ -57,7 +54,6 @@ const sortOrder = ref("desc"); // asc - desc
 const currentPage = ref(1);
 const lastPage = ref(1);
 const effect = ref(0);
-const router = useRouter();
 const btnsPag = computed(() => {
     const n = currentPage.value;
     const l = lastPage.value;
@@ -75,12 +71,14 @@ const handelNavigation = (pageNumber) => {
 };
 
 const handelSortOrder = () => {
-    //sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
+
     sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
     currentPage.value = 1;
+
 };
 
 const deleteUrl = async (id) => {
+
     const doIt = await useSwalDelete({
         title: "Delete Url",
         text: "wack mtakd ?",
@@ -103,7 +101,7 @@ const deleteUrl = async (id) => {
     }
 };
 
-const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
+
 
 watch(
     [currentPage, sortOrder, effect],

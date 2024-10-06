@@ -8,6 +8,15 @@ defineProps({
         type: String,
         default: "home",
     },
+    color: {
+        type: String,
+        default: "#fff",
+    },
 });
 </script>
 
+<style scoped lang="scss">
+i {
+    color: v-bind(color);
+}
+</style>
