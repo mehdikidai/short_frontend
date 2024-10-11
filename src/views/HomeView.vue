@@ -1,12 +1,13 @@
 <script setup>
 import Layout from "@/components/Layout.vue";
 import Chart from "chart.js/auto";
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, onMounted, nextTick } from "vue";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z } from "zod";
 import SelectBox from "@/components/SelectBox .vue";
-
+import gsap from "gsap";
+import { gsapConfig } from "@/config/gsap";
 
 const store = useUserStore();
 
@@ -15,14 +16,14 @@ const chartB = ref(null);
 
 const DIV = ref(null);
 
-
-
 const chartInstanceOne = ref(null);
 const chartInstanceTwo = ref(null);
 
 const updateAnalytics = ref(null);
 
 const filter = ref("all");
+
+//--------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------
 
@@ -99,10 +100,22 @@ const gridChart = {
     },
 };
 
-watch([data_visits], () => {
+watch([data_visits], async () => {
     chartVisits(data_visits.value);
     chartTwo(numberOfVisits.value);
 });
+
+
+//-----------------------------------------------
+
+onMounted(() => {
+    gsap.from(".box", {
+        ...gsapConfig,
+    });
+});
+
+//-----------------------------------------------
+
 
 watch(
     [updateAnalytics, filter],
@@ -148,7 +161,7 @@ const chartVisits = (DATA) => {
                     data: DATA.map((row) => row.visits),
                     backgroundColor: "#2a9d8f",
                     borderColor: "#2a9d8f", // mainColor.value
-                    tension: 0,
+                    tension: 0.4,
                 },
             ],
         },
@@ -220,7 +233,7 @@ const handelFilter = (v) => {
             />
         </div>
         <div class="boxs">
-            <div class="box" v-kidai>
+            <div class="box">
                 <div class="icon_filter">
                     <icon name="more_horiz" />
                 </div>
@@ -234,7 +247,7 @@ const handelFilter = (v) => {
                 </div>
             </div>
 
-            <div class="box" v-kidai>
+            <div class="box">
                 <div class="icon_filter">
                     <icon name="more_horiz" />
                 </div>
@@ -247,7 +260,7 @@ const handelFilter = (v) => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
-            <div class="box" v-kidai>
+            <div class="box">
                 <div class="icon_filter">
                     <icon name="more_horiz" />
                 </div>
@@ -333,8 +346,8 @@ const handelFilter = (v) => {
         border: var(--border);
         position: relative;
         .icon {
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
             background: transparent;
             display: flex;
             align-items: center;
@@ -355,7 +368,7 @@ const handelFilter = (v) => {
             }
             i {
                 color: var(--main);
-                font-size: 24px;
+                font-size: 20px;
                 color: var(--white-fix);
             }
         }
@@ -388,7 +401,7 @@ const handelFilter = (v) => {
             h2 {
                 font-size: 16px;
                 font-weight: 500;
-                line-height: 36px;
+                line-height: 30px;
                 color: var(--black);
                 opacity: 0.8;
                 text-transform: capitalize;

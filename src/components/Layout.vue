@@ -2,9 +2,11 @@
     <div :class="['sidebar', { showsidebar: showMenu }]">
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
-            <RouterLink :to="{ name: 'home' }"> <Logo /></RouterLink>
+            <RouterLink :to="{ name: 'home' }">
+                <Logo class="logo_gsap"
+            /></RouterLink>
         </div>
-        <ul>
+        <ul class="ul_one">
             <li>
                 <RouterLink :to="{ name: 'home' }">
                     <Icon name="home" />
@@ -26,13 +28,13 @@
             <li>
                 <RouterLink :to="{ name: 'map' }">
                     <Icon name="map" />
-                    {{ $t("map") }}
+                    {{ $t("pages.map") }}
                 </RouterLink>
             </li>
             <li>
                 <RouterLink :to="{ name: 'Trash' }">
                     <Icon name="delete" />
-                    {{ $t("trash") }}
+                    {{ $t("pages.trash") }}
                 </RouterLink>
             </li>
             <li>
@@ -43,7 +45,7 @@
             </li>
         </ul>
         <div class="line"></div>
-        <ul>
+        <ul class="ul_two">
             <li>
                 <RouterLink to="/login">
                     <Icon name="tune" />
@@ -142,6 +144,8 @@ import BoxSearch from "./BoxSearch.vue";
 import { Icon as IconX } from "@iconify/vue";
 import { getFlag } from "@/helper";
 
+//--------------------
+
 const isDark = useDark();
 const store = useUserStore();
 const { name, email, photo } = storeToRefs(store);
@@ -160,6 +164,9 @@ const handelMenu = (ok = false) => {
 };
 
 const showLangList = ref(false);
+
+//---------------------------
+
 
 onClickOutside(showLangList, (event) => {
     if (event.target.className !== "lang") showLangList.value = false;
@@ -224,7 +231,7 @@ const logout = () => {
     margin-block: 10px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     &.ul_logout {
         margin-top: auto;
     }
@@ -246,15 +253,12 @@ const logout = () => {
         gap: 8px;
         height: 100%;
         padding-inline: 10px;
-        border-radius: 4px;
+        border-radius: 0;
         cursor: pointer;
+        box-shadow: inset 0 0 var(--main);
+        transition: all .3s ease-in;
         &.router-link-exact-active {
-            background: var(--white_3);
-            color: var(--black);
-        }
-        &:hover {
-            background: var(--white_3);
-            color: var(--black);
+            box-shadow: inset 3px 0 var(--main);
         }
     }
 }

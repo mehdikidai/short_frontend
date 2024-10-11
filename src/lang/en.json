@@ -18,7 +18,9 @@
       "reset_password": "reset password",
       "login": "login",
       "name": "name",
-      "register": "register"
+      "register": "register",
+      "map":"map",
+      "trash":"trash"
     }
   }
   

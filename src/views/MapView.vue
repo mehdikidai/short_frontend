@@ -74,7 +74,6 @@ const initMap = () => {
         zoom: 4,
         minZoom: 3,
         maxZoom: 8, 
-
         zoomControl: false, 
         mapTypeControl: false,
         streetViewControl: false,

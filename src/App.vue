@@ -29,7 +29,7 @@ onMounted( async () => {
 </script>
 
 <template>
-    <RouterView />
+    <RouterView :key="$route.params.id" />
 </template>
 
 <style scoped></style>

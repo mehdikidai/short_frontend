@@ -1,15 +1,15 @@
 <script setup>
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch,toRef } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import CardUrl from "@/components/CardUrl.vue";
 import { getColorBrowser, calculatePercentage } from "@/helper";
 import Chart from "chart.js/auto";
 import { format } from "numerable";
-
 import { useDark } from "@vueuse/core";
+
 
 const rotate = useRoute();
 const rotater = useRouter();
@@ -18,7 +18,8 @@ const store = useUserStore();
 const Url = ref(null);
 const loaded = ref(false);
 
-const { id } = rotate.params;
+const ID = ref(rotate.params.id)
+
 
 const clicks = ref([]);
 
@@ -48,30 +49,36 @@ const chartBrowsers = ref(null);
 const chartVisits = ref(null);
 
 
-onMounted(async () => {
-    try {
-        const response = await useAxios(`/api/urls/${id}`, {
-            ...store.configApi,
-        });
+watch(
+    ID,
+    async () => {
+        try {
+            const response = await useAxios(`/api/urls/${ID.value}`, {
+                ...store.configApi,
+            });
 
-        Url.value = response.data;
+            Url.value = response.data;
 
-        clicks.value = response.data.clicks;
+            clicks.value = response.data.clicks;
 
-        browsers.value = response.data.top_browsers;
+            browsers.value = response.data.top_browsers;
 
-        clicksCount.value = response.data.clicks_count;
+            clicksCount.value = response.data.clicks_count;
 
-        devices.value = [...response.data.top_devices, ...devices.value]
-            .slice(0, 3)
-            .reverse();
+            devices.value = [...response.data.top_devices, ...devices.value]
+                .slice(0, 3)
+                .reverse();
 
-        loaded.value = true;
-        console.log(response.data);
-    } catch (error) {
-        console.log(error.message);
-    }
-});
+            loaded.value = true;
+
+            //console.log(response.data);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+    { immediate: true }
+);
 
 watch(browsers, () => {
     new Chart(chartBrowsers.value, {
@@ -113,8 +120,8 @@ const optionsChart = {
     scales: {
         x: {
             grid: {
-                display: true, 
-                color: "rgba(255, 255, 255, 0.03)", 
+                display: true,
+                color: "rgba(255, 255, 255, 0.03)",
             },
             ticks: {
                 beginAtZero: true,
@@ -129,8 +136,8 @@ const optionsChart = {
         },
         y: {
             grid: {
-                display: true, 
-                color: "rgba(255, 255, 255, 0.03)", 
+                display: true,
+                color: "rgba(255, 255, 255, 0.03)",
             },
             ticks: {
                 beginAtZero: true,
@@ -149,8 +156,6 @@ const optionsChart = {
 };
 
 watch(devices, () => {
-   
-
     new Chart(chartVisits.value, {
         type: "bar",
         data: {
@@ -170,19 +175,18 @@ watch(devices, () => {
     });
 });
 
+
 watch(isDark, (c) => {
     console.log(c);
 });
 
-onMounted(() => {
-    console.log(isDark);
-});
+
 </script>
 <template>
     <Layout>
         <div class="bx bx_1">
             <button @click="rotater.back()" class="back_btn" v-kidai>
-                <Icon name="chevron_left" />
+                <Icon name="keyboard_backspace" />
                 back
             </button>
         </div>

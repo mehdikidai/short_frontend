@@ -33,7 +33,7 @@
             </div>
             <div class="box_form bx" v-kidai>
                 <form method="post" @submit.prevent="submit">
-                    <div class="box" v-ef>
+                    <div class="box">
                         <label for="name">full name</label><br />
                         <input
                             type="text"

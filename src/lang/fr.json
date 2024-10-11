@@ -18,6 +18,8 @@
         "reset_password": "réinitialiser le mot de passe",
         "login": "se connecter",
         "name": "nom",
-        "register": "s'inscrire"
+        "register": "s'inscrire",
+        "map":"map",
+        "trash":"trash"
     }
 }

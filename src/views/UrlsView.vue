@@ -15,6 +15,7 @@
                     :key="url.id"
                     :url="url"
                     @deleteUrl="deleteUrl"
+                    class="el_url"
                 />
             </div>
             <div class="box_pagination" v-if="showPagination">
@@ -36,16 +37,16 @@
 </template>
 
 <script setup>
-
-
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import { watch, ref, computed } from "vue";
+import { watch, ref, computed, nextTick, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useSwalDelete } from "@/helper";
 import loadingIcon from "../components/loadingIcon.vue";
 import CardUrl from "@/components/CardUrl.vue";
 
+import gsap from "gsap";
+import { gsapConfig } from "@/config/gsap";
 
 const store = useUserStore();
 const Urls = ref([]);
@@ -65,20 +66,46 @@ const btnsPag = computed(() => {
 
 const showPagination = computed(() => lastPage.value != 1);
 
+//---------------------------------------
+
+const tl = gsap.timeline({ defaults: { ...gsapConfig } });
+
+watch(
+    Urls,
+    async () => {
+        await nextTick();
+
+        gsap.from(".filter-by-date", {
+            opacity: 0,
+            duration: 0.2,
+            x: 20,
+        });
+
+        tl.from(".el_url", {
+            stagger: 0.2,
+        }); // btn_pagination
+
+        tl.from(".btn_pagination", {
+            stagger: 0.15,
+            y: 10,
+        });
+    },
+    { once: true }
+);
+
+//---------------------------------------
+
 const handelNavigation = (pageNumber) => {
     currentPage.value = pageNumber;
     window.scroll({ top: 0, behavior: "smooth" });
 };
 
 const handelSortOrder = () => {
-
     sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
     currentPage.value = 1;
-
 };
 
 const deleteUrl = async (id) => {
-
     const doIt = await useSwalDelete({
         title: "Delete Url",
         text: "wack mtakd ?",
@@ -100,8 +127,6 @@ const deleteUrl = async (id) => {
         console.log(error);
     }
 };
-
-
 
 watch(
     [currentPage, sortOrder, effect],
@@ -184,116 +209,7 @@ watch(
         gap: 20px;
         margin-block: 20px 20px;
         min-height: 360px;
-        .box {
-            height: 170px;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            padding: 20px;
-            border: var(--border);
-            .link-card-icon-information {
-                flex: 1;
-                //background: blue;
-                height: 100%;
-                display: flex;
-                flex-direction: row;
-                gap: 20px;
-                .link-card__icon-container {
-                    width: 22px;
-                    height: 22px;
-                    background: transparent;
-                    transform: translateY(5px);
-                    //clip-path: circle();
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                }
-                .link-card__info-container {
-                    flex: 1;
-                    //background: green;
-                    overflow: hidden;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                    .h3 {
-                        font-size: 18px;
-                        color: var(--black);
-                        font-weight: 500;
-                        line-height: 30px;
-                        text-transform: capitalize;
-                    }
-                    a.link {
-                        // display: block;
-                        //overflow: hidden;
-                        //text-overflow: ellipsis;
-                        //white-space: nowrap;
-                        overflow: hidden;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 1; /* number of lines to show */
-                        line-clamp: 1;
-                        -webkit-box-orient: vertical;
-                        &.long-url {
-                            color: var(--black);
-                            font-size: 14px;
-                            opacity: 0.7;
-                        }
-                        &.link_short {
-                            color: var(--main);
-                        }
-                    }
-                    span.date_url {
-                        font-size: 12px;
-                        color: var(--black);
-                        opacity: 0.5;
-                        margin-top: auto;
-                        display: flex;
-                        align-items: center;
-                        flex-direction: row;
-                        gap: 8px;
-                        i {
-                            font-size: 16px;
-                        }
-                    }
-                }
-            }
-            .link-card__button-container {
-                //background: rgb(9, 255, 0);
-                height: 26px;
-                display: flex;
-                gap: 8px;
-                button.action {
-                    width: 24px;
-                    height: 24px;
-                    border: none;
-                    background: rgba(255, 255, 255, 0.05);
-                    border-radius: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    border: var(--border);
-                    transition: all 0.1s ease-in-out;
-                    &:active {
-                        box-shadow: 0 1px 2pxrgba (0, 0, 0, 0.4) 0;
-                        transform: translateY(3px);
-                        i {
-                            opacity: 1;
-                        }
-                    }
-                    i {
-                        font-size: 16px;
-                        color: var(--black);
-                        opacity: 0.7;
-                    }
-                }
-            }
-        }
+        
     }
     .box_pagination {
         display: flex;

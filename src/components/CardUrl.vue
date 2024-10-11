@@ -1,5 +1,5 @@
 <template>
-    <div class="box" v-kidai>
+    <div class="box">
         <div class="link-card-icon-information">
             <div class="link-card__icon-container">
                 <img
@@ -111,12 +111,12 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
         flex-direction: row;
         gap: 20px;
         .link-card__icon-container {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             background: transparent;
-            transform: translateY(5px);
+            //transform: translateY(5px);
 
-            //clip-path: circle();
+            clip-path: inset(0 round 4px);
             img {
                 width: 100%;
                 height: 100%;
@@ -138,6 +138,7 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
                 font-weight: 500;
                 line-height: 30px;
                 text-transform: capitalize;
+                line-height: 24px;
             }
             a.link {
                 overflow: hidden;
@@ -152,6 +153,8 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
                 }
                 &.link_short {
                     color: var(--main);
+                    font-size: 14px;
+                    font-weight: 500;
                 }
             }
             span.date_url {

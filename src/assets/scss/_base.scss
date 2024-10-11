@@ -14,7 +14,7 @@
     --box-shadow: rgba(0, 0, 0, 0.03) 0px 2px 2px;
     --box-shadow: none;
     --border-color: #dbe0eb;
-    --red:#ff3f3f;
+    --red: #ff3f3f;
 }
 
 /* semantic color variables for this project */
@@ -61,4 +61,11 @@ a.hidden_img_qr {
 body {
     min-height: 100vh;
     background: var(--white);
+}
+
+button,
+div,
+a,
+li {
+    -webkit-tap-highlight-color: transparent !important;
 }
