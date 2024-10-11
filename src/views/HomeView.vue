@@ -2,17 +2,20 @@
 import Layout from "@/components/Layout.vue";
 import Chart from "chart.js/auto";
 import { ref, watch, computed } from "vue";
-import { useCssVar } from "@vueuse/core";
 import { useAxios } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z } from "zod";
 import SelectBox from "@/components/SelectBox .vue";
 
-const mainColor = useCssVar("--main");
+
 const store = useUserStore();
 
 const chartA = ref(null);
 const chartB = ref(null);
+
+const DIV = ref(null);
+
+
 
 const chartInstanceOne = ref(null);
 const chartInstanceTwo = ref(null);
@@ -63,19 +66,32 @@ const numberOfVisits = ref([]);
 
 const gridChart = {
     x: {
-        display: true,
-
         grid: {
-            display: false,
+            display: true,
+            color: "rgba(255, 255, 255, 0.03)",
+        },
+        ticks: {
+            beginAtZero: true,
+            font: {
+                size: 12,
+            },
+            color: "#777",
         },
         border: {
             color: "#0000",
         },
     },
     y: {
-        display: true,
         grid: {
-            display: false,
+            display: true,
+            color: "rgba(255, 255, 255, 0.03)",
+        },
+        ticks: {
+            beginAtZero: true,
+            font: {
+                size: 12,
+            },
+            color: "#777",
         },
         border: {
             color: "#0000",
@@ -130,36 +146,24 @@ const chartVisits = (DATA) => {
                 {
                     label: "Number of visits by id",
                     data: DATA.map((row) => row.visits),
-                    backgroundColor: "#3fdd78",
-                    borderColor: "rgba(63, 221, 121, 0.3)", // mainColor.value
-                    tension: 0.4,
+                    backgroundColor: "#2a9d8f",
+                    borderColor: "#2a9d8f", // mainColor.value
+                    tension: 0,
                 },
             ],
         },
         options: {
             plugins: {
                 title: {
-                    display: true,
-                    text: "Custom Chart Title",
-                    color: "#3fdd78",
-                    align: "start",
-                    fullSize: true,
-                    padding: {
-                        top: 10,
-                        bottom: 30,
-                    },
-                    font: {
-                        size: 16,
-                    },
+                    display: false,
                 },
                 legend: {
                     display: false,
                 },
             },
-            layout: {
-                padding: 20,
-            },
             scales: gridChart,
+            responsive: true,
+            maintainAspectRatio: false,
         },
     });
 };
@@ -177,7 +181,7 @@ const chartTwo = (DATA) => {
                 {
                     label: "Visits",
                     data: Object.values(DATA),
-                    backgroundColor: "rgba(252, 172, 86, 0.4)",
+                    backgroundColor: ["#e76f51", "#2a9d8f"],
                     borderColor: "#36A2EB",
                     barPercentage: 0.1,
                     borderRadius: 6,
@@ -188,27 +192,15 @@ const chartTwo = (DATA) => {
         options: {
             plugins: {
                 title: {
-                    display: true,
-                    text: "Custom Chart Title",
-                    color: "#fcac56",
-                    align: "start",
-                    fullSize: true,
-                    padding: {
-                        top: 10,
-                        bottom: 30,
-                    },
-                    font: {
-                        size: 16,
-                    },
+                    display: false,
                 },
                 legend: {
                     display: false,
                 },
             },
-            layout: {
-                padding: 20,
-            },
             scales: gridChart,
+            responsive: true,
+            maintainAspectRatio: false,
         },
     });
 };
@@ -270,10 +262,12 @@ const handelFilter = (v) => {
             </div>
         </div>
         <div class="chart_boxs">
-            <div class="box_1" v-kidai>
+            <div class="box_1" v-kidai ref="DIV">
+                <h2>Most devices</h2>
                 <canvas ref="chartA"></canvas>
             </div>
             <div class="box_2" v-kidai>
+                <h2>Most devices</h2>
                 <canvas ref="chartB"></canvas>
             </div>
         </div>
@@ -367,22 +361,22 @@ const handelFilter = (v) => {
         }
         &:nth-last-of-type(1) {
             .icon {
-                background: rgba(0, 132, 255, 0.3);
+                background: rgba(0, 132, 255, 1);
             }
         }
         &:nth-last-of-type(2) {
             .icon {
-                background: rgba(142, 85, 234, 0.3);
+                background: rgba(142, 85, 234, 1);
             }
         }
         &:nth-last-of-type(3) {
             .icon {
-                background: rgba(63, 221, 121, 0.3);
+                background: rgba(63, 221, 121, 1);
             }
         }
         &:nth-last-of-type(4) {
             .icon {
-                background: rgba(252, 172, 86, 0.3);
+                background: rgba(252, 172, 86, 1);
             }
         }
         .content {
@@ -422,13 +416,28 @@ const handelFilter = (v) => {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-
     div {
         flex: 1 1 360px;
         background: var(--white);
         border-radius: 12px;
         box-shadow: var(--box-shadow);
         border: var(--border);
+        padding: 30px 20px;
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        aspect-ratio: 2/1 !important;
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--black);
+            opacity: 0.7;
+            text-transform: capitalize;
+        }
+        canvas {
+            height: 100% !important;
+            width: 100% !important;
+        }
     }
 }
 </style>

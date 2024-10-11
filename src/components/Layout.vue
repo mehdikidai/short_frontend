@@ -125,10 +125,6 @@
         <div class="content">
             <main>
                 <slot></slot>
-
-                <div class="footer">
-                    <span>{{ currentYear }} mehdi kidai </span>
-                </div>
             </main>
         </div>
     </div>
@@ -152,7 +148,6 @@ const { name, email, photo } = storeToRefs(store);
 const showMenu = ref(false);
 const router = useRouter();
 const today = ref(moment().format("LL"));
-const currentYear = ref(moment().format("YYYY"));
 
 const toggleDark = useToggle(isDark);
 
@@ -240,11 +235,6 @@ const logout = () => {
     transition: all 0.1s ease-in;
     font-size: 14px;
 
-    &:hover i,
-    &:hover a {
-        color: #fff;
-    }
-
     i {
         color: var(--black);
         font-size: 20px;
@@ -259,15 +249,12 @@ const logout = () => {
         border-radius: 4px;
         cursor: pointer;
         &.router-link-exact-active {
-            background: #282c2f;
-            color: #fff;
-            i {
-                color: #fff;
-            }
+            background: var(--white_3);
+            color: var(--black);
         }
         &:hover {
-            background: #282c2f;
-            color: #fff;
+            background: var(--white_3);
+            color: var(--black);
         }
     }
 }
@@ -454,20 +441,6 @@ const logout = () => {
         position: relative;
         display: flex;
         flex-direction: column;
-        .footer {
-            height: 20px;
-            //background: red;
-            margin-top: auto;
-            display: flex;
-            justify-content: end;
-            span {
-                line-height: 20px;
-                font-size: 14px;
-                font-weight: 500;
-                color: var(--black);
-                opacity: 0.7;
-            }
-        }
     }
 }
 
@@ -514,7 +487,7 @@ const logout = () => {
         &.showsidebar {
             left: 0;
             div.cls {
-                background: rgba(0, 0, 0, 0.3);
+                background: rgba(0, 0, 0, 0.05);
                 transform: translateX(100%);
             }
         }

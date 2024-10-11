@@ -1,12 +1,15 @@
 <script setup>
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import CardUrl from "@/components/CardUrl.vue";
 import { getColorBrowser, calculatePercentage } from "@/helper";
 import Chart from "chart.js/auto";
+import { format } from "numerable";
+
+import { useDark } from "@vueuse/core";
 
 const rotate = useRoute();
 const rotater = useRouter();
@@ -21,7 +24,9 @@ const clicks = ref([]);
 
 const browsers = ref([]);
 
-const clicksCount = ref(0)
+const clicksCount = ref(0);
+
+const isDark = useDark();
 
 const devices = ref([
     {
@@ -42,6 +47,7 @@ const chartBrowsers = ref(null);
 
 const chartVisits = ref(null);
 
+
 onMounted(async () => {
     try {
         const response = await useAxios(`/api/urls/${id}`, {
@@ -54,7 +60,7 @@ onMounted(async () => {
 
         browsers.value = response.data.top_browsers;
 
-        clicksCount.value = response.data.clicks_count
+        clicksCount.value = response.data.clicks_count;
 
         devices.value = [...response.data.top_devices, ...devices.value]
             .slice(0, 3)
@@ -107,15 +113,15 @@ const optionsChart = {
     scales: {
         x: {
             grid: {
-                display: true, // عرض الشبكة على المحور X
-                color: "#313436", // لون الخط العمودي (تم تعيينه للأحمر)
+                display: true, 
+                color: "rgba(255, 255, 255, 0.03)", 
             },
             ticks: {
                 beginAtZero: true,
                 font: {
                     size: 14,
                 },
-                color: "#666",
+                color: "#777",
             },
             border: {
                 color: "#0000",
@@ -123,15 +129,15 @@ const optionsChart = {
         },
         y: {
             grid: {
-                display: true, // عرض الشبكة على المحور X
-                color: "#313436", // لون الخط العمودي (تم تعيينه للأحمر)
+                display: true, 
+                color: "rgba(255, 255, 255, 0.03)", 
             },
             ticks: {
                 beginAtZero: true,
                 font: {
                     size: 16,
                 },
-                color: "#666",
+                color: "#777",
             },
             border: {
                 color: "#0000",
@@ -143,6 +149,8 @@ const optionsChart = {
 };
 
 watch(devices, () => {
+   
+
     new Chart(chartVisits.value, {
         type: "bar",
         data: {
@@ -162,7 +170,13 @@ watch(devices, () => {
     });
 });
 
-onMounted(() => {});
+watch(isDark, (c) => {
+    console.log(c);
+});
+
+onMounted(() => {
+    console.log(isDark);
+});
 </script>
 <template>
     <Layout>
@@ -209,7 +223,7 @@ onMounted(() => {});
 
             <div class="box box_3">
                 <h2>Number of visits</h2>
-                <h3> {{ clicksCount }} </h3>
+                <h3>{{ format(clicksCount, "0 a") }}</h3>
             </div>
         </div>
     </Layout>
@@ -328,8 +342,8 @@ onMounted(() => {});
             display: flex;
             gap: 20px;
             flex-direction: column;
-            height: 160px;
-            h3{
+            height: 170px;
+            h3 {
                 font-size: 30px;
                 color: var(--black);
             }
