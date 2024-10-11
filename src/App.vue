@@ -4,6 +4,7 @@ import i18n from "./lang";
 import { useAxios  } from "@/api"
 import { useUserStore } from "./stores/user";
 import { useRouter } from "vue-router";
+import SplashScreen from "@/components/SplashScreen.vue";
 
 const store = useUserStore()
 const router = useRouter()
@@ -29,6 +30,7 @@ onMounted( async () => {
 </script>
 
 <template>
+    <SplashScreen />
     <RouterView :key="$route.params.id" />
 </template>
 
