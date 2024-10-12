@@ -253,6 +253,7 @@ watch(isDark, (c) => {
             i {
                 font-size: 18px;
                 transform: translateX(-4px);
+                color: var(--black);
                 transition: transform 0.3s ease;
             }
 

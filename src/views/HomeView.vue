@@ -8,6 +8,7 @@ import { z } from "zod";
 import SelectBox from "@/components/SelectBox .vue";
 import gsap from "gsap";
 import { gsapConfig } from "@/config/gsap";
+import { format } from "numerable";
 
 const store = useUserStore();
 
@@ -105,7 +106,6 @@ watch([data_visits], async () => {
     chartTwo(numberOfVisits.value);
 });
 
-
 //-----------------------------------------------
 
 onMounted(() => {
@@ -115,7 +115,6 @@ onMounted(() => {
 });
 
 //-----------------------------------------------
-
 
 watch(
     [updateAnalytics, filter],
@@ -242,7 +241,7 @@ const handelFilter = (v) => {
                 </div>
                 <div class="content">
                     <h2>Number of links</h2>
-                    <h3>{{ totalUrls }}</h3>
+                    <h3>{{ format(totalUrls, "0 a") }}</h3>
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
@@ -256,7 +255,7 @@ const handelFilter = (v) => {
                 </div>
                 <div class="content">
                     <h2>Number of visits</h2>
-                    <h3>{{ visits }}</h3>
+                    <h3>{{ format(visits, "0 a") }}</h3>
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
@@ -269,7 +268,8 @@ const handelFilter = (v) => {
                 </div>
                 <div class="content">
                     <h2>trash</h2>
-                    <h3>{{ trash }}</h3>
+                    <h3>{{ format(trash, "0 a") }}</h3>
+                    
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>

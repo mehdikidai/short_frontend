@@ -174,9 +174,10 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
     }
     .link-card__button-container {
         //background: rgb(9, 255, 0);
-        height: 26px;
+        height: 24px;
         display: flex;
         gap: 8px;
+        background: transparent;
         button.action {
             width: 24px;
             height: 24px;

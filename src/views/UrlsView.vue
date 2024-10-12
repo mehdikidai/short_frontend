@@ -5,6 +5,7 @@
                 <button
                     :class="['filter-by-date', { asc: sortOrder === 'asc' }]"
                     @click="handelSortOrder"
+                    :disabled="disabledBtnSortOrde"
                 >
                     sort by date <Icon name="filter_list" />
                 </button>
@@ -44,9 +45,10 @@ import { useUserStore } from "@/stores/user";
 import { useSwalDelete } from "@/helper";
 import loadingIcon from "../components/loadingIcon.vue";
 import CardUrl from "@/components/CardUrl.vue";
-
 import gsap from "gsap";
 import { gsapConfig } from "@/config/gsap";
+
+const disabledBtnSortOrde = ref(true);
 
 const store = useUserStore();
 const Urls = ref([]);
@@ -68,7 +70,9 @@ const showPagination = computed(() => lastPage.value != 1);
 
 //---------------------------------------
 
-const tl = gsap.timeline({ defaults: { ...gsapConfig } });
+const tl = gsap.timeline({
+    defaults: { ...gsapConfig },
+});
 
 watch(
     Urls,
@@ -88,6 +92,10 @@ watch(
         tl.from(".btn_pagination", {
             stagger: 0.15,
             y: 10,
+        });
+
+        tl.eventCallback("onComplete", () => {
+            disabledBtnSortOrde.value = false;
         });
     },
     { once: true }
@@ -209,7 +217,6 @@ watch(
         gap: 20px;
         margin-block: 20px 20px;
         min-height: 360px;
-        
     }
     .box_pagination {
         display: flex;
