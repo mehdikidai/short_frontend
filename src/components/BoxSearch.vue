@@ -130,6 +130,7 @@ watch(textSearch, (newText) => {
         border-radius: 4px;
         gap: 10px;
         position: relative;
+        padding: 2px;
         .box {
             &_one {
                 display: flex;
@@ -141,11 +142,12 @@ watch(textSearch, (newText) => {
                 display: grid;
                 grid-template-columns: 32px 1fr;
                 position: relative;
+                gap: 5px;
                 input {
                     border: none;
                     background: transparent;
                     color: var(--black);
-                    height: 34px;
+                    height: 32px;
                     padding-right: 4px;
                 }
                 button {

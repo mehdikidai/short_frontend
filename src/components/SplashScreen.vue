@@ -4,7 +4,7 @@
             <h1 id="welcome">welcome</h1>
             <l-zoomies
                 size="80"
-                stroke="3"
+                stroke="5"
                 bg-opacity="0.1"
                 speed="1.4"
                 :color="colorIcon"
@@ -25,7 +25,8 @@ zoomies.register();
 
 const isDark = useDark();
 
-const colorIcon = computed(() => (isDark.value ? "#f9f9f9" : "#111315"));
+//const colorIcon = computed(() => (isDark.value ? "#f9f9f9" : "#111315"));
+const colorIcon = computed(() => "#3fdd79");
 
 const isVisible = ref(true);
 

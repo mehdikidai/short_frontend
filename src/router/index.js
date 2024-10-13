@@ -17,11 +17,11 @@ const router = createRouter({
             },
         },
         {
-            path: "/about",
-            name: "about",
-            component: () => import("../views/AboutView.vue"),
+            path: "/setting",
+            name: "setting",
+            component: () => import("../views/SettingView.vue"),
             meta: {
-                title: "about title",
+                title: "setting title",
                 requiresAuth: true,
                 verify: true,
             },

@@ -47,7 +47,7 @@
         <div class="line"></div>
         <ul class="ul_two">
             <li>
-                <RouterLink to="/login">
+                <RouterLink :to="{ name: 'setting' }">
                     <Icon name="tune" />
                     {{ $t("pages.setting") }}</RouterLink
                 >
@@ -167,7 +167,6 @@ const showLangList = ref(false);
 
 //---------------------------
 
-
 onClickOutside(showLangList, (event) => {
     if (event.target.className !== "lang") showLangList.value = false;
 });
@@ -240,7 +239,7 @@ const logout = () => {
 .sidebar ul li {
     height: 36px;
     transition: all 0.1s ease-in;
-    font-size: 14px;
+    font-size: toRem(14);
     font-weight: 500;
 
     i {
@@ -257,7 +256,7 @@ const logout = () => {
         border-radius: 0;
         cursor: pointer;
         box-shadow: inset 0 0 var(--main);
-        transition: all .3s ease-in;
+        transition: all 0.3s ease-in;
         &.router-link-exact-active {
             box-shadow: inset 3px 0 var(--main);
         }
@@ -377,7 +376,7 @@ const logout = () => {
             //background: var(--white);
 
             i {
-                font-size: 20px;
+                font-size: toRem(20);
                 color: var(--black);
                 transition: all 0.3s ease-in-out;
             }
@@ -466,7 +465,12 @@ const logout = () => {
     color: #7f8c8d;
 }
 
-@media (max-width: 600px) {
+@include phone {
+    .header {
+        background: var(--white);
+        height: 80px;
+        padding: 15px;
+    }
     .header .btn_menu {
         display: flex;
     }
@@ -498,10 +502,37 @@ const logout = () => {
         }
     }
     .header .box_profile {
-        gap: 20px;
+        gap: 15px;
     }
     .header .title {
         display: none;
+    }
+
+    .header .box_profile .profile_photo .name_user {
+        display: none;
+    }
+
+    .header .box_profile button.btn_theme {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header .box_profile .profile_photo img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header .box_profile {
+        height: 30px;
+        gap: 8px;
+    }
+
+    .content {
+        main {
+            //background: red;
+            padding: 15px;
+            min-height: calc(100vh - 80px);
+        }
     }
 }
 </style>

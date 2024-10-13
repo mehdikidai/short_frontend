@@ -16,8 +16,11 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
+
+@import "../assets/scss/var";
+
 h1 {
-    font-size: 20px;
+    font-size: toRem(20);
     font-weight: 600;
     color: var(--black);
     margin-block: 0 20px;
@@ -27,7 +30,7 @@ h1 {
     gap: 5px;
     i {
         opacity: 0.7;
-        font-size: 22px;
+        font-size: toRem(22);
     }
 }
 </style>

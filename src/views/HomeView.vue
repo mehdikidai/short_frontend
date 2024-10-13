@@ -98,7 +98,7 @@ const gridChart = {
         border: {
             color: "#0000",
         },
-        beginAtZero: true
+        beginAtZero: true,
     },
 };
 
@@ -110,9 +110,14 @@ watch([data_visits], async () => {
 //-----------------------------------------------
 
 onMounted(() => {
+    const gt = gsap.timeline();
+
     gsap.from(".box", {
         ...gsapConfig,
     });
+    gsap.from(".tit_box", { ...gsapConfig, y: 0, x: -40 });
+    gt.from(".number_box", { ...gsapConfig, y: 0, x: 40 });
+    gt.from(".content span", { ...gsapConfig, y: 40, filter: "blur(10px)" });
 });
 
 //-----------------------------------------------
@@ -161,7 +166,7 @@ const chartVisits = (DATA) => {
                     data: DATA.map((row) => row.visits),
                     backgroundColor: "#2a9d8f",
                     borderColor: "#2a9d8f", // mainColor.value
-                    tension: 0.0,
+                    tension: 0.3,
                 },
             ],
         },
@@ -241,8 +246,8 @@ const handelFilter = (v) => {
                     <icon name="link" />
                 </div>
                 <div class="content">
-                    <h2>Number of links</h2>
-                    <h3>{{ format(totalUrls, "0 a") }}</h3>
+                    <h2 class="tit_box">Number of links</h2>
+                    <h3 class="number_box">{{ format(totalUrls, "0 a") }}</h3>
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
@@ -255,8 +260,8 @@ const handelFilter = (v) => {
                     <icon name="visibility" />
                 </div>
                 <div class="content">
-                    <h2>Number of visits</h2>
-                    <h3>{{ format(visits, "0 a") }}</h3>
+                    <h2 class="tit_box">Number of visits</h2>
+                    <h3 class="number_box">{{ format(visits, "0 a") }}</h3>
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
@@ -268,13 +273,12 @@ const handelFilter = (v) => {
                     <icon name="delete" />
                 </div>
                 <div class="content">
-                    <h2>trash</h2>
-                    <h3>{{ format(trash, "0 a") }}</h3>
-                    
+                    <h2 class="tit_box">trash</h2>
+                    <h3 class="number_box">{{ format(trash, "0 a") }}</h3>
+
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
-            
         </div>
         <div class="chart_boxs">
             <div class="box_1" v-kidai ref="DIV">
@@ -453,6 +457,26 @@ const handelFilter = (v) => {
             height: 100% !important;
             width: 100% !important;
         }
+    }
+}
+
+@include phone {
+    .boxs {
+        gap: 15px;
+        .box {
+            height: 140px;
+        }
+    }
+    .chart_boxs {
+        margin-block: 15px;
+        gap: 15px;
+    }
+    .chart_boxs div {
+        aspect-ratio: 4/3 !important;
+        gap: 15px;
+    }
+    .filter_url_x {
+        margin-bottom: 15px;
     }
 }
 </style>

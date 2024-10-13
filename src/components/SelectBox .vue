@@ -11,7 +11,7 @@
                 {{ item.replace("_", " ") }}
             </option>
         </select>
-        <Icon name="tune" />
+        <Icon :name="icon" />
     </span>
 </template>
 
@@ -29,11 +29,15 @@ const props = defineProps({
         required: false,
         default: "",
     },
-    fontSize:{
+    fontSize: {
         type: String,
         required: false,
         default: "14px",
-    }
+    },
+    icon: {
+        type: String,
+        default: "tune",
+    },
 });
 
 const selectedOption = ref(props.value);
