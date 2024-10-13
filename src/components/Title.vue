@@ -33,7 +33,7 @@ defineProps({
     &.onlyTitle {
         flex-direction: row;
     }
-    @include for-phone-only {
+    @include phone {
         & {
             flex-direction: column-reverse;
             gap: 10px;

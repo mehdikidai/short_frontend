@@ -21,6 +21,14 @@
             <ul>
                 <li v-for="el in dataSearch" :key="el.id">
                     <RouterLink :to="{ name: 'url', params: { id: el.id } }">
+                        <img
+                            :src="
+                                'https://www.google.com/s2/favicons?domain=' +
+                                $getDomain(el.original_url) +
+                                '&sz=16'
+                            "
+                            alt="icon"
+                        />
                         {{ el.title }}
                     </RouterLink>
                 </li>
@@ -152,7 +160,7 @@ watch(textSearch, (newText) => {
                         pointer-events: none;
                         i {
                             color: var(--black);
-                            font-size: 20px;
+                            font-size: 1.25rem;
                             opacity: 0.7;
                         }
                     }
@@ -166,7 +174,7 @@ watch(textSearch, (newText) => {
                         transform: translateY(-50%);
                         border-radius: 50%;
                         i {
-                            font-size: 18px;
+                            font-size: 1.125rem;
                             color: var(--black);
                             opacity: 0.7;
                         }
@@ -198,7 +206,7 @@ watch(textSearch, (newText) => {
                 ul {
                     li {
                         list-style: none;
-                        font-size: 14px;
+                        font-size: 0.875rem;
                         &:not(:last-child) {
                             border-bottom: 1px solid var(--border-color);
                         }
@@ -209,9 +217,16 @@ watch(textSearch, (newText) => {
                             padding: 8px 12px;
                             color: var(--black);
                             opacity: 0.8;
+                            display: flex;
                             transition: all 0.3s ease;
+                            line-height: 0.875rem;
+                            gap: 8px;
                             &:hover {
                                 opacity: 1;
+                            }
+                            img {
+                                width: 0.875rem;
+                                height: 0.875rem;
                             }
                         }
                     }

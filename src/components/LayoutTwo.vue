@@ -88,7 +88,7 @@ onBeforeMount(() => {
     }
 }
 
-@include for-phone-only {
+@include phone {
     .box_photo{
         display: none !important;
     }

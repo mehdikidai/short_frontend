@@ -1,6 +1,6 @@
 $animation: show 0.3s normal forwards ease-in-out;
 
-@mixin for-phone-only {
+@mixin phone {
     @media (max-width: 599px) {
         @content;
     }
@@ -25,7 +25,6 @@ $animation: show 0.3s normal forwards ease-in-out;
         @content;
     }
 }
-
 
 %box_form {
     .box {
@@ -67,6 +66,5 @@ $animation: show 0.3s normal forwards ease-in-out;
             font-size: 14px;
             text-transform: capitalize;
         }
-        
     }
 }

@@ -70,7 +70,7 @@ const gridChart = {
     x: {
         grid: {
             display: true,
-            color: "rgba(255, 255, 255, 0.03)",
+            color: "rgba(255, 255, 255, 0)",
         },
         ticks: {
             beginAtZero: true,
@@ -86,7 +86,7 @@ const gridChart = {
     y: {
         grid: {
             display: true,
-            color: "rgba(255, 255, 255, 0.03)",
+            color: "rgba(255, 255, 255, 0)",
         },
         ticks: {
             beginAtZero: true,
@@ -98,6 +98,7 @@ const gridChart = {
         border: {
             color: "#0000",
         },
+        beginAtZero: true
     },
 };
 
@@ -160,7 +161,7 @@ const chartVisits = (DATA) => {
                     data: DATA.map((row) => row.visits),
                     backgroundColor: "#2a9d8f",
                     borderColor: "#2a9d8f", // mainColor.value
-                    tension: 0.4,
+                    tension: 0.0,
                 },
             ],
         },
@@ -196,7 +197,7 @@ const chartTwo = (DATA) => {
                     backgroundColor: ["#e76f51", "#2a9d8f"],
                     borderColor: "#36A2EB",
                     barPercentage: 0.1,
-                    borderRadius: 6,
+                    borderRadius: 0,
                     borderSkipped: false,
                 },
             ],
@@ -273,6 +274,7 @@ const handelFilter = (v) => {
                     <span>Lorem ipsum dolor sit.</span>
                 </div>
             </div>
+            
         </div>
         <div class="chart_boxs">
             <div class="box_1" v-kidai ref="DIV">
@@ -305,7 +307,7 @@ const handelFilter = (v) => {
             color: var(--black);
             border: var(--border);
             appearance: none;
-            font-size: 14px;
+            font-size: 0.875rem;
             text-transform: capitalize;
             cursor: pointer;
             option {
@@ -346,8 +348,8 @@ const handelFilter = (v) => {
         border: var(--border);
         position: relative;
         .icon {
-            width: 30px;
-            height: 30px;
+            width: 1.75rem;
+            height: 1.75rem;
             background: transparent;
             display: flex;
             align-items: center;
@@ -368,7 +370,7 @@ const handelFilter = (v) => {
             }
             i {
                 color: var(--main);
-                font-size: 20px;
+                font-size: 1.25rem;
                 color: var(--white-fix);
             }
         }
@@ -399,7 +401,7 @@ const handelFilter = (v) => {
             flex-direction: column;
             gap: 2px;
             h2 {
-                font-size: 16px;
+                font-size: 1rem;
                 font-weight: 500;
                 line-height: 30px;
                 color: var(--black);
@@ -408,11 +410,11 @@ const handelFilter = (v) => {
             }
             h3 {
                 color: var(--black);
-                font-size: 22px;
+                font-size: 1.5rem;
                 font-weight: 600;
             }
             span {
-                font-size: 14px;
+                font-size: 0.875rem;
                 color: var(--black);
                 opacity: 0.5;
                 margin-top: auto;
@@ -437,11 +439,11 @@ const handelFilter = (v) => {
         border: var(--border);
         padding: 30px 20px;
         display: flex;
-        gap: 20px;
+        gap: 30px;
         flex-direction: column;
         aspect-ratio: 2/1 !important;
         h2 {
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--black);
             opacity: 0.7;

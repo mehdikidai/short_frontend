@@ -241,6 +241,7 @@ const logout = () => {
     height: 36px;
     transition: all 0.1s ease-in;
     font-size: 14px;
+    font-weight: 500;
 
     i {
         color: var(--black);
@@ -309,20 +310,20 @@ const logout = () => {
         flex-direction: column;
         justify-content: space-between;
         h1 {
-            font-size: 18px;
+            font-size: 1.125rem;
             font-weight: 600;
             text-transform: capitalize;
             display: flex;
             align-items: center;
             gap: 5px;
             i {
-                font-size: 18px;
+                font-size: 1.125rem;
                 transform: rotate(-20deg);
             }
         }
         span {
             &.title_today {
-                font-size: 12px;
+                font-size: 0.75rem;
                 opacity: 0.5;
             }
         }
@@ -352,9 +353,9 @@ const logout = () => {
                     text-transform: capitalize;
                     display: flex;
                     flex-direction: column;
-                    font-size: 14px;
+                    font-size: 0.875rem;
                     span {
-                        font-size: 12px;
+                        font-size: 0.75rem;
                         opacity: 0.5;
                         text-transform: lowercase;
                     }

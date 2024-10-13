@@ -206,7 +206,7 @@ const editUrl = (id) => router.push({ name: "editLink", params: { id: id } });
     }
 }
 
-@include for-phone-only {
+@include phone {
     .box {
         height: 200px;
         display: flex;

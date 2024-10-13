@@ -1,22 +1,25 @@
 <template>
     <transition name="fade">
         <div class="splash-screen" v-if="isVisible">
+            <h1 id="welcome">welcome</h1>
             <l-zoomies
                 size="80"
-                stroke="5"
+                stroke="3"
                 bg-opacity="0.1"
                 speed="1.4"
                 :color="colorIcon"
+                id="zoomies"
             ></l-zoomies>
         </div>
     </transition>
 </template>
 
 <script setup>
-
 import { computed, onMounted, ref } from "vue";
 import { zoomies } from "ldrs";
 import { useDark } from "@vueuse/core";
+import SplitType from "split-type";
+import gsap from "gsap";
 
 zoomies.register();
 
@@ -33,11 +36,30 @@ const checkIfLoaded = () => {
 };
 
 onMounted(() => {
+    const text = new SplitType("#welcome");
+
+    var tl = gsap.timeline({ defaults: { opacity: 0 } });
+
+    tl.from(text.chars, {
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        y: -50,
+        stagger: 0.1,
+        rotateY: 180,
+        filter: "blur(10px)",
+        delay: 0.5,
+        scale: 5,
+    }).from("#zoomies", {
+        x: -40,
+        filter: "blur(10px)",
+        ease: "back.out(1.7)",
+    });
+
     checkIfLoaded();
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 .splash-screen {
     position: fixed;
     top: 0;
@@ -51,6 +73,14 @@ onMounted(() => {
     z-index: 9999;
     flex-direction: column;
     gap: 20px;
+    h1 {
+        font-size: 1.6rem;
+        color: var(--black);
+        text-transform: uppercase;
+        //background: red;
+        line-height: 1.6rem;
+        letter-spacing: 0.25em;
+    }
 }
 
 .fade-enter-active,

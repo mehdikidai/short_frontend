@@ -240,7 +240,7 @@ watch(
     }
 }
 
-@include for-phone-only {
+@include phone {
     .box_main .list_items {
         grid-template-columns: 1fr;
         .box {
