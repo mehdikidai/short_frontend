@@ -294,7 +294,6 @@ const handelFilter = (v) => {
 </template>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/_var";
 
 .filter_url_x {
     height: 36px;
@@ -375,22 +374,22 @@ const handelFilter = (v) => {
             i {
                 color: var(--main);
                 font-size: 1.25rem;
-                color: var(--white-fix);
+                color: var(--black-fix);
             }
         }
         &:nth-last-of-type(1) {
             .icon {
-                background: rgba(0, 132, 255, 1);
+                background: #c7e6f0;
             }
         }
         &:nth-last-of-type(2) {
             .icon {
-                background: rgba(142, 85, 234, 1);
+                background: #f6e899;
             }
         }
         &:nth-last-of-type(3) {
             .icon {
-                background: rgba(63, 221, 121, 1);
+                background: #e0daf1;
             }
         }
         &:nth-last-of-type(4) {

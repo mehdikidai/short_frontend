@@ -2,14 +2,15 @@
     <transition name="fade">
         <div class="splash-screen" v-if="isVisible">
             <h1 id="welcome">welcome</h1>
-            <l-zoomies
+
+            <l-line-wobble
                 size="80"
                 stroke="5"
                 bg-opacity="0.1"
-                speed="1.4"
+                speed="1.75"
                 :color="colorIcon"
                 id="zoomies"
-            ></l-zoomies>
+            ></l-line-wobble>
         </div>
     </transition>
 </template>
@@ -17,13 +18,13 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { zoomies } from "ldrs";
-import { useDark } from "@vueuse/core";
+//import { useDark } from "@vueuse/core";
 import SplitType from "split-type";
+import { lineWobble } from "ldrs";
 import gsap from "gsap";
 
 zoomies.register();
-
-const isDark = useDark();
+lineWobble.register();
 
 //const colorIcon = computed(() => (isDark.value ? "#f9f9f9" : "#111315"));
 const colorIcon = computed(() => "#3fdd79");
@@ -73,7 +74,7 @@ onMounted(() => {
     background-color: var(--white);
     z-index: 9999;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     h1 {
         font-size: 1.6rem;
         color: var(--black);

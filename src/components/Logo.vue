@@ -1,13 +1,22 @@
 <template>
-    <img class="logo_img" :src="logoImg" alt="logo" />
+    <img v-if="isDark" class="logo_img" :src="logoImgWhite" alt="logo" />
+    <img v-else class="logo_img" :src="logoImgBlack" alt="logo" />
 </template>
 
 <script setup>
-import logoImg from "@/assets/imgs/logo.png";
+
+import logoImgBlack from "@/assets/imgs/logos/logo_black.png";
+import logoImgWhite from "@/assets/imgs/logos/logo_white.png";
+import { useDark, useToggle } from "@vueuse/core";
+
+const isDark = useDark()
+
+
 </script>
 
 <style lang="scss" scoped>
 img.logo_img {
-    height: 32px;
+    height: toRem(22);
+    opacity: 0.8;
 }
 </style>

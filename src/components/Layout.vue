@@ -239,12 +239,11 @@ const logout = () => {
 .sidebar ul li {
     height: 36px;
     transition: all 0.1s ease-in;
-    font-size: toRem(14);
     font-weight: 500;
 
     i {
         color: var(--black);
-        font-size: 20px;
+        font-size: toRem(20);
         transition: all 0.1s ease-in;
     }
     a {
@@ -256,6 +255,7 @@ const logout = () => {
         border-radius: 0;
         cursor: pointer;
         box-shadow: inset 0 0 var(--main);
+        font-size: toRem(16);
         transition: all 0.3s ease-in;
         &.router-link-exact-active {
             box-shadow: inset 3px 0 var(--main);
@@ -281,6 +281,7 @@ const logout = () => {
     flex: 1;
     transition: all 0.1s ease-in;
     text-transform: capitalize;
+
 }
 
 .main-content {

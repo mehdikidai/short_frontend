@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $animation: show 0.3s normal forwards ease-in-out;
 
 @mixin phone {
@@ -28,7 +30,7 @@ $animation: show 0.3s normal forwards ease-in-out;
 
 
 @function toRem($value) {
-    $remValue: ($value / 16) + rem; 
+    $remValue: math.div($value, 16) + rem;; 
     @return $remValue;
 }
 

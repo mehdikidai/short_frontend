@@ -18,6 +18,7 @@ import { Icon, Logo } from "./components/Global";
 import { getDomain, sliceUrl, momentFromNow, copyText } from "./helper";
 
 
+
 const app = createApp(App);
 
 app.config.globalProperties.$sliceUrl = sliceUrl;
@@ -27,6 +28,7 @@ app.config.globalProperties.$copyText = copyText;
 
 app.component("Icon", Icon);
 app.component("Logo", Logo);
+
 
 app.directive("kidai", {
     mounted: (el) => {

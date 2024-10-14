@@ -8,10 +8,10 @@ defineProps({
         type: String,
         default: "hhhhhh",
     },
-    icon:{
+    icon: {
         type: String,
         default: "home",
-    }
+    },
 });
 </script>
 
@@ -31,6 +31,8 @@ h1 {
     i {
         opacity: 0.7;
         font-size: toRem(22);
+        color: var(--black);
     }
 }
+
 </style>
