@@ -7,7 +7,7 @@
 
 import logoImgBlack from "@/assets/imgs/logos/logo_black.png";
 import logoImgWhite from "@/assets/imgs/logos/logo_white.png";
-import { useDark, useToggle } from "@vueuse/core";
+import { useDark } from "@vueuse/core";
 
 const isDark = useDark()
 

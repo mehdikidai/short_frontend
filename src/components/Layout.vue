@@ -1,4 +1,5 @@
 <template>
+    
     <div :class="['sidebar', { showsidebar: showMenu }]">
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">

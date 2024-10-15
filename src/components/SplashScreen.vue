@@ -38,6 +38,7 @@ const checkIfLoaded = () => {
 };
 
 onMounted(() => {
+    
     const text = new SplitType("#welcome");
 
     var tl = gsap.timeline({ defaults: { opacity: 0 } });
