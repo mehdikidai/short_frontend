@@ -1,5 +1,5 @@
 <template>
-    
+
     <div :class="['sidebar', { showsidebar: showMenu }]">
         <div class="cls" @click="handelMenu(true)"></div>
         <div class="logo">
@@ -134,6 +134,7 @@
 </template>
 
 <script setup>
+
 import { onClickOutside } from "@vueuse/core";
 import { useDark, useToggle } from "@vueuse/core";
 import i18n from "@/lang";
