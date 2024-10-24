@@ -469,9 +469,12 @@ const logout = () => {
 }
 
 @include phone {
+
+    $height_nav:70px;
+
     .header {
         background: var(--white);
-        height: 80px;
+        height: $height_nav;
         padding: 15px;
     }
     .header .btn_menu {
@@ -533,8 +536,8 @@ const logout = () => {
     .content {
         main {
             //background: red;
-            padding: 15px;
-            min-height: calc(100vh - 80px);
+            padding: 20px 15px 40px;
+            min-height: calc(100vh - $height_nav);
         }
     }
 }

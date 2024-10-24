@@ -20,7 +20,8 @@
       "name": "name",
       "register": "register",
       "map":"map",
-      "trash":"trash"
+      "trash":"trash",
+      "update_uri":"update uri"
     }
   }
   

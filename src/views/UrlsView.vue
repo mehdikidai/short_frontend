@@ -1,40 +1,40 @@
 <template>
-    <Layout>
-        <div class="box_main" v-if="Urls.length > 0">
-            <div class="filter">
-                <button
-                    :class="['filter-by-date', { asc: sortOrder === 'asc' }]"
-                    @click="handelSortOrder"
-                    :disabled="disabledBtnSortOrde"
-                >
-                    sort by date <Icon name="filter_list" />
-                </button>
-            </div>
-            <div class="list_items">
-                <CardUrl
-                    v-for="url in Urls"
-                    :key="url.id"
-                    :url="url"
-                    @deleteUrl="deleteUrl"
-                    class="el_url"
-                />
-            </div>
-            <div class="box_pagination" v-if="showPagination">
-                <button
-                    :class="['btn_pagination', { active: p === currentPage }]"
-                    @click="handelNavigation(p)"
-                    v-for="(p, i) in btnsPag"
-                    :key="i"
-                >
-                    {{ p }}
-                </button>
-            </div>
-        </div>
-        <div class="box_main_empty" v-else>
-            <h2 v-if="messageEmpty">empty</h2>
-            <loadingIcon w="2em" v-else />
-        </div>
-    </Layout>
+  <Layout>
+    <div class="box_main" v-if="Urls.length > 0">
+      <div class="filter">
+        <button
+          :class="['filter-by-date', { asc: sortOrder === 'asc' }]"
+          @click="handelSortOrder"
+          :disabled="disabledBtnSortOrde"
+        >
+          sort by date <Icon name="filter_list" />
+        </button>
+      </div>
+      <div class="list_items">
+        <CardUrl
+          v-for="url in Urls"
+          :key="url.id"
+          :url="url"
+          @deleteUrl="deleteUrl"
+          class="el_url"
+        />
+      </div>
+      <div class="box_pagination" v-if="showPagination">
+        <button
+          :class="['btn_pagination', { active: p === currentPage }]"
+          @click="handelNavigation(p)"
+          v-for="(p, i) in btnsPag"
+          :key="i"
+        >
+          {{ p }}
+        </button>
+      </div>
+    </div>
+    <div class="box_main_empty" v-else>
+      <h2 v-if="messageEmpty">empty</h2>
+      <loadingIcon w="2em" v-else />
+    </div>
+  </Layout>
 </template>
 
 <script setup>
@@ -58,12 +58,12 @@ const currentPage = ref(1);
 const lastPage = ref(1);
 const effect = ref(0);
 const btnsPag = computed(() => {
-    const n = currentPage.value;
-    const l = lastPage.value;
-    const arr = [1, n - 2, n - 1, n, n + 1, n + 2, l];
-    return [...new Set(arr)].filter((el) => {
-        return el > 0 && el <= lastPage.value;
-    });
+  const n = currentPage.value;
+  const l = lastPage.value;
+  const arr = [1, n - 2, n - 1, n, n + 1, n + 2, l];
+  return [...new Set(arr)].filter((el) => {
+    return el > 0 && el <= lastPage.value;
+  });
 });
 
 const showPagination = computed(() => lastPage.value != 1);
@@ -71,195 +71,199 @@ const showPagination = computed(() => lastPage.value != 1);
 //---------------------------------------
 
 const tl = gsap.timeline({
-    defaults: { ...gsapConfig },
+  defaults: { ...gsapConfig },
 });
 
 watch(
-    Urls,
-    async () => {
-        await nextTick();
+  Urls,
+  async () => {
+    await nextTick();
 
-        gsap.from(".filter-by-date", {
-            opacity: 0,
-            duration: 0.2,
-            x: 20,
-        });
+    gsap.from(".filter-by-date", {
+      opacity: 0,
+      duration: 0.2,
+      x: 20,
+    });
 
-        tl.from(".el_url", {
-            stagger: 0.2,
-        }); // btn_pagination
+    tl.from(".el_url", {
+      stagger: 0.2,
+    }); // btn_pagination
 
-        tl.from(".btn_pagination", {
-            stagger: 0.15,
-            y: 10,
-        });
+    tl.from(".btn_pagination", {
+      stagger: 0.15,
+      y: 10,
+    });
 
-        tl.eventCallback("onComplete", () => {
-            disabledBtnSortOrde.value = false;
-        });
-    },
-    { once: true }
+    tl.eventCallback("onComplete", () => {
+      disabledBtnSortOrde.value = false;
+    });
+  },
+  { once: true }
 );
 
 //---------------------------------------
 
 const handelNavigation = (pageNumber) => {
-    currentPage.value = pageNumber;
-    window.scroll({ top: 0, behavior: "smooth" });
+  currentPage.value = pageNumber;
+  window.scroll({ top: 0, behavior: "smooth" });
 };
 
 const handelSortOrder = () => {
-    sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
-    currentPage.value = 1;
+  sortOrder.value = sortOrder.value == "desc" ? "asc" : "desc";
+  currentPage.value = 1;
 };
 
 const deleteUrl = async (id) => {
-    const doIt = await useSwalDelete({
-        title: "Delete Url",
-        text: "wack mtakd ?",
-        cancelText: "cancel",
-        deleteText: "delete",
+  const doIt = await useSwalDelete({
+    title: "Delete Url",
+    text: "wack mtakd ?",
+    cancelText: "cancel",
+    deleteText: "delete",
+  });
+
+  if (!doIt) return;
+
+  try {
+    const res = await useAxios.delete(`api/urls/${id}`, {
+      ...store.configApi,
     });
 
-    if (!doIt) return;
+    if (res.data.message) effect.value = new Date().getTime();
 
-    try {
-        const res = await useAxios.delete(`api/urls/${id}`, {
-            ...store.configApi,
-        });
-
-        if (res.data.message) effect.value = new Date().getTime();
-
-        if (Urls.value.length === 1) currentPage.value--;
-    } catch (error) {
-        console.log(error);
-    }
+    if (Urls.value.length === 1) currentPage.value--;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 watch(
-    [currentPage, sortOrder, effect],
-    async () => {
-        //console.log(currentPage.value);
-        try {
-            const res = await useAxios.get("/api/urls", {
-                ...store.configApi,
-                params: {
-                    sort_order: sortOrder.value,
-                    page: currentPage.value,
-                },
-            });
-            Urls.value = res.data.data;
-            lastPage.value = res.data.last_page;
+  [currentPage, sortOrder, effect],
+  async () => {
+    //console.log(currentPage.value);
+    try {
+      const res = await useAxios.get("/api/urls", {
+        ...store.configApi,
+        params: {
+          sort_order: sortOrder.value,
+          page: currentPage.value,
+        },
+      });
+      Urls.value = res.data.data;
+      lastPage.value = res.data.last_page;
 
-            messageEmpty.value = res.data.data.length === 0;
+      messageEmpty.value = res.data.data.length === 0;
 
-            console.log(res.data.data);
-        } catch (error) {
-            console.log(error);
-        }
-    },
-    { immediate: true }
+      console.log(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  { immediate: true }
 );
 </script>
 
 <style lang="scss" scoped>
 @import "./../assets/scss/var";
 .box_main {
-    //background: red;
-    min-height: 100px;
-    &_empty {
-        flex: 1;
-        background: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        max-height: 400px;
-        svg {
-            color: var(--black);
-        }
-        h2 {
-            color: var(--black);
-            opacity: 0.7;
-            text-transform: capitalize;
-        }
+  //background: red;
+  min-height: 100px;
+  &_empty {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 400px;
+    svg {
+      color: var(--black);
     }
-    .filter {
-        height: 36px;
-        //background: blue;
-        //margin-top: 20px;
-        &-by-date {
-            height: 36px;
-            padding-inline: 15px;
-            float: right;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            border: var(--border);
-            background: var(--white);
-            color: var(--black);
-            i {
-                font-size: 16px;
-                transition: all 0.3s ease-in-out;
-            }
-            &.asc {
-                i {
-                    transform: rotate(180deg);
-                }
-            }
+    h2 {
+      color: var(--black);
+      opacity: 0.7;
+      text-transform: capitalize;
+    }
+  }
+  .filter {
+    height: 36px;
+    //background: blue;
+    //margin-top: 20px;
+    &-by-date {
+      height: 36px;
+      padding-inline: 15px;
+      float: right;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border: var(--border);
+      background: var(--white);
+      color: var(--black);
+      i {
+        font-size: 16px;
+        transition: all 0.3s ease-in-out;
+      }
+      &.asc {
+        i {
+          transform: rotate(180deg);
         }
+      }
     }
-    .list_items {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-        gap: 20px;
-        margin-block: 20px 20px;
-        min-height: 360px;
+  }
+  .list_items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    margin-block: 20px 20px;
+    min-height: 340px;
+    align-content: start;
+  }
+  .box_pagination {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    .btn_pagination {
+      width: toRem(40);
+      height: toRem(40);
+      background: var(--white);
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      color: var(--black);
+      font-size: toRem(12);
+      border: var(--border);
+      &.active {
+        background: var(--main);
+        color: #fff;
+      }
     }
-    .box_pagination {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        .btn_pagination {
-            width: 40px;
-            height: 40px;
-            background: var(--white);
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            color: var(--black);
-            font-size: 12px;
-            border: var(--border);
-            &.active {
-                background: var(--main);
-                color: #fff;
-            }
-        }
-    }
+  }
 }
 
 @include phone {
-    .box_main .list_items {
-        grid-template-columns: 1fr;
-        .box {
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 15px;
-            .link-card-icon-information
-                .link-card__info-container
-                a.link.link_short {
-                font-size: 14px;
-            }
-        }
-        .link-card__button-container {
-            height: 26px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-        }
+  .box_main .list_items {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    .box {
+      height: 190px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 15px;
+      .link-card-icon-information {
+        gap: 15px;
+      }
+      .link-card-icon-information .link-card__info-container a.link.link_short {
+        line-height: 21px;
+      }
     }
+    .link-card__button-container {
+      height: 26px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    
+  }
 }
 </style>

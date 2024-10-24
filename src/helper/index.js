@@ -2,9 +2,9 @@ import moment from "moment";
 import { fr, ar } from "@/lang/moment";
 import swal from "sweetalert";
 
-export const sliceUrl = function (text) {
-    if (text.length > 30) {
-        return `${text.slice(0, 32)} ...`;
+export const sliceUrl = function (text,length=30) {
+    if (text.length > length) {
+        return `${text.slice(0, length)} ...`;
     }
     return text;
 };

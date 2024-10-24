@@ -15,7 +15,7 @@
             <button class="cls" v-if="clsForm" @click="textSearch = ''">
                 <Icon name="close" />
             </button>
-            <span v-else class="ctrl_f"> ctrl+f </span>
+            <span v-else class="ctrl_k"> ctrl+k </span>
         </div>
         <div class="box_two_result" v-if="showResult">
             <ul>
@@ -49,15 +49,15 @@ import { useMagicKeys, whenever } from "@vueuse/core";
 
 const inputSearch = ref(null);
 
-const { ctrl_f } = useMagicKeys({
+const { ctrl_k } = useMagicKeys({
     passive: false,
     onEventFired(e) {
-        if (e.ctrlKey && e.key === "f" && e.type === "keydown")
+        if (e.ctrlKey && e.key === "k" && e.type === "keydown")
             e.preventDefault();
     },
 });
 
-whenever(ctrl_f, () => inputSearch.value?.focus());
+whenever(ctrl_k, () => inputSearch.value?.focus());
 
 // const keys = useMagicKeys();
 // const shiftCtrlA = keys["Shift+K"];
@@ -182,7 +182,7 @@ watch(textSearch, (newText) => {
                         }
                     }
                 }
-                span.ctrl_f {
+                span.ctrl_k {
                     position: absolute;
                     right: 6px;
                     width: auto;

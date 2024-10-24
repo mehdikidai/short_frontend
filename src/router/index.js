@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/views/HomeView.vue";
 import { useTitle } from "@vueuse/core";
 import { useUserStore } from "@/stores/user";
 
@@ -19,7 +19,7 @@ const router = createRouter({
         {
             path: "/setting",
             name: "setting",
-            component: () => import("../views/SettingView.vue"),
+            component: () => import("@/views/SettingView.vue"),
             meta: {
                 title: "setting title",
                 requiresAuth: true,
@@ -29,7 +29,7 @@ const router = createRouter({
         {
             path: "/login",
             name: "login",
-            component: () => import("../views/LoginView.vue"),
+            component: () => import("@/views/LoginView.vue"),
             meta: {
                 title: "login title",
                 verify: false,
@@ -38,7 +38,7 @@ const router = createRouter({
         {
             path: "/register",
             name: "register",
-            component: () => import("../views/RegisterView.vue"),
+            component: () => import("@/views/RegisterView.vue"),
             meta: {
                 title: "register title",
                 verify: false,
@@ -47,7 +47,7 @@ const router = createRouter({
         {
             path: "/links",
             name: "links",
-            component: () => import("../views/UrlsView.vue"),
+            component: () => import("@/views/UrlsView.vue"),
             meta: {
                 title: "links title",
                 requiresAuth: true,
@@ -57,7 +57,7 @@ const router = createRouter({
         {
             path: "/trash",
             name: "Trash",
-            component: () => import("../views/Trash.vue"),
+            component: () => import("@/views/Trash.vue"),
             meta: {
                 title: "links title",
                 requiresAuth: true,
@@ -67,7 +67,7 @@ const router = createRouter({
         {
             path: "/url/:id(\\d+)",
             name: "url",
-            component: () => import("../views/ShowUrlView.vue"),
+            component: () => import("@/views/ShowUrlView.vue"),
             meta: {
                 title: "show url",
                 requiresAuth: true,
@@ -77,7 +77,7 @@ const router = createRouter({
         {
             path: "/map",
             name: "map",
-            component: () => import("../views/MapView.vue"),
+            component: () => import("@/views/MapView.vue"),
             meta: {
                 title: "links title",
                 requiresAuth: true,
@@ -87,7 +87,7 @@ const router = createRouter({
         {
             path: "/links/create",
             name: "createLink",
-            component: () => import("../views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
+            component: () => import("@/views/CreateUrlView.vue"), // Replaced AboutView with CreateUrlView
             meta: {
                 title: "create title",
                 requiresAuth: true,
@@ -97,7 +97,7 @@ const router = createRouter({
         {
             path: "/links/:id/edit",
             name: "editLink",
-            component: () => import("../views/editUrlView.vue"),
+            component: () => import("@/views/editUrlView.vue"),
             meta: {
                 title: "edit title",
                 requiresAuth: true,
@@ -107,7 +107,7 @@ const router = createRouter({
         {
             path: "/email/verify",
             name: "verifyEmail",
-            component: () => import("../views/VerifyEmailView.vue"),
+            component: () => import("@/views/VerifyEmailView.vue"),
             meta: {
                 title: "create title",
                 requiresAuth: true,
@@ -127,7 +127,7 @@ const router = createRouter({
         {
             path: "/profile",
             name: "profile",
-            component: () => import("../views/ProfileView.vue"),
+            component: () => import("@/views/ProfileView.vue"),
             meta: {
                 title: "profile",
                 requiresAuth: true,

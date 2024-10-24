@@ -48,7 +48,7 @@
                         {{
                             lodingSubmit
                                 ? "loading ..."
-                                : $t("pages.create_new")
+                                : $t("pages.update_uri")
                         }}
                     </button>
                 </div>
