@@ -13,10 +13,7 @@ const router = useRouter();
 
 onMounted(async () => {
 
-
-    const lang = localStorage.getItem("lang");
-
-    if (lang) i18n.global.locale = lang;
+    i18n.global.locale = localStorage.getItem("lang") || 'en'
 
     try {
 
@@ -25,8 +22,10 @@ onMounted(async () => {
         //console.log(res.data);
 
     } catch (err) {
+
         store.resetUser();
         router.push({ name: "login" });
+        
     }
 });
 </script>

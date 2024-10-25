@@ -40,7 +40,7 @@
 <script setup>
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import { watch, ref, computed, nextTick, onMounted } from "vue";
+import { watch, ref, computed, nextTick } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useSwalDelete } from "@/helper";
 import loadingIcon from "../components/loadingIcon.vue";
@@ -77,6 +77,7 @@ const tl = gsap.timeline({
 watch(
   Urls,
   async () => {
+    
     await nextTick();
 
     gsap.from(".filter-by-date", {
@@ -114,6 +115,7 @@ const handelSortOrder = () => {
 };
 
 const deleteUrl = async (id) => {
+
   const doIt = await useSwalDelete({
     title: "Delete Url",
     text: "wack mtakd ?",

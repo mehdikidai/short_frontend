@@ -1,7 +1,7 @@
 export const gsapConfig = {
     opacity: 0,
     y: -10,
-    duration: 1,
+    duration: 1.5,
     stagger: 0.15,
     ease: "elastic.out(1,0.4)",
 };

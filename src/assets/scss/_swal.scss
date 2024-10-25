@@ -1,3 +1,6 @@
+
+
+
 .swal-overlay {
     background-color: rgba(0, 0, 0, 0.4);
 }
@@ -7,19 +10,19 @@
 }
 .swal-title:first-child,
 .swal-title:not(:last-child) {
-    margin-top: 15px;
-    font-size: 22px;
-    margin-bottom: 0;
+    margin-top: toRem(20);
+    font-size: toRem(20);
+    margin-bottom: 5px;
 }
 
 .swal-title {
     color: var(--black);
     padding: 0;
-    padding-inline: 20px;
+    padding-inline: toRem(20);
     text-align: left;
 }
 .swal-text {
-    font-size: 14px;
+    font-size: toRem(14);
     color: var(--black);
     opacity: 0.7;
     text-align: left;

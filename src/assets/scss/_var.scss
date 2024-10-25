@@ -3,77 +3,88 @@
 $animation: show 0.3s normal forwards ease-in-out;
 
 @mixin phone {
-    @media (max-width: 599px) {
-        @content;
-    }
+  @media (max-width: 599px) {
+    @content;
+  }
 }
 @mixin for-tablet-portrait-up {
-    @media (min-width: 600px) {
-        @content;
-    }
+  @media (min-width: 600px) {
+    @content;
+  }
 }
 @mixin for-tablet-landscape-up {
-    @media (min-width: 900px) {
-        @content;
-    }
+  @media (min-width: 900px) {
+    @content;
+  }
 }
 @mixin for-desktop-up {
-    @media (min-width: 1200px) {
-        @content;
-    }
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 @mixin for-big-desktop-up {
-    @media (min-width: 1800px) {
-        @content;
-    }
+  @media (min-width: 1800px) {
+    @content;
+  }
 }
-
 
 @function toRem($value) {
-    $remValue: math.div($value, 16) + rem;; 
-    @return $remValue;
+  $remValue: math.div($value, 16) + rem;
+  @return $remValue;
+}
+
+%el_center {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  background: red;
 }
 
 
+%btn{
+    border: none;
+    cursor: pointer;
+}
+
 %box_form {
-    .box {
-        //background: blue;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        &:last-child {
-            margin-top: 10px;
-        }
-        input {
-            width: 100%;
-            //max-width: 700px;
-            height: 36px;
-            border: 1px solid var(--border-color);
-            background: transparent;
-            color: var(--black);
-            padding-inline: 15px;
-            border-radius: 2px;
-        }
-        button {
-            width: 100%;
-            max-width: 300px;
-            height: 36px;
-            cursor: pointer;
-            border: none;
-            background: var(--main);
-            color: var(--white-fix);
-            font-size: 14px;
-            text-transform: capitalize;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        label {
-            color: var(--black);
-            opacity: 0.8;
-            font-size: 14px;
-            text-transform: capitalize;
-        }
+  .box {
+    //background: blue;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    &:last-child {
+      margin-top: 10px;
     }
+    input {
+      width: 100%;
+      //max-width: 700px;
+      height: 36px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--black);
+      padding-inline: 15px;
+      border-radius: 2px;
+    }
+    button {
+      width: 100%;
+      max-width: 300px;
+      height: 36px;
+      cursor: pointer;
+      border: none;
+      background: var(--main);
+      color: var(--white-fix);
+      font-size: 14px;
+      text-transform: capitalize;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    label {
+      color: var(--black);
+      opacity: 0.8;
+      font-size: 14px;
+      text-transform: capitalize;
+    }
+  }
 }
