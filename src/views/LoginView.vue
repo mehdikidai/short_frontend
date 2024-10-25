@@ -39,7 +39,13 @@ const submit = async () => {
 
         setToken(res.data.token);
         setUser({ ...res.data.user});
+
+        console.log(res.data.user)
+
+
         router.push({ name: "home" });
+
+
 
     } catch (error) {
         console.log(error.message);

@@ -14,8 +14,8 @@
         </thead>
         <tbody>
           <tr v-for="(item, i) in List" :key="i">
-            <td>{{ item.id }}</td>
-            <td class="icon">
+            <td data-tit="id">{{ item.id }}</td>
+            <td class="icon ignore">
               <img
                 :src="
                   'https://www.google.com/s2/favicons?domain=' +
@@ -25,11 +25,11 @@
                 alt="favicon"
               />
             </td>
-            <td>{{ item.title }}</td>
-            <td class="date">
+            <td data-tit="title">{{ item.title }}</td>
+            <td class="date" data-tit="date">
               {{ $momentFromNow(item.deleted_at, $i18n.locale) }}
             </td>
-            <td>
+            <td class="ignore">
               <span class="actions">
                 <button :disabled="disabledBtn" @click="forceDelete(item.id)">
                   <Icon name="delete" />
@@ -329,6 +329,9 @@ td:last-child {
           background: transparent;
           width: 100% !important;
           border: none;
+          &:not(.ignore):before{
+             content:attr(data-tit) ' : '
+          }
           &:not(:last-child){
               border-bottom: 1px solid var(--border-color);
           }

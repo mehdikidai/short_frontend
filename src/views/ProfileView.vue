@@ -223,10 +223,10 @@ const submit = async () => {
     }
 
     h2 {
-      font-size: 14px;
+      font-size: toRem(16);
       color: var(--black);
       opacity: 0.9;
-      font-weight: 400;
+      font-weight: 600;
     }
     span {
       font-size: 12px;

@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import { useTitle } from "@vueuse/core";
-import { useUserStore } from "@/stores/user";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +11,16 @@ const router = createRouter({
             component: HomeView,
             meta: {
                 title: "home title",
+                requiresAuth: true,
+                verify: true,
+            },
+        },
+        {
+            path: "/users",
+            name: "users",
+            component: () => import("@/views/UsersView.vue"),
+            meta: {
+                title: "users title",
                 requiresAuth: true,
                 verify: true,
             },
@@ -138,6 +147,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
     const requiresVerify = to.matched.some((record) => record.meta.verify);
 

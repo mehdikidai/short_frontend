@@ -19,9 +19,11 @@ onMounted(async () => {
     if (lang) i18n.global.locale = lang;
 
     try {
+
         const res = await useAxios.get("/api/user", { ...store.configApi });
         store.setUser(res.data);
-        console.log(res.data);
+        //console.log(res.data);
+
     } catch (err) {
         store.resetUser();
         router.push({ name: "login" });

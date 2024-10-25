@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <h1><Icon name="link"/>{{ $t("pages.create_new") }}</h1>
+        <Tit :text="$t('pages.create_new')" icon="link" />
         <div class="box_create" v-kidai>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
@@ -44,6 +44,7 @@
 
 <script setup>
 import Layout from "@/components/Layout.vue";
+import Tit from "@/components/Tit.vue";
 import { reactive, ref, watch } from "vue";
 import { z } from "zod";
 import { useFocus } from "@vueuse/core";

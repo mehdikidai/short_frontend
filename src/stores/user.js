@@ -4,12 +4,14 @@ import { defineStore } from "pinia";
 const defaultImg = "https://avatar.iran.liara.run/public";
 
 export const useUserStore = defineStore("user", () => {
+
     const token = ref(localStorage.getItem("token") || null);
     const email = ref("");
     const name = ref("");
     const photo = ref(defaultImg);
     const id = ref("");
     const emailVerified = ref(true);
+    const isAdmin = ref(false)
 
     const isAuthenticated = computed(() => !!token.value);
 
@@ -41,6 +43,7 @@ export const useUserStore = defineStore("user", () => {
             id: i,
             email_verified_at: emailV,
             photo: p,
+            is_admin
         } = data;
 
         email.value = e;
@@ -48,6 +51,7 @@ export const useUserStore = defineStore("user", () => {
         id.value = i;
         photo.value = p ?? defaultImg;
         emailVerified.value = emailV == null ? false : true;
+        isAdmin.value = is_admin
         localStorage.setItem("email_verified", emailV ? true : false);
     }
 
@@ -61,6 +65,7 @@ export const useUserStore = defineStore("user", () => {
         id.value = "";
         token.value = null;
         emailVerified.value = true;
+        isAdmin.value = false
         localStorage.removeItem("token");
         localStorage.removeItem("email_verified");
     }
@@ -79,5 +84,6 @@ export const useUserStore = defineStore("user", () => {
         setEmailVerified,
         photo,
         setPhoto,
+        isAdmin
     };
 });
