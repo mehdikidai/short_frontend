@@ -4,7 +4,7 @@
         <div class="box_create" v-kidai>
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
-                    <label for="title">Title</label><br />
+                    <label for="title">Title</label>
                     <input
                         type="text"
                         id="title"
@@ -17,7 +17,7 @@
                 </div>
                 <div class="box">
                     <label for="url">{{ $t("pages.destination") }}</label
-                    ><br />
+                    >
                     <input
                         type="text"
                         id="url"

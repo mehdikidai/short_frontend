@@ -169,7 +169,6 @@ const forceDelete = async (id) => {
 
 .box_trash {
   //background: red;
-  overflow-x: scroll;
   margin-bottom: 20px;
 }
 table,

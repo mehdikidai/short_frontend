@@ -5,7 +5,7 @@
         <div class="box_create" v-if="loading">
             <form action="#" method="post" @submit.prevent="submit()">
                 <div class="box">
-                    <label for="title">Title</label><br />
+                    <label for="title">Title</label>
                     <input
                         type="text"
                         id="title"
@@ -19,7 +19,7 @@
 
                 <div class="box">
                     <label for="url">{{ $t("pages.destination") }}</label
-                    ><br />
+                    >
                     <input
                         type="text"
                         id="url"
@@ -32,7 +32,7 @@
                     <span>{{ msgErrorUrl }}</span>
                 </div>
                 <div class="box">
-                    <label for="code">Code</label><br />
+                    <label for="code">Code</label>
                     <input
                         type="text"
                         id="code"

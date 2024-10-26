@@ -34,7 +34,7 @@
       <div class="box_form bx" v-kidai>
         <form method="post" @submit.prevent="submit">
           <div class="box">
-            <label for="name">full name</label><br />
+            <label for="name">full name</label>
             <input
               type="text"
               id="name"
@@ -45,7 +45,7 @@
             />
           </div>
           <div class="box">
-            <label for="email">email</label><br />
+            <label for="email">email</label>
             <input
               type="text"
               id="email"

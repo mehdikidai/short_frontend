@@ -40,13 +40,14 @@
 <script setup>
 import { useAxios } from "@/api";
 import Layout from "@/components/Layout.vue";
-import { watch, ref, computed, nextTick } from "vue";
+import { watch, ref, computed, nextTick, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useSwalDelete } from "@/helper";
 import loadingIcon from "../components/loadingIcon.vue";
 import CardUrl from "@/components/CardUrl.vue";
 import gsap from "gsap";
 import { gsapConfig } from "@/config/gsap";
+
 
 const disabledBtnSortOrde = ref(true);
 
@@ -77,7 +78,6 @@ const tl = gsap.timeline({
 watch(
   Urls,
   async () => {
-    
     await nextTick();
 
     gsap.from(".filter-by-date", {
@@ -115,7 +115,6 @@ const handelSortOrder = () => {
 };
 
 const deleteUrl = async (id) => {
-
   const doIt = await useSwalDelete({
     title: "Delete Url",
     text: "wack mtakd ?",
@@ -162,6 +161,8 @@ watch(
   },
   { immediate: true }
 );
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -265,7 +266,6 @@ watch(
       justify-content: flex-end;
       gap: 8px;
     }
-    
   }
 }
 </style>
