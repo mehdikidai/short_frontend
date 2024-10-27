@@ -214,7 +214,11 @@ table {
     width: 80px;
   }
 
-  tr {
+  tr:not(:last-child) {
+    box-shadow: 0 1px 0 var(--border-color);
+  }
+
+  tr.tr_el_head{
     box-shadow: 0 1px 0 var(--border-color);
   }
   th,

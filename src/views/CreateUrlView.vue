@@ -13,7 +13,7 @@
                         v-model="data.title"
                         ref="input_Title"
                     />
-                    <span>{{ msgErrorTitle }}</span>
+                    <span v-if="msgErrorTitle">{{ msgErrorTitle }}</span>
                 </div>
                 <div class="box">
                     <label for="url">{{ $t("pages.destination") }}</label
@@ -26,7 +26,7 @@
                         v-model="data.original_url"
                         ref="input_url"
                     />
-                    <span>{{ msgErrorUrl }}</span>
+                    <span v-if="msgErrorUrl">{{ msgErrorUrl }}</span>
                 </div>
                 <div class="box">
                     <button type="submit" :disabled="lodingSubmit">

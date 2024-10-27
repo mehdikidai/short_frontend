@@ -14,7 +14,7 @@
                         v-model="data.title"
                         ref="input_Title"
                     />
-                    <span>{{ msgErrorTitle }}</span>
+                    <span v-if="msgErrorTitle">{{ msgErrorTitle }}</span>
                 </div>
 
                 <div class="box">
@@ -29,7 +29,7 @@
                         ref="input_url"
                     />
 
-                    <span>{{ msgErrorUrl }}</span>
+                    <span v-if=" msgErrorUrl">{{ msgErrorUrl }}</span>
                 </div>
                 <div class="box">
                     <label for="code">Code</label>
@@ -41,7 +41,7 @@
                         v-model="data.code"
                         ref="input_Code"
                     />
-                    <span>{{ msgErrorCode }}</span>
+                    <span v-if="msgErrorCode">{{ msgErrorCode }}</span>
                 </div>
                 <div class="box">
                     <button type="submit" :disabled="lodingSubmit">
@@ -59,7 +59,6 @@
 
 <script setup>
 import Layout from "@/components/Layout.vue";
-import Title from "@/components/Title.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { z } from "zod";
 import { useFocus } from "@vueuse/core";

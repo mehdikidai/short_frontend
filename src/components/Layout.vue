@@ -240,7 +240,7 @@ const logout = () => {
 .sidebar ul li {
   height: 36px;
   transition: all 0.1s ease-in;
-  font-weight: 500;
+  font-weight: 400;
 
   i {
     color: var(--black);

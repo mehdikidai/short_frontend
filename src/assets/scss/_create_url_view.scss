@@ -24,12 +24,12 @@ h1 {
     form {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         .box {
             //background: blue;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
             &:last-child {
                 margin-top: 20px;
             }

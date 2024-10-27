@@ -465,9 +465,9 @@ try {
 		border: var(--border);
 		padding: 30px 20px;
 		display: flex;
-		gap: 30px;
 		flex-direction: column;
-		aspect-ratio: 2/1 !important;
+		aspect-ratio: 16/9 !important;
+		justify-content: space-between;
 		h2 {
 			font-size: 1rem;
 			font-weight: 500;
@@ -476,7 +476,7 @@ try {
 			text-transform: capitalize;
 		}
 		canvas {
-			height: 100% !important;
+			height: calc(100% - 45px) !important;
 			width: 100% !important;
 		}
 	}
