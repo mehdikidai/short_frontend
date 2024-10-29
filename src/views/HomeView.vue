@@ -364,7 +364,7 @@ try {
 	.box {
 		flex: 1 1 360px;
 		background: var(--white);
-		height: 150px;
+		height: 160px;
 		border-radius: 12px;
 		display: flex;
 		align-items: stretch;
@@ -425,7 +425,7 @@ try {
 			//background: blue;
 			display: flex;
 			flex-direction: column;
-			gap: 2px;
+			//gap: 0;
 			h2 {
 				font-size: 1rem;
 				font-weight: 500;
@@ -436,7 +436,7 @@ try {
 			}
 			h3 {
 				color: var(--black);
-				font-size: 1.5rem;
+				font-size: 2rem;
 				font-weight: 600;
 			}
 			span {

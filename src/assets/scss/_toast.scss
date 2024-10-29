@@ -1,9 +1,9 @@
 [data-testid="toast-content"] {
-    font-size: 14px;
+    font-size: toRem(14);
 }
 .Toastify__toast {
     border-radius: 4px;
-    border: 1px solid var(--border-color);
+    border: none !important;
 }
 .Toastify__toast-body {
     margin: auto 0;
@@ -11,4 +11,16 @@
 }
 .Toastify__close-button{
     color: var(--toastify-text-color-dark);
+}
+
+.Toastify__progress-bar {
+	height: 3px !important;
+	opacity: .5;
+}
+
+.Toastify__toast-icon{
+    svg{
+        width: toRem(18) !important;
+        height: toRem(18) !important;
+    }
 }

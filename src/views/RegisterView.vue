@@ -72,6 +72,7 @@ const submit = () => {
                             :placeholder="$t('pages.name')"
                             v-model="data.name"
                             autoComplete="off"
+                            spellcheck="false"
                         />
                     </div>
                 </div>
@@ -85,6 +86,7 @@ const submit = () => {
                             :placeholder="$t('pages.email')"
                             v-model="data.email"
                             autoComplete="off"
+                            spellcheck="false"
                         />
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import { useTitle } from "@vueuse/core";
 
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -164,7 +165,8 @@ router.beforeEach((to, from, next) => {
         return next({ name: "verifyEmail" });
     }
 
-    useTitle(to.meta.title);
+    useTitle(to.meta.title.toUpperCase());
+
 
     next();
 });

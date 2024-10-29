@@ -73,6 +73,7 @@ const submit = async () => {
                             :placeholder="$t('pages.email')"
                             v-model="data.email"
                             autoComplete="off"
+                            spellcheck="false"
                         />
                     </div>
                 </div>
@@ -85,6 +86,7 @@ const submit = async () => {
                             name="password"
                             :placeholder="$t('pages.password')"
                             v-model="data.password"
+                            
                         />
                         <button
                             type="button"
