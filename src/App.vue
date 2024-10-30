@@ -25,9 +25,10 @@ onMounted(async () => {
 </script>
 
 <template>
-    <SplashScreen />
 
+    <SplashScreen />
     <RouterView :key="$route.params.id" />
+    
 </template>
 
 <style scoped></style>

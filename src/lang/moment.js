@@ -35,3 +35,22 @@ export const fr = {
         yy: "%d ans",
     },
 };
+
+export const de = {
+    relativeTime: {
+        future: "in %s",
+        past: "vor %s",
+        s: "ein paar Sekunden",
+        ss: "%d Sekunden",
+        m: "eine Minute",
+        mm: "%d Minuten",
+        h: "eine Stunde",
+        hh: "%d Stunden",
+        d: "ein Tag",
+        dd: "%d Tage",
+        M: "ein Monat",
+        MM: "%d Monate",
+        y: "ein Jahr",
+        yy: "%d Jahre",
+    },
+};

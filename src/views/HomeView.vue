@@ -12,6 +12,7 @@ import { format } from 'numerable';
 import { useMediaQuery } from '@vueuse/core';
 import { io } from 'socket.io-client';
 
+
 const store = useUserStore();
 
 const chartA = ref(null);
@@ -31,6 +32,7 @@ const filter = ref('all');
 const socketEvent = ref(null);
 
 //--------------------------------------------------------------------------
+
 
 //--------------------------------------------------------------------------
 
@@ -364,7 +366,7 @@ try {
 	.box {
 		flex: 1 1 360px;
 		background: var(--white);
-		height: 160px;
+		height: 150px;
 		border-radius: 12px;
 		display: flex;
 		align-items: stretch;
@@ -436,7 +438,7 @@ try {
 			}
 			h3 {
 				color: var(--black);
-				font-size: 2rem;
+				font-size: 1.5rem;
 				font-weight: 600;
 			}
 			span {

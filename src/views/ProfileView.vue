@@ -45,7 +45,7 @@
 					</div>
 
 					<div class="box">
-						<button type="button" v-if="loading_form" :disabled="loading_form">
+						<button type="submit" v-if="loading_form" :disabled="loading_form">
 							<loadingIcon w="1em" v-if="loading_form" />
 						</button>
 						<button type="submit" v-else>update profile</button>
@@ -68,7 +68,7 @@
 								v-model="dataPassword.currentPassword"
 							/>
 							<button class="show_password" @click="toggleVisiblePass" type="button">
-								<Icon :name="visiblePassword ? 'visibility' : 'visibility_off'" />
+								<Icon :name="visiblePassword ? 'visibility_off' : 'visibility'" />
 							</button>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 								v-model="dataPassword.newPassword"
 							/>
 							<button class="show_password" @click="toggleVisiblePass" type="button">
-								<Icon :name="visiblePassword ? 'visibility' : 'visibility_off'" />
+								<Icon :name="visiblePassword ? 'visibility_off' : 'visibility'" />
 							</button>
 						</div>
 					</div>
@@ -96,6 +96,10 @@
 			</div>
 
 			<!-- end div update password -->
+			<h3 class="h3_text_delete_account bx_4">
+				Delete account :
+				<div class="text_delete_account" @click="deleteProfile">Delete your account</div>
+			</h3>
 		</div>
 	</Layout>
 </template>
@@ -106,7 +110,7 @@ import loadingIcon from '../components/loadingIcon.vue';
 import Tit from '@/components/Tit.vue';
 import UserPicture from '@/components/UserPicture.vue';
 import { onMounted, reactive, ref } from 'vue';
-import { updateSchema, updatePasswordSchema } from '@/types';
+import { updateSchema, updatePasswordSchema, zodPassword } from '@/types';
 import { useAxios } from '@/api';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
@@ -114,10 +118,10 @@ import wait from 'mk_wait';
 import { toast } from 'vue3-toastify';
 import gsap from 'gsap';
 import { gsapConfig } from '@/config/gsap';
+import swal from 'sweetalert';
 
 const store = useUserStore();
 const router = useRouter();
-
 const loading_form = ref(false);
 const loading_upload_img = ref(false);
 const INPUT_IMG = ref(null);
@@ -211,8 +215,8 @@ const submitPassword = async () => {
 		});
 		if (response.status === 201) {
 			toast.success('password updated');
-      dataPassword.newPassword = ''
-      dataPassword.currentPassword = ''
+			dataPassword.newPassword = '';
+			dataPassword.currentPassword = '';
 		} else {
 			toast.error('password not updated');
 		}
@@ -227,6 +231,68 @@ const submitPassword = async () => {
 
 // update password
 
+// delete profile -----------
+
+const deleteAccount = async (password) => {
+	const response = await useAxios.delete('/api/account', {
+		...store.configApi,
+		data: { password },
+	});
+
+	return response;
+};
+
+
+const deleteProfile = () => {
+	swal({
+		text: 'Please enter your password to confirm:',
+		content: {
+			element: 'input',
+			attributes: {
+				type: 'password',
+				placeholder: 'Password',
+			},
+		},
+		button: {
+			text: 'Delete account',
+			className: 'swal-button--danger',
+			closeModal: true,
+		},
+	}).then(async (pass) => {
+		if (!zodPassword.safeParse(pass).success) {
+			toast.error('Password verified error');
+			return;
+		}
+
+		try {
+
+			const response = await deleteAccount(pass);
+      
+			if (response.status === 200) {
+				toast.success('account deleted.', {
+					onClose() {
+						store.resetUser();
+						router.push({ name: 'login' });
+					},
+				});
+			}
+			console.log(response);
+		} catch (error) {
+			console.log(error.message);
+
+			if (error.response && error.response.status === 403) {
+
+				toast.error('Access denied!');
+
+			} else {
+				toast.error('account not deleted.');
+			}
+		} 
+	});
+};
+
+// delete profile -----------
+
 // gsap --------------
 
 let tl = gsap.timeline({ ...gsapConfig, delay: 0, duration: 0.1, stagger: 0.06 });
@@ -235,6 +301,7 @@ onMounted(() => {
 	tl.from('.bx_1', { y: -20, opacity: 0, rotateX: 5 });
 	tl.from('.bx_2', { y: -20, opacity: 0, rotateX: 5 });
 	tl.from('.bx_3', { y: -20, opacity: 0, rotateX: 5 });
+	tl.from('.bx_4', { y: -20, opacity: 0, rotateX: 5 });
 });
 
 // gsap --------------
@@ -365,7 +432,7 @@ const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value)
 				i {
 					font-size: 16px;
 					color: var(--black);
-          opacity: 0.5;
+					opacity: 0.5;
 				}
 				&:active {
 					transform: translateY(-50%) scale(0);
@@ -379,6 +446,20 @@ const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value)
 		background: var(--white);
 		width: 100%;
 		//flex: 1 1 800px;
+	}
+
+	.h3_text_delete_account {
+		color: var(--black);
+		opacity: 0.9;
+		flex: 1 1 100%;
+		font-size: toRem(14);
+		font-weight: 500;
+		user-select: none;
+		.text_delete_account {
+			display: inline;
+			color: var(--red);
+			cursor: pointer;
+		}
 	}
 }
 

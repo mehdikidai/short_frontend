@@ -1,0 +1,26 @@
+{
+    "message": {
+        "hello": "hallo"
+    },
+    "pages": {
+        "home": "Startseite",
+        "links": "Links",
+        "analytics": "Analytik",
+        "setting": "Einstellung",
+        "profile": "Profil",
+        "Create_link": "Link erstellen",
+        "create_new": "neu erstellen",
+        "logout": "Abmelden",
+        "destination": "Ziel",
+        "welcome_back": "Willkommen zurück",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "reset_password": "Passwort zurücksetzen",
+        "login": "Anmelden",
+        "name": "Name",
+        "register": "Registrieren",
+        "map": "Karte",
+        "trash": "Papierkorb",
+        "update_uri": "URI aktualisieren"
+    }
+}

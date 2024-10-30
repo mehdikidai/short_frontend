@@ -24,3 +24,9 @@
         height: toRem(18) !important;
     }
 }
+
+.Toastify__close-button > svg {
+	fill: currentcolor;
+	height: 14px !important;
+	width: 14px !important;
+}

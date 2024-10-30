@@ -1,5 +1,5 @@
 import moment from "moment";
-import { fr, ar } from "@/lang/moment";
+import { fr, ar,de } from "@/lang/moment";
 import swal from "sweetalert";
 
 export const sliceUrl = function (text,length=30) {
@@ -15,12 +15,14 @@ export const getDomain = function (urlString) {
 };
 
 export const momentFromNow = (d, l = "en") => {
+
     moment.updateLocale("ar", ar);
     moment.updateLocale("fr", fr);
-
+    moment.updateLocale("de", de);
     moment.locale(l);
 
     return moment(d).fromNow();
+    
 };
 
 export const copyText = async (text) => {
