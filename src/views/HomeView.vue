@@ -1,7 +1,7 @@
 <script setup>
 import Layout from '@/components/Layout.vue';
 import Chart from 'chart.js/auto';
-import { ref, watch, computed, onMounted, nextTick, onUnmounted } from 'vue';
+import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useAxios } from '@/api';
 import { useUserStore } from '@/stores/user';
 import { z } from 'zod';
@@ -11,28 +11,23 @@ import { gsapConfig } from '@/config/gsap';
 import { format } from 'numerable';
 import { useMediaQuery } from '@vueuse/core';
 import { io } from 'socket.io-client';
-
+import { chartVisitsConfig, chartTwoConfig } from '@/config/chart';
+import FlagBox from '@/components/FlagBox.vue';
+import { Icon as Iconx } from '@iconify/vue';
 
 const store = useUserStore();
-
 const chartA = ref(null);
 const chartB = ref(null);
-
 const isSmallScreen = useMediaQuery('(min-width: 600px)');
-
 const DIV = ref(null);
-
 const chartInstanceOne = ref(null);
 const chartInstanceTwo = ref(null);
-
 const updateAnalytics = ref(null);
-
 const filter = ref('all');
-
 const socketEvent = ref(null);
+const disabledFilter = ref(false);
 
 //--------------------------------------------------------------------------
-
 
 //--------------------------------------------------------------------------
 
@@ -61,43 +56,13 @@ const data_visits = computed(() => {
 
 const numberOfVisits = ref([]);
 
-//--------------------------------------------------------------------------
+const mostCountries = ref([]);
 
-const gridChart = {
-	x: {
-		grid: {
-			display: true,
-			color: 'rgba(255, 255, 255, 0)',
-		},
-		ticks: {
-			beginAtZero: true,
-			font: {
-				size: 12,
-			},
-			color: '#777',
-		},
-		border: {
-			color: '#0000',
-		},
-	},
-	y: {
-		grid: {
-			display: true,
-			color: 'rgba(255, 255, 255, 0)',
-		},
-		ticks: {
-			beginAtZero: true,
-			font: {
-				size: 12,
-			},
-			color: '#777',
-		},
-		border: {
-			color: '#0000',
-		},
-		beginAtZero: true,
-	},
-};
+const topFuorCountries = computed(()=>mostCountries.value.slice(0,4))
+
+const totalCountries = computed(()=>mostCountries.value.length)
+
+//--------------------------------------------------------------------------
 
 watch([data_visits], async () => {
 	chartVisits(data_visits.value);
@@ -106,15 +71,38 @@ watch([data_visits], async () => {
 
 //-----------------------------------------------
 
-onMounted(() => {
-	const gt = gsap.timeline();
+onMounted(async () => {
 
-	gsap.from('.box', {
+	await nextTick();
+
+	gsap.from('.box', { ...gsapConfig });
+	gsap.from('.number_box', { ...gsapConfig, y: 0, x: 40, duration: 1.2, delay: 1.2 });
+	gsap.from('.select_page_home', { ...gsapConfig, y: 0, x: -40, filter: 'blur(10px)', duration: 1.2, delay: 1.6 });
+
+});
+
+watch(mostCountries, async () => {
+	await nextTick();
+
+	if (disabledFilter.value) return;
+
+	const gt = gsap.timeline({ });
+	gt.from('.box_flag', {
 		...gsapConfig,
+		duration: 1.2,
+		opacity: 0,
+		x: 0,
+		y: 40,
+		delay: 0,
+		opacity: 0,
+		onStart: () => {
+			disabledFilter.value = true;
+		},
+		onComplete: () => {
+			disabledFilter.value = false;
+			gsap.set('.box_flag', { clearProps: 'all' });
+		},
 	});
-	gsap.from('.tit_box', { ...gsapConfig, y: 0, x: -40 });
-	gt.from('.number_box', { ...gsapConfig, y: 0, x: 40 });
-	gt.from('.content span', { ...gsapConfig, y: 40, filter: 'blur(10px)' });
 });
 
 //-----------------------------------------------
@@ -136,7 +124,8 @@ watch(
 				urls.value = response.data.urls;
 				trash.value = response.data.urls_trash;
 				numberOfVisits.value = response.data.number_of_visits;
-				console.log(response.data.number_of_visits);
+				mostCountries.value = response.data.most_countries;
+				console.log(response.data.most_countries);
 			} catch (error) {
 				console.log(error.message);
 			}
@@ -145,123 +134,57 @@ watch(
 	{ immediate: true }
 );
 
+//-----------------------------------
+
 const chartVisits = (DATA) => {
-	if (!isSmallScreen) {
-		return;
-	}
+	if (!isSmallScreen) return;
 
-	if (chartInstanceOne.value) {
-		chartInstanceOne.value.destroy();
-	}
+	if (chartInstanceOne.value) chartInstanceOne.value.destroy();
 
-	chartInstanceOne.value = new Chart(chartA.value, {
-		type: 'line',
-		data: {
-			labels: DATA.map((row) => row.id),
-			datasets: [
-				{
-					label: 'Number of visits by id',
-					data: DATA.map((row) => row.visits),
-					backgroundColor: '#2a9d8f',
-					borderColor: '#2a9d8f', // mainColor.value
-					tension: 0.3,
-				},
-			],
-		},
-		options: {
-			plugins: {
-				title: {
-					display: false,
-				},
-				legend: {
-					display: false,
-				},
-			},
-			scales: gridChart,
-			responsive: true,
-			maintainAspectRatio: false,
-		},
-	});
+	chartInstanceOne.value = new Chart(chartA.value, chartVisitsConfig(DATA));
 };
+
+//-----------------------------------
 
 const chartTwo = (DATA) => {
-	if (!isSmallScreen) {
-		return;
-	}
-	if (chartInstanceTwo.value) {
-		chartInstanceTwo.value.destroy();
-	}
+	if (!isSmallScreen) return;
 
-	chartInstanceTwo.value = new Chart(chartB.value, {
-		type: 'bar',
-		data: {
-			labels: Object.keys(DATA),
-			datasets: [
-				{
-					label: 'Visits',
-					data: Object.values(DATA),
-					backgroundColor: ['#e76f51', '#2a9d8f'],
-					borderColor: '#36A2EB',
-					barPercentage: 0.1,
-					borderRadius: 0,
-					borderSkipped: false,
-				},
-			],
-		},
-		options: {
-			plugins: {
-				title: {
-					display: false,
-				},
-				legend: {
-					display: false,
-				},
-			},
-			scales: gridChart,
-			responsive: true,
-			maintainAspectRatio: false,
-		},
-	});
+	if (chartInstanceTwo.value) chartInstanceTwo.value.destroy();
+
+	chartInstanceTwo.value = new Chart(chartB.value, chartTwoConfig(DATA));
 };
+
+//-----------------------------------
 
 const handelFilter = (v) => {
 	filter.value = v;
 };
 
-// section socket io  ===========
+// section socket io  ---------------
 
 try {
-	
 	const socket = io(import.meta.env.VITE_SOCKET_IO_URL);
 
 	socket.on('newVisit', (id) => {
-
 		if (id === store.id) {
-
 			socketEvent.value = new Date().getTime();
 		}
-
 	});
 
 	onUnmounted(() => {
-
 		socket.disconnect();
-		
 	});
-
 } catch (error) {
-
 	console.log(error.message);
-
 }
 
-//===============================
+//----------------------------------
 </script>
 
 <template>
 	<Layout>
 		<div class="filter_url_x">
-			<SelectBox :options="listFilter" :value="filter" @selectedValue="handelFilter" />
+			<SelectBox :options="listFilter" :value="filter" @selectedValue="handelFilter" class="select_page_home" :disabled="disabledFilter" />
 		</div>
 		<div class="boxs">
 			<div class="box">
@@ -269,12 +192,13 @@ try {
 					<icon name="more_horiz" />
 				</div>
 				<div class="icon">
-					<icon name="link" />
+					<!-- <icon name="link" /> -->
+					<Iconx icon="charm:link" />
 				</div>
 				<div class="content">
 					<h2 class="tit_box">Number of links</h2>
 					<h3 class="number_box">{{ format(totalUrls, '0 a') }}</h3>
-					<span>Lorem ipsum dolor sit.</span>
+					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
 			</div>
 
@@ -283,12 +207,12 @@ try {
 					<icon name="more_horiz" />
 				</div>
 				<div class="icon">
-					<icon name="visibility" />
+					<Iconx icon="charm:eye" />
 				</div>
 				<div class="content">
 					<h2 class="tit_box">Number of visits</h2>
 					<h3 class="number_box">{{ format(visits, '0 a') }}</h3>
-					<span>Lorem ipsum dolor sit.</span>
+					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
 			</div>
 			<div class="box">
@@ -296,24 +220,51 @@ try {
 					<icon name="more_horiz" />
 				</div>
 				<div class="icon">
-					<icon name="delete" />
+					<Iconx icon="charm:bin" />
 				</div>
 				<div class="content">
 					<h2 class="tit_box">trash</h2>
 					<h3 class="number_box">{{ format(trash, '0 a') }}</h3>
 
-					<span>Lorem ipsum dolor sit.</span>
+					<span class="span_box">Lorem ipsum dolor sit.</span>
+				</div>
+			</div>
+			<div class="box">
+				<div class="icon_filter">
+					<icon name="more_horiz" />
+				</div>
+				<div class="icon">
+					<Iconx icon="charm:flag" />
+				</div>
+				<div class="content">
+					<h2 class="tit_box">countries</h2>
+					<h3 class="number_box">{{ totalCountries }}</h3>
+
+					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
 			</div>
 		</div>
 		<div class="chart_boxs" v-if="isSmallScreen">
-			<div class="box_1" v-kidai ref="DIV">
+			<div class="box_1 continer" ref="DIV">
 				<h2>Most devices</h2>
 				<canvas ref="chartA"></canvas>
 			</div>
-			<div class="box_2" v-kidai>
-				<h2>Most devices</h2>
+			<div class="box_2 continer">
+				<h2>Latest statistics</h2>
 				<canvas ref="chartB"></canvas>
+			</div>
+			<div class="box_3 continer">
+				<h2>Most countries</h2>
+				<div class="flag">
+					<FlagBox
+						v-for="(el, i) in topFuorCountries"
+						:key="i"
+						:country="el.country"
+						:code="el.code"
+						:visits="el.visits"
+						class="box_flag_gsap"
+					/>
+				</div>
 			</div>
 		</div>
 	</Layout>
@@ -396,9 +347,9 @@ try {
 					color: var(--black);
 				}
 			}
-			i {
+			svg {
 				color: var(--main);
-				font-size: 1.25rem;
+				font-size: 1.15rem;
 				color: var(--black-fix);
 			}
 		}
@@ -459,7 +410,7 @@ try {
 	display: flex;
 	gap: 20px;
 	flex-wrap: wrap;
-	div {
+	div.continer {
 		flex: 1 1 360px;
 		background: var(--white);
 		border-radius: 12px;
@@ -468,18 +419,34 @@ try {
 		padding: 30px 20px;
 		display: flex;
 		flex-direction: column;
-		aspect-ratio: 16/9 !important;
-		justify-content: space-between;
+		&:not(:last-child) {
+			aspect-ratio: 3/2 !important;
+		}
+		&:last-child {
+			.flag {
+				transform: translateY(10px);
+			}
+		}
+
 		h2 {
 			font-size: 1rem;
 			font-weight: 500;
 			color: var(--black);
 			opacity: 0.7;
 			text-transform: capitalize;
+			margin-bottom: 20px;
 		}
-		canvas {
-			height: calc(100% - 45px) !important;
-			width: 100% !important;
+		// canvas,.countries{
+		// 	//height: calc(100% * 0.7) !important;
+		// 	//width: 100% !important;
+		// }
+		.flag {
+			//background: red;
+			flex: 1;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: max-content max-content;
+			gap: 20px;
 		}
 	}
 }

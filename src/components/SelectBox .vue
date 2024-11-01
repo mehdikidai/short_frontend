@@ -6,6 +6,7 @@
             v-model="selectedOption"
             @change="onSelectChange"
             v-bind="$attrs"
+            :disabled="disabled"
         >
             <option v-for="(item, i) in options" :key="i" :value="item">
                 {{ item.replace("_", " ") }}
@@ -16,6 +17,7 @@
 </template>
 
 <script setup>
+
 import { ref, watch } from "vue";
 
 const emit = defineEmits(["selectedValue"]);
@@ -38,6 +40,10 @@ const props = defineProps({
         type: String,
         default: "tune",
     },
+    disabled:{
+        type:Boolean,
+        default:false
+    }
 });
 
 const selectedOption = ref(props.value);
@@ -69,11 +75,15 @@ span {
         font-size: v-bind(fontSize);
         text-transform: capitalize;
         cursor: pointer;
+        &:disabled{
+            opacity: 0.4 !important;
+        }
         option {
             background: transparent;
             color: var(--black);
             border: none;
         }
+
     }
     i {
         position: absolute;
