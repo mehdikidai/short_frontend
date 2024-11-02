@@ -75,9 +75,7 @@ span {
         font-size: v-bind(fontSize);
         text-transform: capitalize;
         cursor: pointer;
-        &:disabled{
-            opacity: 0.4 !important;
-        }
+        
         option {
             background: transparent;
             color: var(--black);

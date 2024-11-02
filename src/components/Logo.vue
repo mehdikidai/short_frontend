@@ -16,7 +16,7 @@ const isDark = useDark()
 
 <style lang="scss" scoped>
 img.logo_img {
-    height: toRem(22);
+    height: toRem(20);
     opacity: 0.8;
 }
 </style>

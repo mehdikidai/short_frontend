@@ -259,6 +259,9 @@ const deleteProfile = () => {
 			closeModal: true,
 		},
 	}).then(async (pass) => {
+
+		if(!pass) return
+
 		if (!zodPassword.safeParse(pass).success) {
 			toast.error('Password verified error');
 			return;

@@ -125,6 +125,8 @@
       </main>
     </div>
   </div>
+  <BtnNewLink/>
+
 </template>
 
 <script setup>
@@ -138,6 +140,7 @@ import { Logout } from "@/auth";
 import BoxSearch from "./BoxSearch.vue";
 import { Icon as IconX } from "@iconify/vue";
 import { getFlag } from "@/helper";
+import BtnNewLink from "./BtnNewLink.vue";
 
 
 //--------------------
@@ -190,11 +193,12 @@ const logout = () => {
 </script>
 
 <style lang="scss" scoped>
+
 @import "./../assets/scss/_var";
 
 .sidebar {
   width: 230px;
-  //background-color: #fafafa;
+  min-width: 230px;
   background-color: var(--white);
   height: 100vh;
   position: sticky;
@@ -215,7 +219,7 @@ const logout = () => {
 }
 
 .sidebar .logo {
-  height: 100px;
+  height: 90px;
   //background: red;
   display: flex;
   align-items: center;
@@ -364,7 +368,7 @@ const logout = () => {
     }
 
     button.btn_theme {
-      background: transparent;
+      background: var(--white);
       border: none;
       width: 33px;
       height: 33px;
@@ -377,7 +381,7 @@ const logout = () => {
       //background: var(--white);
 
       i {
-        font-size: toRem(20);
+        font-size: toRem(18);
         color: var(--black);
         transition: all 0.3s ease-in-out;
       }
@@ -390,9 +394,10 @@ const logout = () => {
         display: flex;
         flex-direction: column;
         //gap: 10px;
-        padding: 6px;
-        border-radius: 6px;
+        //padding: 6px;
+        //border-radius: 6px;
         box-shadow: var(--box-shadow);
+        clip-path: inset(0 round 6px);
         li {
           list-style: none;
           //background: blue;
@@ -407,7 +412,7 @@ const logout = () => {
             color: var(--black);
             text-transform: capitalize;
             font-size: 14px;
-            border-radius: 4px;
+            //border-radius: 4px;
             display: flex;
             align-items: center;
             gap: 6px;

@@ -58,9 +58,9 @@ const numberOfVisits = ref([]);
 
 const mostCountries = ref([]);
 
-const topFuorCountries = computed(()=>mostCountries.value.slice(0,4))
+const topFuorCountries = computed(() => mostCountries.value.slice(0, 4));
 
-const totalCountries = computed(()=>mostCountries.value.length)
+const totalCountries = computed(() => mostCountries.value.length);
 
 //--------------------------------------------------------------------------
 
@@ -72,13 +72,11 @@ watch([data_visits], async () => {
 //-----------------------------------------------
 
 onMounted(async () => {
-
 	await nextTick();
 
 	gsap.from('.box', { ...gsapConfig });
 	gsap.from('.number_box', { ...gsapConfig, y: 0, x: 40, duration: 1.2, delay: 1.2 });
 	gsap.from('.select_page_home', { ...gsapConfig, y: 0, x: -40, filter: 'blur(10px)', duration: 1.2, delay: 1.6 });
-
 });
 
 watch(mostCountries, async () => {
@@ -86,7 +84,7 @@ watch(mostCountries, async () => {
 
 	if (disabledFilter.value) return;
 
-	const gt = gsap.timeline({ });
+	const gt = gsap.timeline({});
 	gt.from('.box_flag', {
 		...gsapConfig,
 		duration: 1.2,
@@ -156,9 +154,7 @@ const chartTwo = (DATA) => {
 
 //-----------------------------------
 
-const handelFilter = (v) => {
-	filter.value = v;
-};
+const handelFilter = (v) => (filter.value = v);
 
 // section socket io  ---------------
 
@@ -166,7 +162,7 @@ try {
 	const socket = io(import.meta.env.VITE_SOCKET_IO_URL);
 
 	socket.on('newVisit', (id) => {
-		if (id === store.id) {
+		if (id === store.id && !disabledFilter.value) {
 			socketEvent.value = new Date().getTime();
 		}
 	});
@@ -184,7 +180,13 @@ try {
 <template>
 	<Layout>
 		<div class="filter_url_x">
-			<SelectBox :options="listFilter" :value="filter" @selectedValue="handelFilter" class="select_page_home" :disabled="disabledFilter" />
+			<SelectBox
+				:options="listFilter"
+				:value="filter"
+				@selectedValue="handelFilter"
+				class="select_page_home"
+				:disabled="disabledFilter"
+			/>
 		</div>
 		<div class="boxs">
 			<div class="box">
