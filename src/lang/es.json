@@ -1,0 +1,40 @@
+{
+  "message": {
+    "hello": "hola mundo"
+  },
+  "pages": {
+    "home": "inicio",
+    "links": "enlaces",
+    "analytics": "análisis",
+    "setting": "configuración",
+    "profile": "perfil",
+    "Create_link": "crear enlace",
+    "create_new": "crear nuevo",
+    "logout": "cerrar sesión",
+    "destination": "destino",
+    "welcome_back": "bienvenido de nuevo",
+    "email": "correo electrónico",
+    "password": "contraseña",
+    "reset_password": "restablecer contraseña",
+    "login": "iniciar sesión",
+    "name": "nombre",
+    "register": "registrarse",
+    "map": "mapa",
+    "trash": "papelera",
+    "update_uri": "actualizar URI",
+    "number_of_links": "Número de enlaces",
+    "number_of_visits": "Número de visitas",
+    "countries": "países",
+    "most_countries": "La mayoría de los países",
+    "latest_statistics": "Últimas estadísticas",
+    "latest_links": "Últimos enlaces",
+    "search_now": "Buscar ahora",
+    "full_name": "nombre completo",
+    "current_password": "contraseña actual",
+    "update_profile": "actualizar perfil",
+    "new_password": "nueva contraseña",
+    "change_password": "cambiar contraseña",
+    "delete_account": "eliminar cuenta",
+    "delete_your_account": "Eliminar tu cuenta"
+  }
+}

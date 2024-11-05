@@ -11,15 +11,26 @@ const store = useUserStore();
 const router = useRouter();
 
 onMounted(async () => {
+
     i18n.global.locale = localStorage.getItem('lang') || 'en';
+
+    if (!localStorage.getItem('token')) {
+        router.push({ name: 'login' }); 
+    }
 
     try {
         const res = await useAxios.get('/api/user', { ...store.configApi });
         store.setUser(res.data);
         //console.log(res.data);
     } catch (err) {
-        store.resetUser();
+
+        console.clear()
+        console.log(err.status)
         router.push({ name: 'login' });
+
+        store.resetUser();
+
+       
     }
 });
 </script>

@@ -70,6 +70,7 @@ onBeforeMount(() => {
             align-items: center;
             justify-content: center;
             position: relative;
+            flex-direction: column;
             button.switch{
                 position: absolute;
                 top: 20px;

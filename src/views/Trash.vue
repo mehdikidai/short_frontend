@@ -39,7 +39,7 @@
 				</tbody>
 			</table>
 			<div v-else class="empty">
-				<h2 v-if="empty">empty ?</h2>
+				<h2 v-if="empty">{{ $t('pages.empty') }}</h2>
 				<h2 v-else>loading</h2>
 			</div>
 

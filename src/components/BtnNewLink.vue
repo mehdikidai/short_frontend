@@ -29,7 +29,7 @@ const goToCreateLink = () => {
 <style lang="scss" scoped>
 .add_new_link {
 	position: fixed;
-	bottom: 20px;
+	bottom: 40px;
 	right: 20px;
 	width: 33px;
 	height: 33px;

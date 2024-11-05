@@ -198,7 +198,7 @@ try {
 					<Iconx icon="charm:link" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box">Number of links</h2>
+					<h2 class="tit_box">{{ $t('pages.number_of_links') }}</h2>
 					<h3 class="number_box">{{ format(totalUrls, '0 a') }}</h3>
 					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
@@ -212,7 +212,7 @@ try {
 					<Iconx icon="charm:eye" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box">Number of visits</h2>
+					<h2 class="tit_box"> {{ $t('pages.number_of_visits') }} </h2>
 					<h3 class="number_box">{{ format(visits, '0 a') }}</h3>
 					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
@@ -225,7 +225,7 @@ try {
 					<Iconx icon="charm:bin" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box">trash</h2>
+					<h2 class="tit_box"> {{ $t('pages.trash') }} </h2>
 					<h3 class="number_box">{{ format(trash, '0 a') }}</h3>
 
 					<span class="span_box">Lorem ipsum dolor sit.</span>
@@ -239,7 +239,7 @@ try {
 					<Iconx icon="charm:flag" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box">countries</h2>
+					<h2 class="tit_box"> {{ $t('pages.countries') }} </h2>
 					<h3 class="number_box">{{ totalCountries }}</h3>
 
 					<span class="span_box">Lorem ipsum dolor sit.</span>
@@ -248,15 +248,15 @@ try {
 		</div>
 		<div class="chart_boxs" v-if="isSmallScreen">
 			<div class="box_1 continer" ref="DIV">
-				<h2>Most devices</h2>
+				<h2> {{ $t('pages.latest_links') }} </h2>
 				<canvas ref="chartA"></canvas>
 			</div>
 			<div class="box_2 continer">
-				<h2>Latest statistics</h2>
+				<h2> {{ $t('pages.latest_statistics') }} </h2>
 				<canvas ref="chartB"></canvas>
 			</div>
 			<div class="box_3 continer">
-				<h2>Most countries</h2>
+				<h2> {{ $t('pages.most_countries') }} </h2>
 				<div class="flag">
 					<FlagBox
 						v-for="(el, i) in topFuorCountries"

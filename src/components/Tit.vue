@@ -21,13 +21,14 @@ defineProps({
 
 h1.tit_h1 {
     font-size: toRem(18);
+    line-height: toRem(18);
     font-weight: 600;
     color: var(--black);
     margin-block: 0 20px;
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     i {
         opacity: 0.7;
         font-size: toRem(22);

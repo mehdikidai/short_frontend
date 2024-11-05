@@ -21,7 +21,27 @@
       "register": "register",
       "map":"map",
       "trash":"trash",
-      "update_uri":"update uri"
+      "update_uri":"update uri",
+      "number_of_links":"Number of links",
+      "number_of_visits":"Number of visits",
+      "countries":"countries",
+      "most_countries":"Most countries",
+      "latest_statistics":"Latest statistics",
+      "latest_links":"Latest Links",
+      "search_now":"Search Now",
+      "full_name":"full name",
+      "current_password":"current password",
+      "update_profile":"update profile",
+      "new_assword":"new password",
+      "change_password":"change password",
+      "delete_account":"delete account",
+      "delete_your_account":"Delete your account",
+      "delete_Url":"delete url",
+      "cancel":"cancel",
+      "delete":"delete",
+      "It_will_be_moved_to_the_trash":"It will be moved to the trash.",
+      "sort_by_date":"sort by date",
+      "empty":"empty"
     }
   }
   

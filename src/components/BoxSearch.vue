@@ -8,7 +8,7 @@
                 type="text"
                 v-model="textSearch"
                 name="search"
-                placeholder="Search Now"
+                :placeholder="$t('pages.search_now')"
                 ref="inputSearch"
             />
 

@@ -147,7 +147,7 @@ const deleteUser = async (id) => {
 
 const getUsers = async () => {
 	try {
-		const res = await useAxios.get(`/api/users?page=${currentPage.value}`, {
+		const res = await useAxios.get(`/api/user/users?page=${currentPage.value}`, {
 			...storeUser.configApi,
 		});
 

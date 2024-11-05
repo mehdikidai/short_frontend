@@ -99,7 +99,7 @@ const submit = async () => {
 						</button>
 					</div>
 				</div>
-				<RouterLink to="/">{{ $t('pages.reset_password') }} ?</RouterLink>
+				<RouterLink :to="{name:'resetPassword'}">{{ $t('pages.reset_password') }} ?</RouterLink>
 				<button class="btn_login" type="submit">
 					{{ $t('pages.login') }}
 				</button>

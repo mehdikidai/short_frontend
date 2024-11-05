@@ -1,6 +1,7 @@
 <template>
 	<Layout>
-		<Tit text="profile" />
+		<Tit :text="$t('pages.profile')" />
+
 		<div class="container">
 			<div class="box_photo bx bx_1">
 				<button class="edit" @click="INPUT_IMG.click()" :disabled="loading_upload_img">
@@ -22,23 +23,23 @@
 			<div class="box_form bx bx_2">
 				<form method="post" @submit.prevent="submit_profile">
 					<div class="box">
-						<label for="name">full name</label>
+						<label for="name"> {{ $t('pages.full_name') }} </label>
 						<input
 							type="text"
 							id="name"
 							name="namee"
-							placeholder="full name"
+							:placeholder="$t('pages.full_name')"
 							v-model="data.name"
 							ref="input_name"
 						/>
 					</div>
 					<div class="box">
-						<label for="email">email</label>
+						<label for="email"> {{ $t('pages.email') }} </label>
 						<input
 							type="text"
 							id="email"
 							name="email"
-							placeholder="email"
+							:placeholder="$t('pages.email')"
 							v-model="data.email"
 							ref="input_email"
 						/>
@@ -48,7 +49,7 @@
 						<button type="submit" v-if="loading_form" :disabled="loading_form">
 							<loadingIcon w="1em" v-if="loading_form" />
 						</button>
-						<button type="submit" v-else>update profile</button>
+						<button type="submit" v-else> {{ $t('pages.update_profile') }} </button>
 					</div>
 				</form>
 			</div>
@@ -60,11 +61,11 @@
 			<div class="change_password box_form bx bx_3">
 				<form method="post" @submit.prevent="submitPassword">
 					<div class="box">
-						<label for="current password">current password</label>
+						<label for="current password"> {{ $t('pages.current_password') }} </label>
 						<div class="box_see">
 							<input
 								:type="visiblePassword ? 'password' : 'text'"
-								placeholder="current password"
+								:placeholder="$t('pages.current_password')"
 								v-model="dataPassword.currentPassword"
 							/>
 							<button class="show_password" @click="toggleVisiblePass" type="button">
@@ -73,11 +74,11 @@
 						</div>
 					</div>
 					<div class="box">
-						<label for="new password">new password</label>
+						<label for="new password"> {{ $t('pages.new_assword') }} </label>
 						<div class="box_see">
 							<input
 								:type="visiblePassword ? 'password' : 'text'"
-								placeholder="new password"
+								:placeholder="$t('pages.new_assword')"
 								v-model="dataPassword.newPassword"
 							/>
 							<button class="show_password" @click="toggleVisiblePass" type="button">
@@ -90,15 +91,15 @@
 						<button type="submit" v-if="loading_formPassword" :disabled="loading_formPassword">
 							<loadingIcon w="1em" v-if="loading_formPassword" />
 						</button>
-						<button type="submit" v-else>change password</button>
+						<button type="submit" v-else>{{ $t('pages.change_password') }}</button>
 					</div>
 				</form>
 			</div>
 
 			<!-- end div update password -->
 			<h3 class="h3_text_delete_account bx_4">
-				Delete account :
-				<div class="text_delete_account" @click="deleteProfile">Delete your account</div>
+				{{ $t('pages.delete_account') }} :
+				<div class="text_delete_account" @click="deleteProfile"> {{ $t('pages.delete_your_account') }} </div>
 			</h3>
 		</div>
 	</Layout>
@@ -210,7 +211,7 @@ const submitPassword = async () => {
 	loading_formPassword.value = true;
 
 	try {
-		const response = await useAxios.put('/api/user/upadet/password', dataPass, {
+		const response = await useAxios.put('/api/user/upadete-password', dataPass, {
 			...store.configApi,
 		});
 		if (response.status === 201) {
@@ -234,7 +235,7 @@ const submitPassword = async () => {
 // delete profile -----------
 
 const deleteAccount = async (password) => {
-	const response = await useAxios.delete('/api/account', {
+	const response = await useAxios.delete('/api/user/account', {
 		...store.configApi,
 		data: { password },
 	});
@@ -281,6 +282,7 @@ const deleteProfile = () => {
 			}
 			console.log(response);
 		} catch (error) {
+
 			console.log(error.message);
 
 			if (error.response && error.response.status === 403) {
@@ -406,6 +408,7 @@ const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value)
 		// background: green;
 		flex: 1 1 550px;
 		padding: 40px 20px;
+		
 		form {
 			//background: red;
 			display: flex;
