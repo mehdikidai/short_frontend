@@ -47,7 +47,6 @@
 					{{ $t('pages.Create_link') }}
 				</RouterLink>
 			</li>
-			
 		</ul>
 		<div class="line"></div>
 		<ul class="ul_two">
@@ -86,7 +85,11 @@
 					<Icon name="translate" />
 					<ul class="ul_lang" v-if="showLangList">
 						<li v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`">
-							<button :class="['lang', { active: locale === $i18n.locale }]" @click="handelLang(locale)" :disabled="locale === $i18n.locale">
+							<button
+								:class="['lang', { active: locale === $i18n.locale }]"
+								@click="handelLang(locale)"
+								:disabled="locale === $i18n.locale"
+							>
 								<i>
 									<IconX :icon="getFlag(locale)" />
 								</i>
@@ -133,8 +136,7 @@ import BoxSearch from './BoxSearch.vue';
 import { Icon as IconX } from '@iconify/vue';
 import { getFlag } from '@/helper';
 import BtnNewLink from './BtnNewLink.vue';
-import {  ref } from 'vue';
-
+import { ref } from 'vue';
 
 //--------------------
 
@@ -156,7 +158,6 @@ const handelMenu = (ok = false) => {
 };
 
 const showLangList = ref(false);
-
 
 //---------------------------
 
@@ -248,11 +249,11 @@ const logout = () => {
 		border-radius: 0;
 		cursor: pointer;
 		font-size: toRem(16);
-    background: transparent;
-    border-radius: 6px;
+		background: transparent;
+		border-radius: 6px;
 		transition: all 0.6s ease-in-out;
 		&.router-link-exact-active {
-      background: var(--white_3);
+			background: var(--white_3);
 		}
 	}
 }
@@ -336,7 +337,7 @@ const logout = () => {
 				width: 32px;
 				height: 32px;
 				clip-path: circle();
-        object-fit: cover;
+				object-fit: cover;
 			}
 			.name_user {
 				display: flex;
@@ -393,10 +394,11 @@ const logout = () => {
 				transform: scale(1);
 				transform-origin: 20% 0;
 				transition: all 0.3s linear;
-				@starting-style {
-					opacity: 0;
-					transform: scale(0);
-				}
+
+				// @starting-style {
+				// 	opacity: 0;
+				// 	transform: scale(0);
+				// }
 
 				li {
 					list-style: none;
@@ -420,10 +422,10 @@ const logout = () => {
 						&.active {
 							background: var(--white_3);
 						}
-            &:disabled{
-              filter: grayscale(100%);
-              cursor:auto;
-            }
+						&:disabled {
+							filter: grayscale(100%);
+							cursor: auto;
+						}
 						i {
 							font-size: 12px;
 							display: flex;
