@@ -11,7 +11,7 @@
                         type="checkbox"
                         :class="['checkbox', { checked: isDark }]"
                         id="checkbox"
-                        v-model.lazy="isDark"
+                        v-model="isDark"
                     />
                     <label class="switch" for="checkbox">
                         <span class="slider"></span>
@@ -19,15 +19,6 @@
                 </div>
             </div>
 
-            <div class="setting-item">
-                <label class="tit_setting">language</label>
-                <SelectBox
-                    :options="$i18n.availableLocales"
-                    :value="LANG"
-                    @selectedValue="handelLang"
-                    icon="translate"
-                />
-            </div>
 
             <div class="setting-item">
                 <label class="tit_setting">qr code color</label>
@@ -55,8 +46,6 @@
 <script setup>
 import Layout from "@/components/Layout.vue";
 import Tit from "@/components/Tit.vue";
-import SelectBox from "@/components/SelectBox .vue";
-import i18n from "@/lang";
 import { onMounted, ref } from "vue";
 import { useDark } from "@vueuse/core";
 import { useQrcodeStore } from "@/stores/qrcode";
@@ -70,12 +59,6 @@ const store = useQrcodeStore();
 
 const { color , bgColor } = storeToRefs(store)
 
-const LANG = ref(localStorage.getItem("lang") || "en");
-
-const handelLang = (lang) => {
-    i18n.global.locale = lang;
-    localStorage.setItem("lang", lang);
-};
 
 const handelColor = (el) => {
     store.changeColor(el.target.value.replace('#',''))
@@ -109,7 +92,7 @@ onMounted(()=>{
         align-items: center;
         gap: 20px;
         //padding-block: 15px;
-        height: 65px;
+        height: 50px;
         label {
             color: var(--black);
             font-size: toRem(14);

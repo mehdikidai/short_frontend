@@ -9,7 +9,7 @@
             :disabled="disabled"
         >
             <option v-for="(item, i) in options" :key="i" :value="item">
-                {{ item.replace("_", " ") }}
+                {{ $t(`pages.${item}`) }}
             </option>
         </select>
         <Icon :name="icon" />

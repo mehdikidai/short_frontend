@@ -1,5 +1,5 @@
 <template>
-    <Icon name="progress_activity"/>
+    <Icon name="progress_activity"/> 
 </template>
 
 <script setup></script>

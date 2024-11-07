@@ -9,13 +9,13 @@
 			</div>
 			<div class="link-card__info-container">
 				<RouterLink :to="{ name: 'url', params: { id: url.id } }"
-					><h3 class="h3">{{ $sliceUrl(url.title, 20) }}</h3></RouterLink
+					><h3 class="h3">{{ $sliceUrl(url.title, 16) }}</h3></RouterLink
 				>
 
 				<a :href="url.url_server + '/' + url.code" class="link link_short" target="_blank"
 					>{{ url.domain }}/{{ url.code }}</a
 				>
-				<a href="#" class="link long-url" target="_blank">{{ $sliceUrl(url.original_url) }}</a>
+				<a href="#" class="link long-url" target="_blank">{{ $sliceUrl(url.original_url,16) }}</a>
 				<span class="date_url">
 					<Icon name="schedule" />
 					{{ $momentFromNow(url.created_at, $i18n.locale) }}</span
@@ -23,11 +23,16 @@
 			</div>
 		</div>
 		<div class="link-card__button-container">
-			<button class="action" @click="$copyText(`${url.url_server}/${url.code}`)">
+			<button
+				class="action hint--top hint--rounded hint--no-arrow hint--small"
+				@click="$copyText(`${url.url_server}/${url.code}`)"
+				:aria-label="$t('pages.copy')"
+			>
 				<Icon name="content_copy" />
 			</button>
 			<button
-				class="action"
+				class="action hint--top hint--rounded hint--no-arrow hint--small"
+				aria-label="Qr Code"
 				@click="
 					showQr({
 						url: `${url.url_server}/${url.code}`,
@@ -38,15 +43,15 @@
 			>
 				<Icon name="qr_code_2" />
 			</button>
-			<button class="action" @click="editUrl(url.id)">
+			<button class="action hint--top hint--rounded hint--no-arrow hint--small" @click="editUrl(url.id)" :aria-label="$t('pages.edit')">
 				<Icon name="edit" />
 			</button>
-			<button class="action" @click="deleteurl(url.id)" v-if="showBtnDelete">
+			<button class="action hint--top hint--rounded hint--no-arrow hint--small" @click="deleteurl(url.id)" v-if="showBtnDelete" :aria-label="$t('pages.delete')">
 				<Icon name="delete" />
 			</button>
 
-			<button class="action" @click="handleShow(url.id)">
-				<Icon :name="url.visible ? 'visibility' : 'visibility_off'" /> 
+			<button class="action hint--top hint--rounded hint--no-arrow hint--small" @click="handleShow(url.id)" :aria-label="url.visible ? $t('pages.hide_url') : $t('pages.show_url')">
+				<Icon :name="url.visible ? 'visibility' : 'visibility_off'" />
 			</button>
 		</div>
 	</div>
@@ -78,7 +83,6 @@ const deleteurl = (id) => emit('deleteUrl', id);
 const editUrl = (id) => router.push({ name: 'editLink', params: { id: id } });
 
 const handleShow = (id) => emit('handleVisibility', id);
-
 </script>
 
 <style lang="scss" scoped>
@@ -133,10 +137,7 @@ const handleShow = (id) => emit('handleVisibility', id);
 			}
 			a.link {
 				overflow: hidden;
-				display: -webkit-box;
-				-webkit-line-clamp: 1; /* number of lines to show */
-				line-clamp: 1;
-				-webkit-box-orient: vertical;
+				
 				&.long-url {
 					color: var(--black);
 					font-size: toRem(14);

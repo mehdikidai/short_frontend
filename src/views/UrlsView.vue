@@ -117,29 +117,21 @@ const handelSortOrder = () => {
 
 //---------------------------------------------------
 
-
 const handleVisibility = async (id) => {
-
 	try {
-
 		const response = await useAxios.put(`api/urls/${id}/visual/`, null, {
 			...store.configApi,
-
 		});
 
 		if (response.status === 200) {
 			effect.value = new Date().getTime();
-      toast.success( response.data.visible ? 'Shown successfully' : 'Hide successfully')
+			toast.success(response.data.visible ? 'Shown successfully' : 'Hide successfully');
 		}
 
-    console.log(response.data.visible)
-
+		console.log(response.data.visible);
 	} catch (error) {
-
 		console.log(error.status);
-
 	}
-
 };
 //---------------------------------------------------
 

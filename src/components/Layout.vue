@@ -93,7 +93,7 @@
 								<i>
 									<IconX :icon="getFlag(locale)" />
 								</i>
-								{{ locale }}
+								{{  countries[locale] }}
 							</button>
 						</li>
 					</ul>
@@ -137,6 +137,7 @@ import { Icon as IconX } from '@iconify/vue';
 import { getFlag } from '@/helper';
 import BtnNewLink from './BtnNewLink.vue';
 import { ref } from 'vue';
+import countries from '@/lang/countries';
 
 //--------------------
 
@@ -228,6 +229,9 @@ const logout = () => {
 	&.ul_logout {
 		margin-top: auto;
 	}
+	&.ul_one{
+		padding-top: 10px;
+	}
 }
 
 .sidebar ul li {
@@ -279,7 +283,7 @@ const logout = () => {
 }
 
 .main-content {
-	flex-grow: 1;
+	flex: 1;
 	padding: 0;
 	background-color: var(--gray);
 }
@@ -381,11 +385,11 @@ const logout = () => {
 				position: absolute;
 				top: 40px;
 				left: 0;
-				width: 80px;
+				width: auto;
 				display: flex;
 				flex-direction: column;
 				//gap: 10px;
-				//padding: 6px;
+				padding: 6px;
 				//border-radius: 6px;
 				box-shadow: 0px 0px 8px rgb(0, 0, 0, 0.3);
 				border-radius: 6px;
@@ -413,7 +417,7 @@ const logout = () => {
 						background: transparent;
 						color: var(--black);
 						text-transform: capitalize;
-						font-size: 14px;
+						font-size: 12px;
 						//border-radius: 4px;
 						display: flex;
 						align-items: center;
@@ -425,6 +429,8 @@ const logout = () => {
 						&:disabled {
 							filter: grayscale(100%);
 							cursor: auto;
+							opacity: 0.45;
+					
 						}
 						i {
 							font-size: 12px;

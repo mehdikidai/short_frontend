@@ -212,7 +212,7 @@ try {
 					<Iconx icon="charm:eye" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box"> {{ $t('pages.number_of_visits') }} </h2>
+					<h2 class="tit_box">{{ $t('pages.number_of_visits') }}</h2>
 					<h3 class="number_box">{{ format(visits, '0 a') }}</h3>
 					<span class="span_box">Lorem ipsum dolor sit.</span>
 				</div>
@@ -225,7 +225,7 @@ try {
 					<Iconx icon="charm:bin" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box"> {{ $t('pages.trash') }} </h2>
+					<h2 class="tit_box">{{ $t('pages.trash') }}</h2>
 					<h3 class="number_box">{{ format(trash, '0 a') }}</h3>
 
 					<span class="span_box">Lorem ipsum dolor sit.</span>
@@ -239,7 +239,7 @@ try {
 					<Iconx icon="charm:flag" />
 				</div>
 				<div class="content">
-					<h2 class="tit_box"> {{ $t('pages.countries') }} </h2>
+					<h2 class="tit_box">{{ $t('pages.countries') }}</h2>
 					<h3 class="number_box">{{ totalCountries }}</h3>
 
 					<span class="span_box">Lorem ipsum dolor sit.</span>
@@ -248,15 +248,15 @@ try {
 		</div>
 		<div class="chart_boxs" v-if="isSmallScreen">
 			<div class="box_1 continer" ref="DIV">
-				<h2> {{ $t('pages.latest_links') }} </h2>
+				<h2>{{ $t('pages.latest_links') }}</h2>
 				<canvas ref="chartA"></canvas>
 			</div>
 			<div class="box_2 continer">
-				<h2> {{ $t('pages.latest_statistics') }} </h2>
+				<h2>{{ $t('pages.latest_statistics') }}</h2>
 				<canvas ref="chartB"></canvas>
 			</div>
 			<div class="box_3 continer">
-				<h2> {{ $t('pages.most_countries') }} </h2>
+				<h2>{{ $t('pages.most_countries') }}</h2>
 				<div class="flag">
 					<FlagBox
 						v-for="(el, i) in topFuorCountries"
@@ -320,7 +320,7 @@ try {
 		flex: 1 1 360px;
 		background: var(--white);
 		height: 150px;
-		border-radius: 12px;
+		//border-radius: 12px;
 		display: flex;
 		align-items: stretch;
 		padding: 20px;
@@ -328,6 +328,19 @@ try {
 		box-shadow: var(--box-shadow);
 		border: var(--border);
 		position: relative;
+		clip-path: inset(0 round 12px);
+		&::after {
+			content: 'gg';
+			position: absolute;
+			top: -80px;
+			right: -80px;
+			width: 160px;
+			height: 160px;
+			border-radius: 50%;
+			filter: blur(50px);
+			opacity: 0.1;
+			background: rgba(255, 255, 255, 0.3);
+		}
 		.icon {
 			width: 1.75rem;
 			height: 1.75rem;
@@ -356,21 +369,25 @@ try {
 			}
 		}
 		&:nth-last-of-type(1) {
+			
 			.icon {
 				background: #c7e6f0;
 			}
 		}
 		&:nth-last-of-type(2) {
+			
 			.icon {
 				background: #f6e899;
 			}
 		}
 		&:nth-last-of-type(3) {
+			
 			.icon {
 				background: #e0daf1;
 			}
 		}
 		&:nth-last-of-type(4) {
+			
 			.icon {
 				background: rgba(252, 172, 86, 1);
 			}

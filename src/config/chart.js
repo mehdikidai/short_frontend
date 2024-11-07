@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const gridChart = {
 	x: {
 		grid: {
@@ -19,12 +21,15 @@ export const gridChart = {
 		grid: {
 			display: true,
 			color: 'rgba(255, 255, 255, 0.05)',
+
 			border: {
 				dash: [5, 5],
 			},
+			drawTicks: false,
 		},
 		ticks: {
 			beginAtZero: true,
+			padding: 10,
 			font: {
 				size: 12,
 			},
@@ -72,7 +77,7 @@ export const chartTwoConfig = (DATA) => {
 	return {
 		type: 'bar',
 		data: {
-			labels: Object.keys(DATA),
+			labels: Object.keys(DATA).map((el) => moment(el).format("MM-DD")),
 			datasets: [
 				{
 					label: 'Visits',

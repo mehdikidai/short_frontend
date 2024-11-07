@@ -72,10 +72,13 @@ a.hidden_img_qr {
 body {
 	min-height: 100vh;
 	background: var(--white);
+	//background: brown;
+	scrollbar-gutter: stable;
 }
 
 html {
 	font-size: 16px;
+	scrollbar-gutter: stable;
 }
 
 button,

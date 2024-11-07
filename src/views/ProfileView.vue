@@ -120,6 +120,7 @@ import { toast } from 'vue3-toastify';
 import gsap from 'gsap';
 import { gsapConfig } from '@/config/gsap';
 import swal from 'sweetalert';
+import { tr } from '@/helper';
 
 const store = useUserStore();
 const router = useRouter();
@@ -246,16 +247,16 @@ const deleteAccount = async (password) => {
 
 const deleteProfile = () => {
 	swal({
-		text: 'Please enter your password to confirm:',
+		text: tr('pages.please_enter_your_password_to_confirm'),
 		content: {
 			element: 'input',
 			attributes: {
 				type: 'password',
-				placeholder: 'Password',
+				placeholder: tr('pages.password'),
 			},
 		},
 		button: {
-			text: 'Delete account',
+			text: tr('pages.delete_account'),
 			className: 'swal-button--danger',
 			closeModal: true,
 		},

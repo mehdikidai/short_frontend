@@ -1,5 +1,5 @@
 <template>
-	<button class="add_new_link" @click="goToCreateLink">
+	<button class="add_new_link hint--left hint--rounded hint--no-arrow hint--small" @click="goToCreateLink" :data-hint="isCreatePage ? $t('pages.back') : $t('pages.create_new')">
 		<Icon :name="isCreatePage ? 'arrow_right_alt' : 'add'" />
 	</button>
 </template>
@@ -48,10 +48,23 @@ const goToCreateLink = () => {
 	&:active {
 		transform: scale(1);
 		opacity: .4;
+		i{
+			transform: scale(0);
+			opacity: 0;
+		}
+	}
+	&::after{
+		background: var(--white);
+		color: var(--black);
+		line-height: toRem(18);
+		text-shadow: none;
 	}
 	i {
 		font-size: 20px;
 		pointer-events: none;
+		transform: scale(1);
+		opacity: 1;
+		transition: all 0.4s ease-in-out;
 	}
 }
 </style>

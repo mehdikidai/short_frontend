@@ -111,7 +111,8 @@ const submit = async () => {
 			console.log(res);
 		} catch (error) {
 			lodingSubmit.value = false;
-			console.log(error);
+			toast.error(error.response.data.message)
+			
 		}
 	}
 };

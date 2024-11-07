@@ -18,6 +18,7 @@
 	padding: 0;
 	padding-inline: toRem(20);
 	text-align: left;
+	text-transform: capitalize;
 }
 .swal-text {
 	font-size: toRem(14);
@@ -35,6 +36,7 @@
 	font-weight: 500;
 	padding: 7px 27px;
 	margin: 0;
+	text-transform: capitalize;
 	cursor: pointer;
 	&--delete {
 		background: var(--red);

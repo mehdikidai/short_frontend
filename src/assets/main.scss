@@ -2,11 +2,14 @@
 @import "./scss/swal";
 @import "./scss/icon";
 @import "./scss/toast";
+@import "./scss/hint";
 
 #app {
     margin: 0;
     display: flex;
-    width: 100%;
+    width: 100vw;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .animate__show {
