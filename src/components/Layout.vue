@@ -384,7 +384,7 @@ const logout = () => {
 				background: var(--white_2);
 				position: absolute;
 				top: 40px;
-				left: 0;
+				right:0;
 				width: auto;
 				display: flex;
 				flex-direction: column;

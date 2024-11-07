@@ -49,6 +49,7 @@ import CardUrl from '@/components/CardUrl.vue';
 import gsap from 'gsap';
 import { gsapConfig } from '@/config/gsap';
 import { toast } from 'vue3-toastify';
+import wait from 'mk_wait';
 
 const disabledBtnSortOrde = ref(true);
 
@@ -118,6 +119,9 @@ const handelSortOrder = () => {
 //---------------------------------------------------
 
 const handleVisibility = async (id) => {
+	
+	const visibilityId = toast.loading('Please wait...');
+
 	try {
 		const response = await useAxios.put(`api/urls/${id}/visual/`, null, {
 			...store.configApi,
@@ -125,14 +129,35 @@ const handleVisibility = async (id) => {
 
 		if (response.status === 200) {
 			effect.value = new Date().getTime();
-			toast.success(response.data.visible ? 'Shown successfully' : 'Hide successfully');
-		}
 
-		console.log(response.data.visible);
+			await wait(1000);
+
+			toast.update(visibilityId, {
+				render: response.data.visible ? 'Shown successfully' : 'Hide successfully',
+				type: 'success',
+				isLoading: false,
+				autoClose: 1500,
+				closeOnClick: true,
+				closeButton: true,
+				hideProgressBar: true,
+			});
+		}
 	} catch (error) {
-		console.log(error.status);
+
+		console.log(error.response?.status || error.message);
+
+		toast.update(visibilityId, {
+			render: 'Failed to update visibility',
+			type: 'error',
+			isLoading: false,
+			autoClose: 1500,
+			closeOnClick: true,
+			closeButton: true,
+			hideProgressBar: true,
+		});
 	}
 };
+
 //---------------------------------------------------
 
 const deleteUrl = async (id) => {

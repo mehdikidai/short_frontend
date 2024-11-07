@@ -83,6 +83,7 @@ const deleteurl = (id) => emit('deleteUrl', id);
 const editUrl = (id) => router.push({ name: 'editLink', params: { id: id } });
 
 const handleShow = (id) => emit('handleVisibility', id);
+
 </script>
 
 <style lang="scss" scoped>
