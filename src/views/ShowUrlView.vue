@@ -1,5 +1,5 @@
 <script setup>
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import Layout from '@/components/Layout.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -50,7 +50,7 @@ watch(
 	ID,
 	async () => {
 		try {
-			const response = await useAxios(`/api/urls/${ID.value}`, {
+			const response = await API(`/api/urls/${ID.value}`, {
 				...store.configApi,
 			});
 

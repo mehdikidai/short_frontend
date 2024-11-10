@@ -81,7 +81,7 @@
 			</div>
 			<BoxSearch />
 			<div class="box_profile">
-				<button class="btn_theme" @click="handelShowLang()">
+				<button class="btn_theme" @click="handelShowLang()" @mouseenter="showLangList = true">
 					<Icon name="translate" />
 					<ul class="ul_lang" v-if="showLangList">
 						<li v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`">
@@ -101,7 +101,7 @@
 				<button :class="[{ dark: isDark }, 'btn_theme']" @click="toggleDark()">
 					<Icon :name="isDark ? 'brightness_5' : 'brightness_4'" />
 				</button>
-				<RouterLink :to="{ name: 'home' }">
+				<RouterLink :to="{ name: 'profile' }">
 					<div class="profile_photo">
 						<img v-memo="photo" class="img_user" :src="photo" alt="" />
 						<div class="name_user">
@@ -159,6 +159,7 @@ const handelMenu = (ok = false) => {
 };
 
 const showLangList = ref(false);
+
 
 //---------------------------
 
@@ -230,7 +231,7 @@ const logout = () => {
 		margin-top: auto;
 	}
 	&.ul_one{
-		padding-top: 10px;
+		padding-top: 0;
 	}
 }
 

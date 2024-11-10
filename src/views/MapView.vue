@@ -23,7 +23,7 @@ import Layout from "@/components/Layout.vue";
 import Tit from "@/components/Tit.vue";
 import { ref, watch, onMounted } from "vue";
 import marker from "@/assets/imgs/marker.png";
-import { useAxios } from "@/api";
+import { API } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z } from "zod";
 import SelectBox from "@/components/SelectBox .vue";
@@ -174,7 +174,7 @@ watch(
 
         if (success) {
             try {
-                const response = await useAxios(
+                const response = await API(
                     `/api/locations/${filter.value}`,
                     {
                         ...store.configApi,

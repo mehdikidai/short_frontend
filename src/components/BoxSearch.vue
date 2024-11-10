@@ -40,7 +40,7 @@
 <script setup>
 import { watch, computed, ref, onMounted, watchEffect } from "vue";
 import { debounce } from "lodash";
-import { useAxios } from "@/api";
+import { API } from "@/api";
 import { useUserStore } from "@/stores/user";
 import { z as zod } from "zod";
 import { useMediaQuery } from "@vueuse/core";
@@ -94,7 +94,7 @@ const performSearch = debounce(async (query) => {
     }
 
     try {
-        const results = await useAxios("/api/search", {
+        const results = await API("/api/search", {
             params: { query },
             ...storeUser.configApi,
         });

@@ -65,7 +65,7 @@
 import { ref, computed, onMounted, reactive } from "vue";
 import { useUserStore } from "@/stores/user";
 import { z } from "zod";
-import { useAxios } from "@/api";
+import { API } from "@/api";
 
 
 const ShowVerificationCode = ref(true);
@@ -91,7 +91,7 @@ const submit = async () => {
 
     if (success) {
         try {
-            const res = await useAxios.post(
+            const res = await API.post(
                 "/api/email/verify",
                 { verification_code },
                 { ...userStore.configApi }

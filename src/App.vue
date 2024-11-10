@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import i18n from './lang';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useUserStore } from './stores/user';
 import { useRouter } from 'vue-router';
 import SplashScreen from '@/components/SplashScreen.vue';
@@ -19,7 +19,7 @@ onMounted(async () => {
     }
 
     try {
-        const res = await useAxios.get('/api/user', { ...store.configApi });
+        const res = await API.get('/api/user', { ...store.configApi });
         store.setUser(res.data);
         //console.log(res.data);
     } catch (err) {

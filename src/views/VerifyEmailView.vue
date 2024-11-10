@@ -83,7 +83,7 @@
 import { reactive } from 'vue';
 import { useUserStore } from '@/stores/user';
 import { z } from 'zod';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useRouter } from 'vue-router';
 import { useDark, useToggle } from '@vueuse/core';
 
@@ -118,7 +118,7 @@ const submit = async () => {
 
 	if (success) {
 		try {
-			const res = await useAxios.post('/api/email/verify', { verification_code }, { ...userStore.configApi });
+			const res = await API.post('/api/email/verify', { verification_code }, { ...userStore.configApi });
 
 			setEmailVerified(true);
 

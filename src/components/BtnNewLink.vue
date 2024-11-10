@@ -39,7 +39,7 @@ const goToCreateLink = () => {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 4px;
+	border-radius: 50%;
 	transform: scale(1);
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px;
 	z-index: 10;

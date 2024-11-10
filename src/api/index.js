@@ -3,13 +3,13 @@ import { toast } from 'vue3-toastify';
 
 const defaultTimeout = 6000;
 
-const useAxios = axios.create({
+const API = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 	timeout: defaultTimeout,
 	'Content-type': 'application/json',
 });
 
-useAxios.interceptors.response.use(
+API.interceptors.response.use(
 	(response) => {
 		return response;
 	},
@@ -25,4 +25,4 @@ useAxios.interceptors.response.use(
 	}
 );
 
-export { useAxios };
+export { API };

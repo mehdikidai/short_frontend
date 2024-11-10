@@ -62,7 +62,7 @@ import Layout from "@/components/Layout.vue";
 import { onMounted, reactive, ref, watch } from "vue";
 import { z } from "zod";
 import { useFocus } from "@vueuse/core";
-import { useAxios } from "@/api";
+import { API } from "@/api";
 import { useUserStore } from "@/stores/user";
 import swal from "sweetalert";
 import router from "@/router";
@@ -114,7 +114,7 @@ onMounted(async () => {
         router.push({ name: "home" });
     } else {
         try {
-            const res = await useAxios(`api/urls/${id}`, {
+            const res = await API(`api/urls/${id}`, {
                 ...store.configApi,
             });
             data.original_url = res.data?.original_url;
@@ -163,7 +163,7 @@ const submit = async () => {
         const { id } = route.params;
 
         try {
-            const res = await useAxios.put(`/api/urls/${id}`, data, {
+            const res = await API.put(`/api/urls/${id}`, data, {
                 ...store.configApi,
             });
             setTimeout(() => {

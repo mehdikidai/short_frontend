@@ -102,7 +102,7 @@
 </template>
 
 <script setup>
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import LayoutTwo from '@/components/LayoutTwo.vue';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -137,7 +137,7 @@ const submitEmail = async () => {
 	await wait();
 
 	try {
-		const response = await useAxios.post('api/password/send-reset-code', { email: email.value });
+		const response = await API.post('api/password/send-reset-code', { email: email.value });
 		console.log(response);
 		code.value = '';
 		step.value = 2;
@@ -180,7 +180,7 @@ const submitPassword = async () => {
 	await wait(5000);
 
 	try {
-		const response = await useAxios.post('api/password/reset', data);
+		const response = await API.post('api/password/reset', data);
 
 		if (response.status === 200) {
 			toast.success('passwoard changed .', {

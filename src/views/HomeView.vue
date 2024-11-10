@@ -2,7 +2,7 @@
 import Layout from '@/components/Layout.vue';
 import Chart from 'chart.js/auto';
 import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useUserStore } from '@/stores/user';
 import { z } from 'zod';
 import SelectBox from '@/components/SelectBox .vue';
@@ -112,7 +112,7 @@ watch(
 
 		if (success) {
 			try {
-				const response = await useAxios(`/api/analytics/${filter.value}`, {
+				const response = await API(`/api/analytics/${filter.value}`, {
 					...store.configApi,
 				});
 
@@ -339,7 +339,7 @@ try {
 			border-radius: 50%;
 			filter: blur(50px);
 			opacity: 0.1;
-			background: rgba(255, 255, 255, 0.3);
+			background: rgba(255, 255, 255, 0.2);
 		}
 		.icon {
 			width: 1.75rem;

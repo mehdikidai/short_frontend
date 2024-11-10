@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import Layout from '@/components/Layout.vue';
 import { watch, ref, computed, nextTick, onMounted } from 'vue';
 import { useUserStore } from '@/stores/user';
@@ -119,11 +119,11 @@ const handelSortOrder = () => {
 //---------------------------------------------------
 
 const handleVisibility = async (id) => {
-	
+
 	const visibilityId = toast.loading('Please wait...');
 
 	try {
-		const response = await useAxios.put(`api/urls/${id}/visual/`, null, {
+		const response = await API.put(`api/urls/${id}/visual/`, null, {
 			...store.configApi,
 		});
 
@@ -171,7 +171,7 @@ const deleteUrl = async (id) => {
 	if (!doIt) return;
 
 	try {
-		const res = await useAxios.delete(`api/urls/${id}`, {
+		const res = await API.delete(`api/urls/${id}`, {
 			...store.configApi,
 		});
 
@@ -188,7 +188,7 @@ watch(
 	async () => {
 		//console.log(currentPage.value);
 		try {
-			const res = await useAxios.get(`/api/urls/${sortOrder.value}`, {
+			const res = await API.get(`/api/urls/${sortOrder.value}`, {
 				...store.configApi,
 				params: {
 					page: currentPage.value,

@@ -55,7 +55,7 @@ import Tit from '@/components/Tit.vue';
 import { useUserStore } from '@/stores/user';
 import { nextTick, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useSwalDelete } from '@/helper';
 import gsap from 'gsap';
 import { gsapConfig } from '@/config/gsap';
@@ -125,7 +125,7 @@ const deleteUser = async (id) => {
 	if (!doIt) return;
 
 	try {
-		const response = await useAxios.delete(`/api/user/${id}`, {
+		const response = await API.delete(`/api/user/${id}`, {
 			...storeUser.configApi,
 		});
 
@@ -147,7 +147,7 @@ const deleteUser = async (id) => {
 
 const getUsers = async () => {
 	try {
-		const res = await useAxios.get(`/api/user/users?page=${currentPage.value}`, {
+		const res = await API.get(`/api/user/users?page=${currentPage.value}`, {
 			...storeUser.configApi,
 		});
 

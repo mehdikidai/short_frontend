@@ -36,7 +36,7 @@ import Tit from '@/components/Tit.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { z } from 'zod';
 import { useFocus } from '@vueuse/core';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useUserStore } from '@/stores/user';
 import wait from 'mk_wait';
 import { toast } from 'vue3-toastify';
@@ -94,7 +94,7 @@ const submit = async () => {
 		lodingSubmit.value = true;
 
 		try {
-			const res = await useAxios.post('/api/urls', data, {
+			const res = await API.post('/api/urls', data, {
 				...store.configApi,
 			});
 

@@ -112,7 +112,7 @@ import Tit from '@/components/Tit.vue';
 import UserPicture from '@/components/UserPicture.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { updateSchema, updatePasswordSchema, zodPassword } from '@/types';
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import wait from 'mk_wait';
@@ -145,7 +145,7 @@ const uploadImg = async (el) => {
 		formData.append('photo', file);
 
 		try {
-			const response = await useAxios.post('/api/upload_photo_profile', formData, {
+			const response = await API.post('/api/upload_photo_profile', formData, {
 				...store.configApi,
 			});
 			console.log(response);
@@ -172,7 +172,7 @@ const submit_profile = async () => {
 		if (DATA.name !== oldName || DATA.email !== oldEmail) {
 			loading_form.value = true;
 			try {
-				const response = await useAxios.put('/api/user', DATA, {
+				const response = await API.put('/api/user', DATA, {
 					...store.configApi,
 				});
 
@@ -212,7 +212,7 @@ const submitPassword = async () => {
 	loading_formPassword.value = true;
 
 	try {
-		const response = await useAxios.put('/api/user/upadete-password', dataPass, {
+		const response = await API.put('/api/user/upadete-password', dataPass, {
 			...store.configApi,
 		});
 		if (response.status === 201) {
@@ -236,7 +236,7 @@ const submitPassword = async () => {
 // delete profile -----------
 
 const deleteAccount = async (password) => {
-	const response = await useAxios.delete('/api/user/account', {
+	const response = await API.delete('/api/user/account', {
 		...store.configApi,
 		data: { password },
 	});

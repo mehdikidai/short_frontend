@@ -55,7 +55,7 @@
 <script setup>
 //--------------------------------------------
 
-import { useAxios } from '@/api';
+import { API } from '@/api';
 import Layout from '@/components/Layout.vue';
 import Tit from '@/components/Tit.vue';
 import { ref, watch } from 'vue';
@@ -87,7 +87,7 @@ watch(
 	async () => {
 		loading.value = true;
 		try {
-			const response = await useAxios(`api/trash?page=${Page.value}`, {
+			const response = await API(`api/trash?page=${Page.value}`, {
 				...store.configApi,
 			});
 
@@ -112,7 +112,7 @@ watch(
 const restoreUrl = async (id) => {
 	disabledBtn.value = true;
 	try {
-		const response = await useAxios.patch(`/api/restore_url/${id}`, null, {
+		const response = await API.patch(`/api/restore_url/${id}`, null, {
 			...store.configApi,
 		});
 
@@ -143,7 +143,7 @@ const forceDelete = async (id) => {
 
 	disabledBtn.value = true;
 	try {
-		const response = await useAxios.delete(`/api/force_delete_url/${id}`, {
+		const response = await API.delete(`/api/force_delete_url/${id}`, {
 			...store.configApi,
 		});
 		if (response.status === 200) {
