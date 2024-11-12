@@ -39,8 +39,10 @@
 				</tbody>
 			</table>
 			<div v-else class="empty">
+
 				<h2 v-if="empty">{{ $t('pages.empty') }}</h2>
 				<h2 v-else>loading</h2>
+
 			</div>
 
 			<div class="pagination" v-if="currentPage < lastPage || currentPage > 1">
@@ -189,6 +191,7 @@ div.empty {
 		font-size: 20px;
 		color: var(--black);
 		opacity: 0.7;
+		text-transform: capitalize;
 	}
 }
 

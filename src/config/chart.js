@@ -30,6 +30,7 @@ export const gridChart = {
 		ticks: {
 			beginAtZero: true,
 			padding: 10,
+			stepSize:1,
 			font: {
 				size: 12,
 			},

@@ -1,6 +1,6 @@
 <template>
 	<Layout>
-		<Tit :text="$t('pages.profile')" />
+		<Tit :text="$t('pages.profile')" icon="person" />
 
 		<div class="container">
 			<div class="box_photo bx bx_1">
