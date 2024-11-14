@@ -190,7 +190,7 @@ const handelNext = () => {
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/var';
+
 
 .box_users{
   min-height: 440px;

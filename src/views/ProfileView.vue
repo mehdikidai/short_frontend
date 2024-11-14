@@ -322,7 +322,6 @@ const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value)
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/var';
 .container {
 	min-height: 280px;
 	//background: red;

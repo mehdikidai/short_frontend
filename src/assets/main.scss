@@ -1,9 +1,9 @@
-@import "./scss/base.scss";
-@import "./scss/swal";
-@import "./scss/icon";
-@import "./scss/toast";
-@import "./scss/hint";
-@import "./scss/rtl";
+@forward "./scss/base.scss";
+@forward "./scss/swal";
+@forward "./scss/icon";
+@forward "./scss/toast";
+@forward "./scss/hint";
+@forward "./scss/rtl";
 
 #app {
     margin: 0;

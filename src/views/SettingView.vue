@@ -77,7 +77,7 @@ onMounted(()=>{
 
 <style lang="scss" scoped>
 
-@import "./../assets/scss/switch_btn";
+@forward "./../assets/scss/switch_btn";
 
 .settings-container {
     display: flex;

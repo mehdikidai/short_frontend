@@ -134,5 +134,5 @@ const submit = () => {
 </template>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/login";
+@forward "./../assets/scss/login";
 </style>

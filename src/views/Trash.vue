@@ -164,7 +164,6 @@ const forceDelete = async (id) => {
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/var';
 
 .box_trash {
 	//background: red;

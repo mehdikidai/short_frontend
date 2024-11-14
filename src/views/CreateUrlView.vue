@@ -125,5 +125,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/create_url_view';
+@forward './../assets/scss/create_url_view';
 </style>

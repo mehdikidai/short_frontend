@@ -1,4 +1,4 @@
-@import './var';
+@use './var' as *;
 
 :root {
 	--white: #fff;

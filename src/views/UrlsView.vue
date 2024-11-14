@@ -206,7 +206,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/var';
+
 .box_main {
 	//background: red;
 	min-height: 100px;

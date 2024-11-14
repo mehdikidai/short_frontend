@@ -43,7 +43,7 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/var";
+
 .login_div {
     height: 100vh;
     background: var(--white);

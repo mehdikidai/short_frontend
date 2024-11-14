@@ -87,7 +87,7 @@ const handleShow = (id) => emit('handleVisibility', id);
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/var';
+
 
 .box {
 	height: 160px;
