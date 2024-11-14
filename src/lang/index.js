@@ -2,7 +2,8 @@ import { createI18n } from 'vue-i18n';
 import en from './en.json';
 import fr from './fr.json';
 import de from './de.json';
-//import es from './es.json';
+import ar from './ar.json';
+import es from './es.json';
 
 const i18n = createI18n({
 	//legacy: false,
@@ -12,6 +13,8 @@ const i18n = createI18n({
 		en,
 		fr,
 		de,
+		ar,
+		es
 	},
 });
 

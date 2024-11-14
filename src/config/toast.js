@@ -1,3 +1,4 @@
+
 export default {
 	theme: 'dark',
 	position: 'bottom-right',
@@ -5,3 +6,4 @@ export default {
 	autoClose: 1500,
 	transition: 'slide',
 };
+

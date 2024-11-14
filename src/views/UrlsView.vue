@@ -119,7 +119,6 @@ const handelSortOrder = () => {
 //---------------------------------------------------
 
 const handleVisibility = async (id) => {
-
 	const visibilityId = toast.loading('Please wait...');
 
 	try {
@@ -129,9 +128,7 @@ const handleVisibility = async (id) => {
 
 		if (response.status === 200) {
 			effect.value = new Date().getTime();
-
 			await wait(1000);
-
 			toast.update(visibilityId, {
 				render: response.data.visible ? 'Shown successfully' : 'Hide successfully',
 				type: 'success',
@@ -143,7 +140,6 @@ const handleVisibility = async (id) => {
 			});
 		}
 	} catch (error) {
-
 		console.log(error.response?.status || error.message);
 
 		toast.update(visibilityId, {
@@ -178,6 +174,7 @@ const deleteUrl = async (id) => {
 		if (res.data.message) effect.value = new Date().getTime();
 
 		if (Urls.value.length === 1) currentPage.value--;
+
 	} catch (error) {
 		console.log(error);
 	}
@@ -242,12 +239,14 @@ watch(
 			border-radius: 6px;
 			display: flex;
 			align-items: center;
-			gap: 4px;
 			border: var(--border);
 			background: var(--white);
 			color: var(--black);
+			font-size: 12px;
+			flex-direction: row-reverse;
+			gap: 10px;
 			i {
-				font-size: 16px;
+				font-size: toRem(16);
 				transition: all 0.3s ease-in-out;
 			}
 			&.asc {

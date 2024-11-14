@@ -113,7 +113,7 @@ watch(textSearch, (newText) => {
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/_var";
+
 .box_search {
     height: 36px;
     width: 0px;

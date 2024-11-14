@@ -3,10 +3,7 @@ import { fr, ar, de, es } from '@/lang/moment';
 import swal from 'sweetalert';
 import i18n from '@/lang';
 
-
-
-
-export const tr = (key) => i18n.global.t(key)
+export const tr = (key) => i18n.global.t(key);
 
 export const sliceUrl = function (text, length = 30) {
 	if (text.length > length) {
@@ -72,12 +69,12 @@ export const showQr = async (data) => {
 		className: 'swl_qe',
 		buttons: {
 			a: {
-				text: 'download',
+				text: i18n.global.t('pages.download'),
 				value: true,
 				className: 'download',
 			},
 			b: {
-				text: 'cancel',
+				text: i18n.global.t('pages.cancel'),
 				value: false,
 				className: 'cancel',
 			},
@@ -155,4 +152,14 @@ export const getColorBrowser = (browserName) => {
 export const calculatePercentage = (total, browsers) => {
 	const totalSum = browsers.map((e) => e.total).reduce((a, b) => a + b, 0);
 	return Math.floor((total / totalSum) * 100);
+};
+
+export const directionPage = (lang) => {
+	if (lang === 'ar') {
+		document.documentElement.setAttribute('dir', 'rtl');
+		document.documentElement.setAttribute('lang', 'ar');
+	} else {
+		document.documentElement.setAttribute('dir', 'ltr');
+		document.documentElement.setAttribute('lang', 'en');
+	}
 };

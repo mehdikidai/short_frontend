@@ -32,7 +32,7 @@
 			<li v-if="store.isAdmin">
 				<RouterLink :to="{ name: 'users' }" class="li_el">
 					<Icon name="group" />
-					{{ 'users' }}
+					{{ $t('pages.users') }}
 				</RouterLink>
 			</li>
 			<li>
@@ -81,19 +81,19 @@
 			</div>
 			<BoxSearch />
 			<div class="box_profile">
-				<button class="btn_theme" @click="handelShowLang()" @mouseenter="showLangList = true">
+				<button class="btn_theme" @click="handelShowLang()">
 					<Icon name="translate" />
 					<ul class="ul_lang" v-if="showLangList">
 						<li v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`">
 							<button
 								:class="['lang', { active: locale === $i18n.locale }]"
 								@click="handelLang(locale)"
-								:disabled="locale === $i18n.locale"
+								v-if="locale !== $i18n.locale"
 							>
 								<i>
 									<IconX :icon="getFlag(locale)" />
 								</i>
-								{{  countries[locale] }}
+								{{ countries[locale] }}
 							</button>
 						</li>
 					</ul>
@@ -134,7 +134,7 @@ import { useRouter } from 'vue-router';
 import { Logout } from '@/auth';
 import BoxSearch from './BoxSearch.vue';
 import { Icon as IconX } from '@iconify/vue';
-import { getFlag } from '@/helper';
+import { directionPage, getFlag } from '@/helper';
 import BtnNewLink from './BtnNewLink.vue';
 import { ref } from 'vue';
 import countries from '@/lang/countries';
@@ -160,7 +160,6 @@ const handelMenu = (ok = false) => {
 
 const showLangList = ref(false);
 
-
 //---------------------------
 
 onClickOutside(showLangList, (event) => {
@@ -174,6 +173,7 @@ const handelShowLang = () => {
 const handelLang = (lang) => {
 	i18n.global.locale = lang;
 	localStorage.setItem('lang', lang);
+	directionPage(lang);
 };
 
 const logout = () => {
@@ -185,7 +185,7 @@ const logout = () => {
 </script>
 
 <style lang="scss" scoped>
-@import './../assets/scss/_var';
+
 
 .sidebar {
 	width: 230px;
@@ -226,20 +226,20 @@ const logout = () => {
 	//margin-block: 10px;
 	display: flex;
 	flex-direction: column;
-	//gap: 10px;
+	gap: 5px;
 	&.ul_logout {
 		margin-top: auto;
 	}
-	&.ul_one{
-		padding-top: 0;
+	&.ul_one {
+		padding-top: 20px;
 	}
 }
 
 .sidebar ul li {
-	height: 46px;
+	height: 36px;
 	transition: all 0.1s ease-in;
 	font-weight: 400;
-
+    clip-path: inset(0 round 6px);
 	i {
 		color: var(--black);
 		font-size: toRem(20);
@@ -255,10 +255,13 @@ const logout = () => {
 		cursor: pointer;
 		font-size: toRem(16);
 		background: transparent;
-		border-radius: 6px;
-		transition: all 0.6s ease-in-out;
+		box-shadow: inset 0 0 0 0 var(--white_3);
+		transition: background 0.4s linear, box-shadow 0.4s linear;
 		&.router-link-exact-active {
 			background: var(--white_3);
+		}
+		&:hover {
+			box-shadow: inset 230px 0 0 0 var(--white_3);
 		}
 	}
 }
@@ -267,7 +270,7 @@ const logout = () => {
 	.logout {
 		background: transparent;
 		position: absolute;
-		bottom: 20px;
+		bottom: 30px;
 		left: 0;
 		//width: calc(100% - 40px);
 		right: 0;
@@ -279,7 +282,6 @@ const logout = () => {
 	color: var(--black);
 	text-decoration: none;
 	flex: 1;
-	transition: all 0.1s ease-in;
 	text-transform: capitalize;
 }
 
@@ -307,9 +309,11 @@ const logout = () => {
 		//background: red;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
+		gap: 2px;
 		h1 {
 			font-size: 1.125rem;
+			line-height: 1.125rem;
 			font-weight: 600;
 			text-transform: capitalize;
 			display: flex;
@@ -317,6 +321,7 @@ const logout = () => {
 			gap: 5px;
 			i {
 				font-size: 1.125rem;
+				line-height: 1.125rem;
 				transform: rotate(-20deg);
 			}
 		}
@@ -354,8 +359,11 @@ const logout = () => {
 					display: flex;
 					flex-direction: column;
 					font-size: 0.875rem;
+					line-height: 0.875rem;
+					gap: 6px;
 					span {
 						font-size: 0.75rem;
+						line-height: 0.75rem;
 						opacity: 0.5;
 						text-transform: lowercase;
 					}
@@ -385,7 +393,7 @@ const logout = () => {
 				background: var(--white_2);
 				position: absolute;
 				top: 40px;
-				right:0;
+				right: 0;
 				width: auto;
 				display: flex;
 				flex-direction: column;
@@ -427,12 +435,7 @@ const logout = () => {
 						&.active {
 							background: var(--white_3);
 						}
-						&:disabled {
-							filter: grayscale(100%);
-							cursor: auto;
-							opacity: 0.45;
-					
-						}
+
 						i {
 							font-size: 12px;
 							display: flex;

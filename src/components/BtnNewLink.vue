@@ -1,19 +1,28 @@
 <template>
-	<button class="add_new_link hint--left hint--rounded hint--no-arrow hint--small" @click="goToCreateLink" :data-hint="isCreatePage ? $t('pages.back') : $t('pages.create_new')">
-		<Icon :name="isCreatePage ? 'arrow_right_alt' : 'add'" />
+	<button class="add_new_link hint--rounded hint--no-arrow hint--small" :class="isArabic  ? 'hint--right' : 'hint--left'" @click="goToCreateLink" :data-hint="isCreatePage ? $t('pages.back') : $t('pages.create_new')">
+		<Icon :name="isCreatePage ? arrow : 'add'" />
 	</button>
 </template>
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import i18n from '@/lang';
+
 
 const router = useRouter();
 const route = useRoute();
 
 const isCreatePage = computed(() => route.name === 'createLink');
 
+const isArabic = computed(()=> i18n.global.locale === 'ar')
+
+const arrow = computed(()=> isArabic.value ? 'arrow_left_alt' : 'arrow_right_alt')
+
+
+
 const goToCreateLink = () => {
+
 	const destination = { name: 'createLink' };
 
 	if (route.name === 'createLink') {

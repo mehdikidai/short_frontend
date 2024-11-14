@@ -4,6 +4,7 @@
 	},
 	"pages": {
 		"home": "home",
+		"users": "users",
 		"links": "links",
 		"analytics": "analytics",
 		"setting": "setting",
@@ -51,7 +52,13 @@
 		"last_month": "last month",
 		"last_year": "last year",
 		"all": "all",
-    "back":"back",
-    "please_enter_your_password_to_confirm":"Please enter your password to confirm:"
+		"back": "back",
+		"please_enter_your_password_to_confirm": "Please enter your password to confirm:",
+		"download": "download",
+		"qr_code":"qr code",
+		"total_links_created":"Total links created",
+		"total_visits":"Total visits",
+		"deleted_links":"Deleted links",
+		"total_countries":"Total Countries"
 	}
 }

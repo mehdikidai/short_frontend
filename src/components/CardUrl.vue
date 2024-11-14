@@ -15,7 +15,7 @@
 				<a :href="url.url_server + '/' + url.code" class="link link_short" target="_blank"
 					>{{ url.domain }}/{{ url.code }}</a
 				>
-				<a href="#" class="link long-url" target="_blank">{{ $sliceUrl(url.original_url,16) }}</a>
+				<a href="#" class="link long-url" target="_blank">{{ $sliceUrl(url.original_url,30) }}</a>
 				<span class="date_url">
 					<Icon name="schedule" />
 					{{ $momentFromNow(url.created_at, $i18n.locale) }}</span
@@ -32,7 +32,7 @@
 			</button>
 			<button
 				class="action hint--top hint--rounded hint--no-arrow hint--small"
-				aria-label="Qr Code"
+				:aria-label="$t('pages.qr_code')"
 				@click="
 					showQr({
 						url: `${url.url_server}/${url.code}`,

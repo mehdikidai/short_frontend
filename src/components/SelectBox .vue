@@ -65,7 +65,7 @@ span {
     float: right;
     position: relative;
     select {
-        font-size: 0.9rem;
+        font-size: 12px;
         padding: 6px 40px 6px 15px;
         border-radius: 4px;
         background: var(--white);
@@ -74,6 +74,7 @@ span {
         appearance: none;
         font-size: v-bind(fontSize);
         text-transform: capitalize;
+        height: 34px;
         cursor: pointer;
         
         option {
@@ -89,7 +90,7 @@ span {
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 18px;
+        font-size: toRem(16);
         color: var(--black);
         pointer-events: none;
     }

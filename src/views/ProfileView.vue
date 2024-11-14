@@ -372,12 +372,15 @@ const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value)
 			justify-content: center;
 			border-radius: 50%;
 			position: relative;
+			width: 120px;
+			height: 120px;
 			svg {
 				position: absolute;
-				inset: 50%;
+				left: 50%;
+				top: 50%;
 				transform: translate(-50%, -50%);
 				z-index: 3;
-				color: aliceblue;
+				color: rgb(255, 255, 255);
 			}
 			img {
 				clip-path: circle();

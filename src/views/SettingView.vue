@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <Tit text="setting" icon="tune" />
+        <Tit :text="$t('pages.setting')" icon="tune" />
         <div class="settings-container">
 
             

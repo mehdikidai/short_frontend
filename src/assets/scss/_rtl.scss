@@ -1,0 +1,93 @@
+html[dir='rtl'] {
+	*:not(i),
+	*::after,
+	*::before {
+		font-family: 'Cairo', sans-serif;
+	}
+
+	.boxs .box .icon_filter {
+		right: auto !important;
+		left: 20px;
+	}
+
+	.box.el_url {
+		direction: ltr;
+	}
+
+	.box_search .box_one span.ctrl_k,
+	.box_search button.cls {
+		right: auto !important;
+		left: 6px;
+	}
+
+	.chart_boxs {
+		direction: ltr;
+	}
+
+	.add_new_link {
+		bottom: 40px;
+		right: auto !important;
+		left: 20px;
+	}
+	.box_users {
+		min-height: 440px;
+		table td.td_box_img span {
+			width: 40px;
+			height: 40px;
+			inset: auto;
+			right: 0;
+			top: 50%;
+			transform: translate(0, -50%);
+		}
+		table td.td_box_action button {
+			position: absolute;
+			inset: auto;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	.paginate {
+		direction: ltr;
+	}
+	span select {
+		padding: 5px 40px 5px 15px;
+	}
+	.sidebar ul li a {
+		font-size: toRem(14);
+	}
+	.box_trash {
+		direction: ltr;
+	}
+	.chart_boxs div.continer h2 {
+		direction: rtl;
+	}
+	.container {
+		.box_form,
+		.change_password {
+			direction: ltr;
+		}
+	}
+	h1.tit_h1 {
+		font-size: toRem(16);
+		line-height: toRem(16);
+	}
+	.swal-title:first-child,
+	.swal-title:not(:last-child),
+	.swal-text {
+		text-align: right;
+	}
+
+	.sidebar ul li a {
+		&:hover {
+			box-shadow: inset -230px 0 0 0 var(--white_3);
+		}
+	}
+	.login-container {
+		.box_input {
+			input {
+				direction: ltr;
+			}
+		}
+	}
+}

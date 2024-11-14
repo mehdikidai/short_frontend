@@ -17,8 +17,6 @@ defineProps({
 
 <style lang="scss" scoped>
 
-@import "../assets/scss/var";
-
 h1.tit_h1 {
     font-size: toRem(18);
     line-height: toRem(18);

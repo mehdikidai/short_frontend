@@ -23,4 +23,5 @@ export default {
 	lt: 'Lietuvių',
 	lv: 'Latviešu',
 	et: 'Eesti',
+	ar: 'arabic',
 };

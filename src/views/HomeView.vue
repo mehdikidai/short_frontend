@@ -1,7 +1,7 @@
 <script setup>
 import Layout from '@/components/Layout.vue';
 import Chart from 'chart.js/auto';
-import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, watch, computed, onMounted, onUnmounted, nextTick, watchEffect } from 'vue';
 import { API } from '@/api';
 import { useUserStore } from '@/stores/user';
 import { z } from 'zod';
@@ -159,20 +159,39 @@ const handelFilter = (v) => (filter.value = v);
 // section socket io  ---------------
 
 try {
-	const socket = io(import.meta.env.VITE_SOCKET_IO_URL);
 
-	socket.on('newVisit', (id) => {
-		if (id === store.id && !disabledFilter.value) {
-			socketEvent.value = new Date().getTime();
+	let socket;
+
+	const socketSetInterval = setInterval(() => {
+
+		if (store.socketRoom === null) return
+
+		//console.log(store.socketRoom);
+
+		socket = io(import.meta.env.VITE_SOCKET_IO_URL, { query: { room: store.socketRoom } });
+
+		socket.on('newVisit', () => {
+			if (!disabledFilter.value) {
+				socketEvent.value = new Date().getTime();
+			}
+		});
+
+		clearInterval(socketSetInterval);
+		
+	}, 2000);
+
+	onUnmounted(() => {
+		if (socket) {
+			socket.disconnect();
 		}
 	});
 
-	onUnmounted(() => {
-		socket.disconnect();
-	});
+
 } catch (error) {
 	console.log(error.message);
 }
+
+
 
 //----------------------------------
 </script>
@@ -200,7 +219,7 @@ try {
 				<div class="content">
 					<h2 class="tit_box">{{ $t('pages.number_of_links') }}</h2>
 					<h3 class="number_box">{{ format(totalUrls, '0 a') }}</h3>
-					<span class="span_box">Lorem ipsum dolor sit.</span>
+					<span class="span_box">{{ $t('pages.total_links_created') }}</span>
 				</div>
 			</div>
 
@@ -214,7 +233,7 @@ try {
 				<div class="content">
 					<h2 class="tit_box">{{ $t('pages.number_of_visits') }}</h2>
 					<h3 class="number_box">{{ format(visits, '0 a') }}</h3>
-					<span class="span_box">Lorem ipsum dolor sit.</span>
+					<span class="span_box">{{ $t('pages.total_visits') }}</span>
 				</div>
 			</div>
 			<div class="box">
@@ -228,7 +247,7 @@ try {
 					<h2 class="tit_box">{{ $t('pages.trash') }}</h2>
 					<h3 class="number_box">{{ format(trash, '0 a') }}</h3>
 
-					<span class="span_box">Lorem ipsum dolor sit.</span>
+					<span class="span_box">{{ $t('pages.deleted_links') }}</span>
 				</div>
 			</div>
 			<div class="box">
@@ -242,7 +261,7 @@ try {
 					<h2 class="tit_box">{{ $t('pages.countries') }}</h2>
 					<h3 class="number_box">{{ totalCountries }}</h3>
 
-					<span class="span_box">Lorem ipsum dolor sit.</span>
+					<span class="span_box">{{ $t('pages.total_countries') }}</span>
 				</div>
 			</div>
 		</div>
@@ -273,6 +292,8 @@ try {
 </template>
 
 <style lang="scss" scoped>
+
+
 .filter_url_x {
 	height: 36px;
 	//background: red;
@@ -348,7 +369,7 @@ try {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			border-radius: 6px;
+			border-radius: 4px;
 			&_filter {
 				position: absolute;
 				top: 20px;
@@ -369,25 +390,21 @@ try {
 			}
 		}
 		&:nth-last-of-type(1) {
-			
 			.icon {
 				background: #c7e6f0;
 			}
 		}
 		&:nth-last-of-type(2) {
-			
 			.icon {
 				background: #f6e899;
 			}
 		}
 		&:nth-last-of-type(3) {
-			
 			.icon {
 				background: #e0daf1;
 			}
 		}
 		&:nth-last-of-type(4) {
-			
 			.icon {
 				background: rgba(252, 172, 86, 1);
 			}
@@ -412,7 +429,7 @@ try {
 				font-weight: 600;
 			}
 			span {
-				font-size: 0.875rem;
+				font-size: toRem(14);
 				color: var(--black);
 				opacity: 0.5;
 				margin-top: auto;
@@ -448,7 +465,7 @@ try {
 		}
 
 		h2 {
-			font-size: 1rem;
+			font-size: 0.9rem;
 			font-weight: 500;
 			color: var(--black);
 			opacity: 0.7;

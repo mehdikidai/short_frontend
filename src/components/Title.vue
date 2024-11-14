@@ -21,7 +21,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/_var";
+
 
 .addUrl {
     min-height: 36px;

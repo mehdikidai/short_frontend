@@ -74,6 +74,9 @@ body {
 	background: var(--white);
 	//background: brown;
 	scrollbar-gutter: stable;
+	&.rtl{
+		direction: rtl !important;
+	}
 }
 
 html {
