@@ -15,7 +15,7 @@
             <button class="cls" v-if="clsForm" @click="textSearch = ''">
                 <Icon name="close" />
             </button>
-            <span v-else class="ctrl_k"> ctrl+k </span>
+            <span v-else class="ctrl_k font_en"> ctrl+k </span>
         </div>
         <div class="box_two_result" v-if="showResult">
             <ul>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { watch, computed, ref, onMounted, watchEffect } from "vue";
+import { watch, computed, ref } from "vue";
 import { debounce } from "lodash";
 import { API } from "@/api";
 import { useUserStore } from "@/stores/user";

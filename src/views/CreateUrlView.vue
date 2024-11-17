@@ -4,7 +4,7 @@
 		<div class="box_create">
 			<form action="#" method="post" @submit.prevent="submit()">
 				<div class="box">
-					<label for="title">Title</label>
+					<label for="title">{{ $t('pages.title') }}</label>
 					<input type="text" id="title" name="title" placeholder="title" v-model="data.title" ref="input_Title" />
 					<span v-if="msgErrorTitle">{{ msgErrorTitle }}</span>
 				</div>

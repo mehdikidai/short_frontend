@@ -1,20 +1,23 @@
 <template>
 	<Layout>
-		<Tit text="users" icon="group" />
+		<Tit :text="$t('pages.users')" icon="group" />
 		<div class="box_users" v-if="loading">
 			<table>
 				<thead>
 					<tr class="tr_el_head">
-						<th class="box_img">photo</th>
-						<th class="box_name">Lastname</th>
-						<th class="box_action">actions</th>
+						<th class="box_img"></th>
+						<th class="box_name"></th>
+						<th class="box_action"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="user in users" :key="user.id" class="tr_el_body">
+					<tr v-for="(user, i) in users" :key="user.id" class="tr_el_body font_en">
 						<td class="td_box_img">
 							<span>
-								<img :src="user.photo || defaultImg" :alt="user.name" />
+								<img
+									:src="user.photo || `https://avatar.iran.liara.run/public/${i + 1 + 6 * currentPage}`"
+									:alt="user.name"
+								/>
 							</span>
 						</td>
 						<td>
@@ -66,8 +69,6 @@ const storeUser = useUserStore();
 const router = useRouter();
 
 const loading = ref(true);
-
-const defaultImg = ref('https://avatar.iran.liara.run/public');
 
 // users section
 
@@ -190,28 +191,25 @@ const handelNext = () => {
 </script>
 
 <style lang="scss" scoped>
-
-
-.box_users{
-  min-height: 440px;
+.box_users {
+	min-height: 440px;
 }
 
 table {
 	width: 100%;
 	border-collapse: collapse;
+	border-collapse: separate;
 	font-size: toRem(16);
 	border: none;
 	table-layout: auto;
+	border-spacing: 0 10px;
 	.box_img {
-		width: 80px;
+		width: 70px;
 	}
 
-	tr:not(:last-child) {
-		box-shadow: 0 1px 0 var(--border-color);
-	}
-
-	tr.tr_el_head {
-		box-shadow: 0 1px 0 var(--border-color);
+	tr {
+		background: var(--white);
+		clip-path: inset(0 round 4px);
 	}
 	th,
 	td {
@@ -224,6 +222,8 @@ table {
 		text-align: start;
 	}
 	th {
+		height: 0;
+		overflow: hidden;
 		&.box_name {
 			width: auto;
 		}
@@ -237,14 +237,14 @@ table {
 		&.td_box_img {
 			position: relative;
 			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			span {
 				width: 40px;
 				height: 40px;
 				background: transparent;
 				display: flex;
-				position: absolute;
-				inset: 50%;
-				transform: translate(-50%, -50%);
 				clip-path: circle();
 				img {
 					width: 100%;
@@ -254,14 +254,18 @@ table {
 			}
 		}
 		span {
-			display: block;
 			&.span_name_email {
 				//background: blue;
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
 				p {
 					font-weight: 500;
 					display: flex;
 					align-items: center;
 					gap: 10px;
+					font-size: toRem(14);
+					line-height: toRem(14);
 					b {
 						opacity: 0.8;
 						&.admin {
@@ -272,6 +276,8 @@ table {
 				small {
 					opacity: 0.5;
 					text-transform: lowercase;
+					font-size: toRem(12);
+					line-height: toRem(12);
 				}
 			}
 		}
@@ -300,7 +306,7 @@ table {
 .paginate {
 	margin-block: 20px;
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	align-items: center;
 	gap: 40px;
 	button {

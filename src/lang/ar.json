@@ -59,6 +59,10 @@
 		"total_links_created": "إجمالي الروابط المنشأة",
 		"total_visits": "إجمالي عدد الزيارات",
 		"deleted_links": "الروابط المحذوفة",
-		"total_countries": "إجمالي عدد الدول"
+		"total_countries": "إجمالي عدد الدول",
+		"dark_mode": "الوضع الداكن",
+		"qr_code_color": "لون رمز الاستجابة السريعة",
+		"qr_code_background": "خلفية رمز الاستجابة السريعة",
+		"title":"العنوان"
 	}
 }

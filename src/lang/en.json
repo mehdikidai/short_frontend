@@ -59,6 +59,10 @@
 		"total_links_created":"Total links created",
 		"total_visits":"Total visits",
 		"deleted_links":"Deleted links",
-		"total_countries":"Total Countries"
+		"total_countries":"Total Countries",
+		"dark_mode":"dark mode",
+		"qr_code_color":"qr code color",
+		"qr_code_background":"qr code background",
+		"title":"title"
 	}
 }

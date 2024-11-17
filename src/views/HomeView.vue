@@ -14,6 +14,7 @@ import { io } from 'socket.io-client';
 import { chartVisitsConfig, chartTwoConfig } from '@/config/chart';
 import FlagBox from '@/components/FlagBox.vue';
 import { Icon as Iconx } from '@iconify/vue';
+import { debounce } from 'lodash';
 
 const store = useUserStore();
 const chartA = ref(null);
@@ -159,25 +160,23 @@ const handelFilter = (v) => (filter.value = v);
 // section socket io  ---------------
 
 try {
-
 	let socket;
 
 	const socketSetInterval = setInterval(() => {
-
-		if (store.socketRoom === null) return
-
-		//console.log(store.socketRoom);
+		if (store.socketRoom === null) return;
 
 		socket = io(import.meta.env.VITE_SOCKET_IO_URL, { query: { room: store.socketRoom } });
 
-		socket.on('newVisit', () => {
-			if (!disabledFilter.value) {
-				socketEvent.value = new Date().getTime();
-			}
-		});
+		socket.on(
+			'newVisit',
+			debounce(() => {
+				if (!disabledFilter.value) {
+					socketEvent.value = new Date().getTime();
+				}
+			}, 2000)
+		);
 
 		clearInterval(socketSetInterval);
-		
 	}, 2000);
 
 	onUnmounted(() => {
@@ -185,13 +184,9 @@ try {
 			socket.disconnect();
 		}
 	});
-
-
 } catch (error) {
 	console.log(error.message);
 }
-
-
 
 //----------------------------------
 </script>
@@ -292,8 +287,6 @@ try {
 </template>
 
 <style lang="scss" scoped>
-
-
 .filter_url_x {
 	height: 36px;
 	//background: red;

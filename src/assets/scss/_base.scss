@@ -55,6 +55,13 @@ a {
 	text-decoration: none;
 }
 
+.font_en {
+	font-family: var(--font-family) !important;
+	& *:not(i) {
+		font-family: var(--font-family) !important;
+	}
+}
+
 input:focus,
 input:active {
 	outline: none;
@@ -74,7 +81,7 @@ body {
 	background: var(--white);
 	//background: brown;
 	scrollbar-gutter: stable;
-	&.rtl{
+	&.rtl {
 		direction: rtl !important;
 	}
 }

@@ -9,13 +9,13 @@
 			</div>
 			<div class="link-card__info-container">
 				<RouterLink :to="{ name: 'url', params: { id: url.id } }"
-					><h3 class="h3">{{ $sliceUrl(url.title, 16) }}</h3></RouterLink
+					><h3 class="h3 font_en">{{ $sliceUrl(url.title, 16) }}</h3></RouterLink
 				>
 
-				<a :href="url.url_server + '/' + url.code" class="link link_short" target="_blank"
+				<a :href="url.url_server + '/' + url.code" class="link link_short font_en" target="_blank"
 					>{{ url.domain }}/{{ url.code }}</a
 				>
-				<a href="#" class="link long-url" target="_blank">{{ $sliceUrl(url.original_url,30) }}</a>
+				<a href="#" class="link long-url font_en" target="_blank">{{ $sliceUrl(url.original_url,30) }}</a>
 				<span class="date_url">
 					<Icon name="schedule" />
 					{{ $momentFromNow(url.created_at, $i18n.locale) }}</span

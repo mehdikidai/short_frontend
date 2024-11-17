@@ -51,14 +51,16 @@ h1 {
                 border: none;
                 background: var(--main);
                 color: var(--white-fix);
-                font-size: 14px;
+                font-size: toRem(13);
                 text-transform: capitalize;
                 border-radius: 2px;
+                font-weight: 500;
             }
             label {
                 color: var(--black);
                 opacity: 0.8;
                 font-size: 14px;
+                text-transform: capitalize;
             }
             span {
                 font-size: 12px;

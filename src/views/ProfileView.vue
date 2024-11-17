@@ -3,7 +3,7 @@
 		<Tit :text="$t('pages.profile')" icon="person" />
 
 		<div class="container">
-			<div class="box_photo bx bx_1">
+			<div class="box_photo bx bx_1 font_en">
 				<button class="edit" @click="INPUT_IMG.click()" :disabled="loading_upload_img">
 					<Icon name="edit" />
 				</button>
@@ -31,6 +31,7 @@
 							:placeholder="$t('pages.full_name')"
 							v-model="data.name"
 							ref="input_name"
+							class="font_en"
 						/>
 					</div>
 					<div class="box">
@@ -42,6 +43,7 @@
 							:placeholder="$t('pages.email')"
 							v-model="data.email"
 							ref="input_email"
+							class="font_en"
 						/>
 					</div>
 
@@ -314,7 +316,7 @@ onMounted(() => {
 
 // visible password -----
 
-const visiblePassword = ref(true);
+const visiblePassword = ref(false);
 
 const toggleVisiblePass = () => (visiblePassword.value = !visiblePassword.value);
 

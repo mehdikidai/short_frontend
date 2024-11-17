@@ -1,3 +1,5 @@
+@use "./var" as *;
+
 .box {
     //background: blue;
     display: flex;
@@ -24,9 +26,8 @@
         border: none;
         background: var(--main);
         color: var(--white-fix);
-        font-size: 14px;
+        font-size: toRem(13);
         text-transform: capitalize;
-        border-radius: 2px;
     }
     label {
         color: var(--black);

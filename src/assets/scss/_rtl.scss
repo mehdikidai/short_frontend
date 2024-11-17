@@ -1,3 +1,5 @@
+@use './var' as *;
+
 html[dir='rtl'] {
 	*:not(i),
 	*::after,
@@ -30,14 +32,10 @@ html[dir='rtl'] {
 		left: 20px;
 	}
 	.box_users {
-		min-height: 440px;
 		table td.td_box_img span {
 			width: 40px;
 			height: 40px;
 			inset: auto;
-			right: 0;
-			top: 50%;
-			transform: translate(0, -50%);
 		}
 		table td.td_box_action button {
 			position: absolute;
@@ -49,6 +47,7 @@ html[dir='rtl'] {
 	}
 	.paginate {
 		direction: ltr;
+		justify-content: end;
 	}
 	span select {
 		padding: 5px 40px 5px 15px;

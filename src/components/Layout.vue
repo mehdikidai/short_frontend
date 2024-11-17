@@ -73,7 +73,7 @@
 			<button class="btn_menu" @click="handelMenu()">
 				<Icon name="menu" />
 			</button>
-			<div class="title">
+			<div class="title font_en">
 				<h1>
 					<span>dashboard</span>
 				</h1>
@@ -86,7 +86,7 @@
 					<ul class="ul_lang" v-if="showLangList">
 						<li v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`">
 							<button
-								:class="['lang', { active: locale === $i18n.locale }]"
+								:class="['lang', 'font_en', { active: locale === $i18n.locale }]"
 								@click="handelLang(locale)"
 								v-if="locale !== $i18n.locale"
 							>
@@ -102,7 +102,7 @@
 					<Icon :name="isDark ? 'brightness_5' : 'brightness_4'" />
 				</button>
 				<RouterLink :to="{ name: 'profile' }">
-					<div class="profile_photo">
+					<div class="profile_photo font_en">
 						<img v-memo="photo" class="img_user" :src="photo" alt="" />
 						<div class="name_user">
 							<div>
@@ -163,14 +163,15 @@ const showLangList = ref(false);
 //---------------------------
 
 onClickOutside(showLangList, (event) => {
-	if (event.target.className !== 'lang') showLangList.value = false;
+	if (!event.target.classList.contains('lang')) {
+		showLangList.value = false;
+	}
 });
 
-const handelShowLang = () => {
-	showLangList.value = !showLangList.value;
-};
+const handelShowLang = () => (showLangList.value = !showLangList.value);
 
 const handelLang = (lang) => {
+	showLangList.value = true;
 	i18n.global.locale = lang;
 	localStorage.setItem('lang', lang);
 	directionPage(lang);
@@ -185,8 +186,6 @@ const logout = () => {
 </script>
 
 <style lang="scss" scoped>
-
-
 .sidebar {
 	width: 230px;
 	min-width: 230px;
@@ -239,7 +238,7 @@ const logout = () => {
 	height: 36px;
 	transition: all 0.1s ease-in;
 	font-weight: 400;
-    clip-path: inset(0 round 6px);
+	clip-path: inset(0 round 6px);
 	i {
 		color: var(--black);
 		font-size: toRem(20);
@@ -388,6 +387,7 @@ const logout = () => {
 				font-size: toRem(18);
 				color: var(--black);
 				transition: all 0.3s ease-in-out;
+				pointer-events: none;
 			}
 			ul.ul_lang {
 				background: var(--white_2);
