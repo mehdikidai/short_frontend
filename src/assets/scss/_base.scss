@@ -80,15 +80,19 @@ body {
 	min-height: 100vh;
 	background: var(--white);
 	//background: brown;
-	scrollbar-gutter: stable;
+	width: 100%;
+	overflow: hidden;
 	&.rtl {
 		direction: rtl !important;
 	}
 }
 
+body::-webkit-scrollbar {
+	width: 0;
+  }
+
 html {
 	font-size: 16px;
-	scrollbar-gutter: stable;
 }
 
 button,
@@ -103,3 +107,4 @@ li {
 		font-size: 14px;
 	}
 }
+
