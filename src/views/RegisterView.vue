@@ -59,7 +59,7 @@ const submit = () => {
             <button class="logo_img">
                 <Logo />
             </button>
-            <h2>{{ $t("sign in") }}</h2>
+            <h2>{{ $t("pages.sign_in") }}</h2>
 
             <form action="/login" method="POST" @submit.prevent="submit">
                 <div class="form-group">
@@ -120,10 +120,10 @@ const submit = () => {
                     {{ $t("pages.register") }}
                 </button>
                 <div class="line">
-                    <span class="or">or</span>
+                    <span class="or">{{  $t("pages.or") }}</span>
                 </div>
                 <span class="link_register">
-                    I have an account
+                    {{ $t("pages.i_have_an_account") }}
                     <RouterLink :to="{ name: 'login' }">{{
                         $t("pages.login")
                     }}</RouterLink>

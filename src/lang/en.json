@@ -63,6 +63,18 @@
 		"dark_mode":"dark mode",
 		"qr_code_color":"qr code color",
 		"qr_code_background":"qr code background",
-		"title":"title"
+		"title":"title",
+		"or":"or",
+		"don_t_have_an_account":"don't have an account",
+		"i_have_an_account":"I have an account",
+		"sign_in":"sign in",
+		"find_your_email":"Find your email",
+		"your_email":"your email",
+		"next":"next",
+		"enter_the_code":"Enter the code",
+		"code":"code",
+		"prev":"prev",
+		"go_back_login":"go back login",
+		"enter_new_password":"Enter New Password"
 	}
 }

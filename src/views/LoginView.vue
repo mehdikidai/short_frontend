@@ -104,10 +104,10 @@ const submit = async () => {
 					{{ $t('pages.login') }}
 				</button>
 				<div class="line">
-					<span class="or">or</span>
+					<span class="or">{{ $t('pages.or') }}</span>
 				</div>
 				<span class="link_register">
-					don't have an account
+					{{ $t("pages.don_t_have_an_account") }}
 					<RouterLink :to="{ name: 'register' }">{{ $t('pages.register') }}</RouterLink>
 				</span>
 			</form>

@@ -3,13 +3,13 @@
 		<StepProgress :step="step" :progress="progress" />
 
 		<div class="login-container" v-if="step === 1">
-			<h2>Find your email</h2>
+			<h2>{{ $t('pages.find_your_email') }}</h2>
 
 			<form @submit.prevent="submitEmail">
 				<div class="form-group">
-					<label for="email">your email</label>
+					<label for="email">{{ $t('pages.your_email') }}</label>
 					<div class="box_input">
-						<input type="text" placeholder="Your Email" v-model="email" autoComplete="off" spellcheck="false" />
+						<input type="text" placeholder="example@email.com" v-model="email" autoComplete="off" spellcheck="false" />
 					</div>
 				</div>
 
@@ -18,14 +18,14 @@
 				</button>
 
 				<button v-else class="btn_login" type="submit">
-					{{ 'next' }}
+					{{ $t('pages.next') }}
 				</button>
 
 				<div class="line">
-					<span class="or">or</span>
+					<span class="or">{{ $t('pages.or') }}</span>
 				</div>
 				<span class="link_register">
-					go back login
+					{{ $t('pages.go_back_login') }}
 					<RouterLink :to="{ name: 'login' }">{{ $t('pages.register') }}</RouterLink>
 				</span>
 			</form>
@@ -34,30 +34,30 @@
 		<!-- //// -->
 
 		<div class="login-container" v-if="step === 2">
-			<h2>Enter the code</h2>
+			<h2>{{ $t('pages.enter_the_code') }}</h2>
 
 			<form @submit.prevent="submitCode">
 				<div class="form-group">
-					<label for="email">{{ 'code' }}</label>
+					<label for="email">{{ $t('pages.code') }}</label>
 					<div class="box_input">
-						<input type="text" placeholder="code" v-model="code" autoComplete="off" spellcheck="false" />
+						<input type="text" placeholder="******" v-model="code" autoComplete="off" spellcheck="false" />
 					</div>
 				</div>
 
 				<div class="box_next_prev">
 					<button type="button" class="btn_login btn_prev" @click="step = 1">
-						{{ 'prev' }}
+						{{ $t('pages.prev') }}
 					</button>
 					<button class="btn_login" type="submit">
-						{{ 'next' }}
+						{{ $t('pages.next') }}
 					</button>
 				</div>
 
 				<div class="line">
-					<span class="or">or</span>
+					<span class="or">{{ $t('pages.or') }}</span>
 				</div>
 				<span class="link_register">
-					go back login
+					{{ $t('pages.go_back_login') }}
 					<RouterLink :to="{ name: 'login' }">{{ $t('pages.register') }}</RouterLink>
 				</span>
 			</form>
@@ -66,34 +66,34 @@
 		<!-- //// -->
 
 		<div class="login-container" v-if="step === 3">
-			<h2>Enter New Password</h2>
+			<h2>{{ $t('pages.enter_new_password') }}</h2>
 
 			<form @submit.prevent="submitPassword">
 				<div class="form-group">
-					<label for="email">{{ 'password' }}</label>
+					<label for="email">{{ $t('pages.password') }}</label>
 					<div class="box_input">
-						<input type="text" placeholder="password" v-model="password" autoComplete="off" spellcheck="false" />
+						<input type="text" :placeholder="$t('pages.password')" v-model="password" autoComplete="off" spellcheck="false" />
 					</div>
 				</div>
 
 				<div class="box_next_prev">
 					<button type="button" class="btn_login btn_prev" @click="step = 2" :disabled="loadingStepThree">
-						{{ 'prev' }}
+						{{ $t('pages.prev') }}
 					</button>
 					<button v-if="loadingStepThree" class="btn_login btn_login_loading" type="button">
 						<LoaderIcon />
 					</button>
 
 					<button v-else class="btn_login" type="submit">
-						{{ 'next' }}
+						{{ $t('pages.next') }}
 					</button>
 				</div>
 
 				<div class="line">
-					<span class="or">or</span>
+					<span class="or">{{ $t('pages.or') }}</span>
 				</div>
 				<span class="link_register">
-					go back login
+					{{ $t('pages.go_back_login') }}
 					<RouterLink :to="{ name: 'login' }">{{ $t('pages.register') }}</RouterLink>
 				</span>
 			</form>
