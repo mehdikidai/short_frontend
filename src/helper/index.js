@@ -18,6 +18,7 @@ export const getDomain = function (urlString) {
 };
 
 export const momentFromNow = (d, l = 'en') => {
+	
 	moment.updateLocale('ar', ar);
 	moment.updateLocale('fr', fr);
 	moment.updateLocale('de', de);

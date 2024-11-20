@@ -214,7 +214,7 @@ const submitPassword = async () => {
 	loading_formPassword.value = true;
 
 	try {
-		const response = await API.put('/api/user/upadete-password', dataPass, {
+		const response = await API.put('/api/user/update-password', dataPass, {
 			...store.configApi,
 		});
 		if (response.status === 201) {
