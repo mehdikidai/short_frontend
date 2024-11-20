@@ -24,7 +24,7 @@
                         <img
                             :src="
                                 'https://www.google.com/s2/favicons?domain=' +
-                                $getDomain(el.original_url) +
+                                $getDomain(el.originalUrl) +
                                 '&sz=16'
                             "
                             alt="icon"
