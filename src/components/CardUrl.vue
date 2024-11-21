@@ -50,7 +50,7 @@
 				<Icon name="delete" />
 			</button>
 
-			<button class="action hint--top hint--rounded hint--no-arrow hint--small" @click="handleShow(url.id)" :aria-label="url.visible ? $t('pages.hide_url') : $t('pages.show_url')">
+			<button class="action hint--top hint--rounded hint--no-arrow hint--small" @click="handleShow(url.id)" v-if="showBtnDelete" :aria-label="url.visible ? $t('pages.hide_url') : $t('pages.show_url')">
 				<Icon :name="url.visible ? 'visibility' : 'visibility_off'" />
 			</button>
 		</div>

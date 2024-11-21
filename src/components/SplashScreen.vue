@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div class="splash-screen" v-if="isVisible">
-            <h1 id="welcome">welcome</h1>
+            <h1 id="welcome">ziplink</h1>
             <Loading class="bx_loading" :color="colorIcon"/>
         </div>
     </transition>

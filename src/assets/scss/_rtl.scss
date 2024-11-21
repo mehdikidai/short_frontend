@@ -95,4 +95,14 @@ html[dir='rtl'] {
 	.login-container h2 {
 		font-size: toRem(20);
 	}
+
+	.url_details_box{
+		direction: ltr;
+	}
+	.bx.bx_1.url_details_box_1{
+		direction: ltr;
+	}
+	h1#welcome{
+		direction: ltr;
+	}
 }

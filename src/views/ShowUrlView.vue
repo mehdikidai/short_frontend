@@ -176,18 +176,18 @@ watch(isDark, (c) => {
 </script>
 <template>
 	<Layout>
-		<div class="bx bx_1">
-			<button @click="rotater.back()" class="back_btn" v-kidai>
+		<div class="bx bx_1 url_details_box_1">
+			<button @click="rotater.back()" class="back_btn">
 				<Icon name="keyboard_backspace" />
 				back
 			</button>
 		</div>
 
-		<div class="card" v-if="loaded" v-kidai>
+		<div class="card" v-if="loaded">
 			<CardUrl :url="Url" :showBtnDelete="false" @handleVisibility="handleVisibility" />
 		</div>
 
-		<div class="boxs" v-kidai>
+		<div class="boxs url_details_box">
 			<div class="box box_1">
 				<h2>Most Browsers</h2>
 				<canvas ref="chartBrowsers"></canvas>
